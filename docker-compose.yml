@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  db: 
+    image: postgres:12.0-alpine
+    volumes: 
+      - data-volume:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=team2
+      - POSTGRES_PASSWORD=team2
+        POSTGRES_DB=webinterface_dev
+
+
+volumes:
+  data-volume:
+    external: true
