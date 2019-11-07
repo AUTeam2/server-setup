@@ -16,7 +16,9 @@ Before running the containers the first time, see the section [Creating volumes]
 
 The containers are started using `docker-compose up -d`. The `-d` options start the containers in a detached state, i.e. running in the background.
 
-The containers are shut down using `docker-compose down`. 
+If you want to see console and log output from the containers, run in foreground as `docker-compose up`
+
+The containers are shut down using `docker-compose down`. If running in the foreground, stop them using *Ctrl-C*.
 
 ## Creating volumes
 
