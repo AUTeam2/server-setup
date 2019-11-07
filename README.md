@@ -10,9 +10,9 @@ The docker-compose now contains the following services:
 
 ## How to use
 
-The Docker-compose.yml file coordinates startup and shutdown of the containers, and ensures a network between running containers. The file also opens and maps certain ports to the host OS. It also specifies storage.
+The *docker-compose.yml* file coordinates startup and shutdown of the containers, and ensures a network between running containers. The file also opens and maps certain ports to the host OS. It also specifies storage.
 
-Before running the containers the first time, see the section [Creating volumes](## Creating volumes).
+Before running the containers the first time, see the section [Creating volumes](#Creating volumes).
 
 The containers are started using `docker-compose up -d`. The `-d` options start the containers in a detached state, i.e. running in the background.
 
