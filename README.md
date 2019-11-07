@@ -19,4 +19,4 @@ The docker-compose contains the following services
 
 To make data persistent outside the Docker container, we use a Volume. It is essentially just attached storage. 
 To make the needed volume for the database, run `docker volume create data-volume`.
-To make the needed volume for the mosquitto server run `docker volume create mosquitto-volume`.
+To make the needed volume for the mosquitto server run `docker volume create mqtt-volume`.
