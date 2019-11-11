@@ -31,7 +31,7 @@ To make the needed volumes:
 
 The first build of the Webinterface image takes a while, because many different libraries must be fetched and installed.
 
-To build the image without starting it, go to the webinterface folder `cd webinterface` and run `docker build .`.
+To build all the images for all services in the docker-compose, without starting them, run `docker-compose build`.
 
 ## Issuing command line commands to the Webinterface
 
