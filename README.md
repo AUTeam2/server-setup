@@ -17,8 +17,8 @@ The *docker-compose.yml* file handles:
 
 ## How to use
 Before running the services the first time, see the sections:
-- [Creating volumes](#Creating-volumes)
-- [Building Webinterface image](#Building-Webinterface-image)..
+- [Creating volumes](#Creating-volumes).
+- [Building Webinterface image](#Building-the-Webinterface-image).
 
 The services are created using `docker-compose up -d`. The `-d` options creates the services in a detached state, i.e. running in the background.
 
