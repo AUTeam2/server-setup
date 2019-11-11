@@ -1,6 +1,18 @@
 version: '3.7'
 
 services:
+
+  webinterface:
+    build: ./webinterface
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./webinterface/:/usr/src/webinterface/
+    depends_on:
+      - db
+    command: >
+      python manage.py runserver 0.0.0.0:8000 
+  
   db: 
     image: postgres:12.0-alpine
     volumes: 
