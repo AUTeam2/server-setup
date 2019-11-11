@@ -1,6 +1,7 @@
 version: '3.7'
 
 services:
+<<<<<<< HEAD
     #Database docker container
     db:
       image: postgres:12.0-alpine
@@ -14,6 +15,28 @@ services:
       #secrets:
     #   - postgres_password
      #  - postgres_user
+=======
+
+  webinterface:
+    build: ./webinterface
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./webinterface/:/usr/src/webinterface/
+    depends_on:
+      - db
+    command: >
+      python manage.py runserver 0.0.0.0:8000 
+  
+  db: 
+    image: postgres:12.0-alpine
+    volumes: 
+      - data-volume:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=team2
+      - POSTGRES_PASSWORD=team2
+        POSTGRES_DB=webinterface_dev
+>>>>>>> remotes/origin/feature/u2-django-on-docker
 
 #message broker, Subscribe transfer function
     mqtt:
