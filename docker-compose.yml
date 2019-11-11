@@ -1,22 +1,7 @@
 version: '3.7'
 
 services:
-<<<<<<< HEAD
-    #Database docker container
-    db:
-      image: postgres:12.0-alpine
-      restart: always
-      volumes:
-        - data-volume:/var/lib/postgresql/data/
-      environment:
-        POSTGRES_USER: admin
-        POSTGRES_PASSWORD: admin
-        POSTGRES_DB: webinterface_dev
-      #secrets:
-    #   - postgres_password
-     #  - postgres_user
-=======
-
+  #Webinterface
   webinterface:
     build: ./webinterface
     ports:
@@ -27,52 +12,39 @@ services:
       - db
     command: >
       python manage.py runserver 0.0.0.0:8000 
-  
+
+#Postgres database
   db: 
     image: postgres:12.0-alpine
-    volumes: 
+    restart: always
+    volumes:
       - data-volume:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=team2
-      - POSTGRES_PASSWORD=team2
-        POSTGRES_DB=webinterface_dev
->>>>>>> remotes/origin/feature/u2-django-on-docker
+      - POSTGRES_USER=team2   #Midlertidig
+      - POSTGRES_PASSWORD=team2   #Midlertidig
+      - POSTGRES_DB=webinterface_dev    #Midlertidig
 
 #message broker, Subscribe transfer function
-    mqtt:
-      image: eclipse-mosquitto
-      restart: always
-      hostname: mosquitto
-      ports:
-        - "1883:1883"
-        - "9001:9001"
-      volumes:
-        - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
-        - mqtt-volume:/mosquitto/data
-        - mqtt-volume:/mosquitto/log
+  mqtt:
+    image: eclipse-mosquitto
+    hostname: mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mqtt-volume:/mosquitto/data
+      - mqtt-volume:/mosquitto/log
 
 #Webserver docker
-    nginx:
-      image: nginx
-      depends_on:
-        - db
-      restart: always
-      ports:
-        - "5001:80"
-        - "5002:443"
-        
-#Docker container for python script/scripts
-    #python:
-        #build: .
-        #ports:
-            #- "5000-5000"
-        #volume:
-
-#secrets:
- #   postgres_password:
- #       external: true
- #   postgres_user:
- #       external: true
+  nginx:
+    image: nginx
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - "81:80"
+      - "444:443"
 
 volumes:
   data-volume:
