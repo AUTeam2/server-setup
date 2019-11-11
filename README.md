@@ -9,11 +9,11 @@ The docker-compose now contains the following services:
 - Django webinterface, hosted by a development server
 
 ## Docker-compose
-The *docker-compose.yml* file does:
-- Coordinates of construction, startup and shutdown and destruction of the services (running in containers).
-- Ensures a network between running services (between containers). 
-- Maps ports between containers and the host OS.
-- Specifies storage.
+The *docker-compose.yml* file handles:
+- Coordination of construction, startup, shutdown and destruction of the services (running in containers).
+- Creation a network between running services (between containers). 
+- Mapping of ports between containers and the host OS.
+- Specification of storage.
 
 ## How to use
 Before running the services the first time, see the sections:
