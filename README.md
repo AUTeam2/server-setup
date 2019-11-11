@@ -11,9 +11,9 @@ The docker-compose now contains the following services:
 ## Docker-compose
 The *docker-compose.yml* file handles:
 - Coordination of construction, startup, shutdown and destruction of the services (running in containers).
-- Creation a network between running services (between containers). 
+- Creation of networking bridges between running services (between containers). 
 - Mapping of ports between containers and the host OS.
-- Specification of storage.
+- Specification of storage volumes and mapping to local folders.
 
 ## How to use
 Before running the services the first time, see the sections:
