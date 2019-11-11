@@ -1,25 +1,55 @@
 version: '3.7'
 
 services:
-  db: 
-    image: postgres:12.0-alpine
-    volumes: 
-      - data-volume:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=team2
-      - POSTGRES_PASSWORD=team2
-        POSTGRES_DB=webinterface_dev
+    #Database docker container
+    db:
+      image: postgres:12.0-alpine
+      restart: always
+      volumes:
+        - data-volume:/var/lib/postgresql/data/
+      environment:
+        POSTGRES_USER: admin
+        POSTGRES_PASSWORD: admin
+        POSTGRES_DB: webinterface_dev
+      #secrets:
+    #   - postgres_password
+     #  - postgres_user
 
-  mqtt:
-    image: eclipse-mosquitto
-    hostname: mosquitto
-    ports:
-      - "1883:1883"
-      - "9001:9001"
-    volumes:
-      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - mqtt-volume:/mosquitto/data
-      - mqtt-volume:/mosquitto/log
+#message broker, Subscribe transfer function
+    mqtt:
+      image: eclipse-mosquitto
+      restart: always
+      hostname: mosquitto
+      ports:
+        - "1883:1883"
+        - "9001:9001"
+      volumes:
+        - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+        - mqtt-volume:/mosquitto/data
+        - mqtt-volume:/mosquitto/log
+
+#Webserver docker
+    nginx:
+      image: nginx
+      depends_on:
+        - db
+      restart: always
+      ports:
+        - "5001:80"
+        - "5002:443"
+        
+#Docker container for python script/scripts
+    #python:
+        #build: .
+        #ports:
+            #- "5000-5000"
+        #volume:
+
+#secrets:
+ #   postgres_password:
+ #       external: true
+ #   postgres_user:
+ #       external: true
 
 volumes:
   data-volume:
