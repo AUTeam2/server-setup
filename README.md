@@ -26,3 +26,12 @@ To make data persistent outside the Docker container, we use volumes. This is es
 To make the needed volumes:
 - for the database, run `docker volume create data-volume`
 - for the mosquitto server, run `docker volume create mqtt-volume`
+
+
+## Running on Windows with Docker Toolbox
+
+To start the containers on Windows, use the `docker-compose-win.yml` file, running it as `docker-compose -f docker-compose-win.yml up -d`.
+
+To share local files with the container (config files, etc.), you must set up a shared folder in Virtual Box:
+- The folder **server-settings** (this repository) must be shared with the Docker Toolbox.
+- The name of the shared folder _must_ be `c/Docker`.
