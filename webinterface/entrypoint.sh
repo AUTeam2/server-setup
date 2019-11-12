@@ -20,4 +20,4 @@ echo "PostgreSQL started"
 python manage.py migrate
 
 #Expand all positional arguments to this script and execute them
-#exec "$@"
+exec "$@"
