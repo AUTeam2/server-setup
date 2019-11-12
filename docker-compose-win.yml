@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   webinterface:
-    build: //c/docker/webinterface/
+    build: ./webinterface
     ports:
       - "8000:8000"
     volumes:
