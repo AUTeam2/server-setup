@@ -54,7 +54,7 @@ Any command line command can be issued to the Webinterface container like `docke
 The command in the example starts a new Django project called webinterface.
 
 ## Development server
-The current service setup runs Django hosted on its own development server. This server is slow and doesn't handle multiple concurrent connections. Later, we will connect Django and Nginx via a gateway interface (WSGI). I propose using gunicorn.
+The current service setup runs Django hosted on its own development server. This server is unsafe, insecure, slow and doesn't handle multiple concurrent connections. Later, we will connect Django and Nginx via a gateway interface (WSGI). I propose using gunicorn.
 
 ## Running on Windows with Docker Toolbox
 To start the containers on Windows, use the `docker-compose-win.yml` file, running it as `docker-compose -f docker-compose-win.yml up -d`.
