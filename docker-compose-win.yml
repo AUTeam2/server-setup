@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  db: 
+    image: postgres:12.0-alpine
+    volumes: 
+      - data-volume:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=team2
+      - POSTGRES_PASSWORD=team2
+        POSTGRES_DB=webinterface_dev
+
+  mqtt:
+    image: eclipse-mosquitto
+    hostname: mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - //c/docker/mosquitto/config/:/mosquitto/config/
+      - mqtt-volume:/mosquitto/data
+      - mqtt-volume:/mosquitto/log
+
+volumes:
+  data-volume:
+    external: true
+  mqtt-volume:
+    external: true
