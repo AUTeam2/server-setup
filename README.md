@@ -70,6 +70,8 @@ To run on Windows, you must:
 
 **LF line endings:** Before cloning the directory, ensure that your Git doesn't automatically modify files. Otherwise, Git will automatically convert to Windows style CRLF endings. It must be set up to keep Unix-style LF line endings. Run the command `git config --global core.autocrlf false`.
 
+You can read more about it here: [Configuring Git to handle line endings](https://help.github.com/en/github/using-git/configuring-git-to-handle-line-endings).
+
 If you forget to do this, you will get an error when the webinterface container tries to run the entrypoint script.
 
 **Share local folders:** To share local files with the container (config files, etc.), you must set up a shared folder in VirtualBox:
