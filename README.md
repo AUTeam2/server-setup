@@ -68,7 +68,7 @@ To run on Windows, you must:
 - Run a special startup command in Docker Toolbox.
 - Find your docker-machine IP address.
 
-**LF line endings:** Before cloning the directory, ensure that your Git doesn't automatically modify files. Otherwise, Git will automatically convert to Windows style CRLF endings. It must be set up to keep Unix-style LF line endings. Run the command `git config --global core.autocrlf input`.
+**LF line endings:** Before cloning the directory, ensure that your Git doesn't automatically modify files. Otherwise, Git will automatically convert to Windows style CRLF endings. It must be set up to keep Unix-style LF line endings. Run the command `git config --global core.autocrlf false`.
 
 If you forget to do this, you will get an error when the webinterface container tries to run the entrypoint script.
 
