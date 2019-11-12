@@ -33,4 +33,4 @@ RUN chmod 777 /usr/src/webinterface/entrypoint.sh
 #USER nonrootuser
 
 #Run entrypoint, positional arguments can be added later
-#ENTRYPOINT ["/usr/src/webinterface/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/webinterface/entrypoint.sh"]
