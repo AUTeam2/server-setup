@@ -78,6 +78,6 @@ If you forget to do this, you will get an error when the webinterface container 
 
 **Startup:** To start the containers on Windows, run `docker-compose -f docker-compose-win.yml up -d`.
 
-**IP address:** You can find the local IP address using `docker-machine ip Default`, and then access the services via e.g. 192.168.99.100:*port-number*.
+**IP address:** You can find the local IP address using `docker-machine ip Default`, and then access the services in your browser with the correct IP and port number, e.g. 192.168.99.100:*port-number*.
 
 :rocket:
