@@ -1,7 +1,6 @@
 #!/bin/sh
-
+# Hello Marc 
 # We use this entrypoint script to check if Postgres is running and then performing django migrations
-
 echo "Waiting for postgres..."
 
 #Use netcat to scan for daemons, we wait until our db service is running
