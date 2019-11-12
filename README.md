@@ -2,6 +2,8 @@
 
 This repo contains files for setting up all needed server services for the Web interface for Pro3 and Pro4.
 
+The containers are live on our development server, the Webinterface is accessed at: http://auteam2.mooo.com:8000/
+
 ## TO DO:
 - [ ] Test Windows comaptibility of custom Python/Django image
 - [ ] Connect Nginx webserver with Django through gunicorn
