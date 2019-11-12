@@ -2,11 +2,16 @@
 
 This repo contains files for setting up all needed server services for the Web interface for Pro3 and Pro4.
 
+## TO DO:
+- [ ] Test Windows comaptibility of custom Python/Django image.
+- [ ] Connect Nginx webserver with Django through gunicorn.
+
 ## Services
 The docker-compose now contains the following services:
 - PostgreSQL database server
 - Mosquitto server
 - Django webinterface, hosted by a development server
+- Nginx webserver
 
 ## Docker-compose
 The *docker-compose.yml* file handles:
