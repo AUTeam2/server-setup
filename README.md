@@ -51,4 +51,11 @@ The command in the example starts a new Django project called webinterface.
 ## Development server
 The current service setup runs Django hosted on its own development server. This server is slow and doesn't handle multiple concurrent connections. Later, we will connect Django and Nginx via a gateway interface (WSGI). I propose using gunicorn.
 
+## Running on Windows with Docker Toolbox
+To start the containers on Windows, use the `docker-compose-win.yml` file, running it as `docker-compose -f docker-compose-win.yml up -d`.
+
+To share local files with the container (config files, etc.), you must set up a shared folder in Virtual Box:
+- The folder **server-settings** (this repository) must be shared with the Docker Toolbox.
+- The name of the shared folder _must_ be `c/Docker`.
+
 :rocket:
