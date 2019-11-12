@@ -3,14 +3,15 @@
 This repo contains files for setting up all needed server services for the Web interface for Pro3 and Pro4.
 
 ## TO DO:
-- [ ] Test Windows comaptibility of custom Python/Django image.
-- [ ] Connect Nginx webserver with Django through gunicorn.
+- [ ] Test Windows comaptibility of custom Python/Django image
+- [ ] Connect Nginx webserver with Django through gunicorn
+- [ ] Build environment files
 
 ## Services
 The docker-compose now contains the following services:
 - PostgreSQL database server
 - Mosquitto server
-- Django webinterface, hosted by a development server
+- Django webinterface, hosted by a temporary development server
 - Nginx webserver
 
 ## Docker-compose
@@ -22,8 +23,9 @@ The *docker-compose.yml* file handles:
 
 ## How to use
 Before running the services the first time, see the sections:
-- [Creating volumes](#Creating-volumes).
-- [Building Webinterface image](#Building-the-Webinterface-image).
+- [Creating volumes](#Creating-volumes)
+- [Building Webinterface image](#Building-the-Webinterface-image)
+- [Running on Windows with Docker Toolbox](#Running-on-Windows-with-Docker-Toolbox)
 
 The services are created using `docker-compose up -d`. The `-d` options creates the services in a detached state, i.e. running in the background.
 
@@ -49,7 +51,7 @@ The first build of the Webinterface image takes a while, because many different 
 To build all the images for all services in the docker-compose, without starting them, run `docker-compose build`.
 
 ## Issuing command line commands to the Webinterface
-Any command line command can be issued to the Webinterface container like `docker-compose run webinterface sh -c "django-admin.py startproject webinterface ."`
+Any command line command can be issued to the Webinterface container like `docker-compose run webinterface sh -c "django-admin.py startproject webinterface ."`.
 
 The command in the example starts a new Django project called webinterface.
 
