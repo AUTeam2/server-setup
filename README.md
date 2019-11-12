@@ -65,6 +65,6 @@ To start the containers on Windows, use the `docker-compose-win.yml` file, runni
 
 To share local files with the container (config files, etc.), you must set up a shared folder in Virtual Box:
 - The folder **server-settings** (this repository) must be shared with the Docker Toolbox.
-- The name of the shared folder _must_ be `c/Docker`.
+- The name of the shared folder _must_ be `c/docker`.
 
 :rocket:
