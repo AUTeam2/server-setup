@@ -26,6 +26,8 @@ COPY ./entrypoint.sh /usr/src/webinterface/entrypoint.sh
 #Copy all project files (Later: set up an auto sync)
 COPY . /usr/src/webinterface/
 
+RUN chmod 777 /usr/src/webinterface/entrypoint.sh
+
 #Create a user to avoid running as root
 RUN adduser -D nonrootuser
 USER nonrootuser
