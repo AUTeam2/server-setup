@@ -1,6 +1,7 @@
 # Various filesystem stuff
 .DS_Store
 .idea/
+*.swp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
