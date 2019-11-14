@@ -52,7 +52,7 @@ detectOStype
 # If OS is Windows check whether Docker toolbox or
 # Docker Desktop is installed to select Docker-Compose yml
 if [ "${USER_OS}" == "Windows" ]; then
-    dockerIsToolbox
+    dockerIsToolboxOrDesktop
 fi
 
 # Link to required Sorce files
