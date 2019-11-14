@@ -5,11 +5,13 @@
 
 detectOStype(){
     if [[ `Uname` =~ "MING"? ]];then
-    USER_OS="Windows"
+      USER_OS="Windows"
     elif [[ `Uname` =~ "Darwin"? ]];then
-     USER_OS="MacOS"
+      USER_OS="macOS"
+    elif [[ `Uname` =~ "Linux"? ]];then
+      USER_OS="Linux"
     else
-     USER_OS="Other"
+      USER_OS="unknown"
     fi
     Printf "User OS is: %s \n" ${USER_OS}
 }
