@@ -13,6 +13,6 @@ docker-compose build
 docker-compose images
 
 :: Starts the application in docker containers
-docker-compose -f docker-compose-win.yml up -d
+docker-compose -f docker-compose.yml up -d
 
 pause
