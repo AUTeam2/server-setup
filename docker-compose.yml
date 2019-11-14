@@ -1,7 +1,6 @@
 version: '3.7'
 
 services:
-  #Webinterface
   webinterface:
     build: ./webinterface
     ports:
@@ -13,16 +12,15 @@ services:
     command: >
       python manage.py runserver 0.0.0.0:8000 
 
-#Postgres database
-  db: 
+  db:
     image: postgres:12.0-alpine
     restart: always
     volumes:
       - data-volume:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=team2   #Midlertidig
-      - POSTGRES_PASSWORD=team2   #Midlertidig
-      - POSTGRES_DB=webinterface_dev    #Midlertidig
+      - POSTGRES_USER=team2
+      - POSTGRES_PASSWORD=team2
+      - POSTGRES_DB=webinterface_dev
 
 #message broker, Subscribe transfer function
   mqtt:
