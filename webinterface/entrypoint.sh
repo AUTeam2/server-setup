@@ -1,16 +1,16 @@
 #!/bin/sh
-# Hello Marc 
+
 # We use this entrypoint script to check if Postgres is running and then performing django migrations
-echo "Waiting for postgres..."
+echo "Waiting for postgres before starting Django..."
 
 #Use netcat to scan for daemons, we wait until our db service is running
 while ! nc -z db 5432; do
   sleep 0.1
 done
 
-echo "PostgreSQL started"
+echo "PostgreSQL started... Starting Django now."
 
-#Perform Django action
+#Perform Django actions
 
 #Flush clears the DB
 #python manage.py flush --no-input
