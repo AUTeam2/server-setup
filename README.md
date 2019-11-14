@@ -61,10 +61,25 @@ The command in the example starts a new Django project called webinterface.
 The current service setup runs Django hosted on its own development server. This server is unsafe, insecure, slow and doesn't handle multiple concurrent connections. Later, we will connect Django and Nginx via a gateway interface (WSGI). I propose using gunicorn.
 
 ## Running on Windows with Docker Toolbox
-To start the containers on Windows, use the `docker-compose-win.yml` file, running it as `docker-compose -f docker-compose-win.yml up -d`.
 
-To share local files with the container (config files, etc.), you must set up a shared folder in Virtual Box:
-- The folder **server-settings** (this repository) must be shared with the Docker Toolbox.
-- The name of the shared folder _must_ be `c/docker`.
+To run on Windows, you must:
+- Ensure LF line endings via Git.
+- Share local folders via VirtualBox.
+- Run a special startup command in Docker Toolbox.
+- Find your docker-machine IP address.
+
+**LF line endings:** Before cloning the directory, ensure that your Git doesn't automatically modify files. Otherwise, Git will automatically convert to Windows style CRLF endings. It must be set up to keep Unix-style LF line endings. Run the command `git config --global core.autocrlf false`.
+
+You can read more about it here: [Configuring Git to handle line endings](https://help.github.com/en/github/using-git/configuring-git-to-handle-line-endings).
+
+If you forget to do this, you will get an error when the webinterface container tries to run the entrypoint script.
+
+**Share local folders:** To share local files with the container (config files, etc.), you must set up a shared folder in VirtualBox:
+  - The cloned folder **server-settings** (this repository) must be shared with the Docker Toolbox.
+  - The name of the shared folder _must_ be `c/docker`.
+
+**Startup:** To start the containers on Windows, run `docker-compose -f docker-compose-win.yml up -d`.
+
+**IP address:** You can find the local IP address using `docker-machine ip Default`, and then access the services in your browser with the correct IP and port number, e.g. 192.168.99.100:8000.
 
 :rocket:
