@@ -15,4 +15,12 @@ docker-compose images
 :: Starts the application in docker containers
 docker-compose -f docker-compose.yml up -d
 
-pause
+echo Server should be up in a moment!
+
+SLEEP 5
+
+start chrome http://localhost:8000
+
+Echo closing prompt
+
+SLEEP 3
