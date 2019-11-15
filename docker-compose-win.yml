@@ -19,7 +19,7 @@ services:
     volumes:
       - data-volume:/var/lib/postgresql/data/
     env_file:
-      - //c/docker/.env.db
+      - ./.env.db
 
 
   mqtt:
