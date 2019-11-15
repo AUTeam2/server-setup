@@ -8,20 +8,20 @@ services:
       - "8000:8000"
     volumes:
       - //c/docker/webinterface/:/usr/src/webinterface/
+    env_file:
+      - ./.env.webinterface
     depends_on:
       - db
     command: python manage.py runserver 0.0.0.0:8000
 
 
-  db: 
+  db:
     image: postgres:12.0-alpine
     restart: always
-    volumes: 
+    volumes:
       - data-volume:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=team2
-      - POSTGRES_PASSWORD=team2
-        POSTGRES_DB=webinterface_dev
+    env_file:
+      - ./.env.db
 
 
   mqtt:

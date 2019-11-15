@@ -1,0 +1,152 @@
+Running testcase: U2.TC-1
+Verifikation af at Django på Docker fungerer på lokalmaskine
+Linux og Mac
+data-volume
+mqtt-volume
+data-volume
+mqtt-volume
+*** TEST STEPS ***
+Running containers in interactive mode with logging
+Please quit with CTRL-C when done viewing output
+*** VERIFY NO ERRORS ***
+Step 1/15 : FROM python:3.8.0-alpine
+ ---> b248b9e23166
+Step 2/15 : MAINTAINER Team Web, Janus Bo Andersen
+ ---> Using cache
+ ---> f36ad30a1c4b
+Step 3/15 : WORKDIR /usr/src/webinterface
+ ---> Using cache
+ ---> 179e707f2aa0
+Step 4/15 : ENV PYTHONDONTWRITEBYTECODE 1
+ ---> Using cache
+ ---> 5faea1fdd148
+Step 5/15 : ENV PYTHONUNBUFFERED 1
+ ---> Using cache
+ ---> f8b60209baec
+Step 6/15 : RUN apk update     && apk add postgresql-dev gcc python3-dev musl-dev
+ ---> Using cache
+ ---> ca0f6c4af507
+Step 7/15 : RUN pip install --upgrade pip
+ ---> Using cache
+ ---> 719669f10472
+Step 8/15 : COPY ./requirements.txt /usr/src/webinterface/requirements.txt
+ ---> Using cache
+ ---> 79e144b47178
+Step 9/15 : RUN pip install -r requirements.txt
+ ---> Using cache
+ ---> 835189c9fc46
+Step 10/15 : COPY ./entrypoint.sh /usr/src/webinterface/entrypoint.sh
+ ---> Using cache
+ ---> 64196b8db660
+Step 11/15 : COPY . /usr/src/webinterface/
+ ---> Using cache
+ ---> c227886df889
+Step 12/15 : RUN chmod 777 /usr/src/webinterface/entrypoint.sh
+ ---> Using cache
+ ---> 348e41d36f79
+Step 13/15 : RUN adduser -D nonrootuser
+ ---> Using cache
+ ---> 2e03f0fbec2e
+Step 14/15 : USER nonrootuser
+ ---> Using cache
+ ---> 1df8481cb7e2
+Step 15/15 : ENTRYPOINT ["/usr/src/webinterface/entrypoint.sh"]
+ ---> Using cache
+ ---> 365fafded4ed
+
+Successfully built 365fafded4ed
+Successfully tagged server-setup_webinterface:latest
+Attaching to server-setup_db_1, server-setup_mqtt_1, server-setup_nginx_1, server-setup_webinterface_1
+[36mdb_1            |[0m The files belonging to this database system will be owned by user "postgres".
+[36mdb_1            |[0m This user must also own the server process.
+[36mdb_1            |[0m 
+[36mdb_1            |[0m The database cluster will be initialized with locale "en_US.utf8".
+[36mdb_1            |[0m The default database encoding has accordingly been set to "UTF8".
+[36mdb_1            |[0m The default text search configuration will be set to "english".
+[36mdb_1            |[0m 
+[36mdb_1            |[0m Data page checksums are disabled.
+[36mdb_1            |[0m 
+[36mdb_1            |[0m fixing permissions on existing directory /var/lib/postgresql/data ... ok
+[36mdb_1            |[0m creating subdirectories ... ok
+[36mdb_1            |[0m selecting dynamic shared memory implementation ... posix
+[33mmqtt_1          |[0m 1573839514: mosquitto version 1.6.7 starting
+[33mmqtt_1          |[0m 1573839514: Config loaded from /mosquitto/config/mosquitto.conf.
+[33mmqtt_1          |[0m 1573839514: Opening ipv4 listen socket on port 1883.
+[33mmqtt_1          |[0m 1573839514: Opening ipv6 listen socket on port 1883.
+[36mdb_1            |[0m selecting default max_connections ... 100
+[35mwebinterface_1  |[0m Waiting for PostgreSQL service before starting Django...
+[36mdb_1            |[0m selecting default shared_buffers ... 128MB
+[36mdb_1            |[0m selecting default time zone ... UTC
+[36mdb_1            |[0m creating configuration files ... ok
+[36mdb_1            |[0m running bootstrap script ... ok
+[36mdb_1            |[0m performing post-bootstrap initialization ... sh: locale: not found
+[36mdb_1            |[0m 2019-11-15 17:38:34.696 UTC [26] WARNING:  no usable system locales were found
+[36mdb_1            |[0m ok
+[36mdb_1            |[0m syncing data to disk ... ok
+[36mdb_1            |[0m 
+[36mdb_1            |[0m 
+[36mdb_1            |[0m Success. You can now start the database server using:
+[36mdb_1            |[0m 
+[36mdb_1            |[0m     pg_ctl -D /var/lib/postgresql/data -l logfile start
+[36mdb_1            |[0m 
+[36mdb_1            |[0m initdb: warning: enabling "trust" authentication for local connections
+[36mdb_1            |[0m You can change this by editing pg_hba.conf or using the option -A, or
+[36mdb_1            |[0m --auth-local and --auth-host, the next time you run initdb.
+[36mdb_1            |[0m waiting for server to start....2019-11-15 17:38:35.931 UTC [30] LOG:  starting PostgreSQL 12.0 on x86_64-pc-linux-musl, compiled by gcc (Alpine 8.3.0) 8.3.0, 64-bit
+[36mdb_1            |[0m 2019-11-15 17:38:35.935 UTC [30] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+[36mdb_1            |[0m 2019-11-15 17:38:35.956 UTC [31] LOG:  database system was shut down at 2019-11-15 17:38:35 UTC
+[36mdb_1            |[0m 2019-11-15 17:38:35.960 UTC [30] LOG:  database system is ready to accept connections
+[36mdb_1            |[0m  done
+[36mdb_1            |[0m server started
+[36mdb_1            |[0m CREATE DATABASE
+[36mdb_1            |[0m 
+[36mdb_1            |[0m 
+[36mdb_1            |[0m /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+[36mdb_1            |[0m 
+[36mdb_1            |[0m 2019-11-15 17:38:36.240 UTC [30] LOG:  received fast shutdown request
+[36mdb_1            |[0m waiting for server to shut down....2019-11-15 17:38:36.242 UTC [30] LOG:  aborting any active transactions
+[36mdb_1            |[0m 2019-11-15 17:38:36.243 UTC [30] LOG:  background worker "logical replication launcher" (PID 37) exited with exit code 1
+[36mdb_1            |[0m 2019-11-15 17:38:36.244 UTC [32] LOG:  shutting down
+[36mdb_1            |[0m 2019-11-15 17:38:36.268 UTC [30] LOG:  database system is shut down
+[36mdb_1            |[0m  done
+[36mdb_1            |[0m server stopped
+[36mdb_1            |[0m 
+[36mdb_1            |[0m PostgreSQL init process complete; ready for start up.
+[36mdb_1            |[0m 
+[36mdb_1            |[0m 2019-11-15 17:38:36.354 UTC [1] LOG:  starting PostgreSQL 12.0 on x86_64-pc-linux-musl, compiled by gcc (Alpine 8.3.0) 8.3.0, 64-bit
+[36mdb_1            |[0m 2019-11-15 17:38:36.354 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+[36mdb_1            |[0m 2019-11-15 17:38:36.354 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+[35mwebinterface_1  |[0m PostgreSQL started... Starting Django now.
+[36mdb_1            |[0m 2019-11-15 17:38:36.368 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+[36mdb_1            |[0m 2019-11-15 17:38:36.398 UTC [41] LOG:  database system was shut down at 2019-11-15 17:38:36 UTC
+[36mdb_1            |[0m 2019-11-15 17:38:36.404 UTC [1] LOG:  database system is ready to accept connections
+[35mwebinterface_1  |[0m Operations to perform:
+[35mwebinterface_1  |[0m   Apply all migrations: admin, auth, contenttypes, sessions
+[35mwebinterface_1  |[0m Running migrations:
+[35mwebinterface_1  |[0m   Applying contenttypes.0001_initial... OK
+[35mwebinterface_1  |[0m   Applying auth.0001_initial... OK
+[35mwebinterface_1  |[0m   Applying admin.0001_initial... OK
+[35mwebinterface_1  |[0m   Applying admin.0002_logentry_remove_auto_add... OK
+[35mwebinterface_1  |[0m   Applying admin.0003_logentry_add_action_flag_choices... OK
+[35mwebinterface_1  |[0m   Applying contenttypes.0002_remove_content_type_name... OK
+[35mwebinterface_1  |[0m   Applying auth.0002_alter_permission_name_max_length... OK
+[35mwebinterface_1  |[0m   Applying auth.0003_alter_user_email_max_length... OK
+[35mwebinterface_1  |[0m   Applying auth.0004_alter_user_username_opts... OK
+[35mwebinterface_1  |[0m   Applying auth.0005_alter_user_last_login_null... OK
+[35mwebinterface_1  |[0m   Applying auth.0006_require_contenttypes_0002... OK
+[35mwebinterface_1  |[0m   Applying auth.0007_alter_validators_add_error_messages... OK
+[35mwebinterface_1  |[0m   Applying auth.0008_alter_user_username_max_length... OK
+[35mwebinterface_1  |[0m   Applying auth.0009_alter_user_last_name_max_length... OK
+[35mwebinterface_1  |[0m   Applying auth.0010_alter_group_name_max_length... OK
+[35mwebinterface_1  |[0m   Applying auth.0011_update_proxy_permissions... OK
+[35mwebinterface_1  |[0m   Applying sessions.0001_initial... OK
+[35mwebinterface_1  |[0m Watching for file changes with StatReloader
+[35mwebinterface_1  |[0m Performing system checks...
+[35mwebinterface_1  |[0m 
+[35mwebinterface_1  |[0m System check identified no issues (0 silenced).
+[35mwebinterface_1  |[0m November 15, 2019 - 17:38:39
+[35mwebinterface_1  |[0m Django version 2.2.7, using settings 'webinterface.settings'
+[35mwebinterface_1  |[0m Starting development server at http://0.0.0.0:8000/
+[35mwebinterface_1  |[0m Quit the server with CONTROL-C.
+Gracefully stopping... (press Ctrl+C again to force)
+*** RE-STARTING SERVICES AND BROWSER ***
