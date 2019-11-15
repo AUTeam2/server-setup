@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# This file is ONLY for bootstrapping the first project!
+# That means: NO ./webinterface/manage.py and NO ./webinterface/webinterface/
+# Run it multiple times at your own risk :)
+
 # Make a docker volume for the database
 docker volume create data-volume
 
