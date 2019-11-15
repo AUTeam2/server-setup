@@ -37,6 +37,21 @@ dockerIsDesktop()
   done
 }
 
+openServerPage()
+{
+    if [ "${USER_OS}" == "Windows" ];then
+      start chrome http://localhost:8000
+    elif [ "${USER_OS}" == "macOS" ];then
+      open http://localhost:8000
+    elif [ "${USER_OS}" == "Linux" ];then
+      xdg-open http://localhost:8000
+    else
+      echo "${USER_OS} OS, tries with windows settings to open browser"
+      start chrome http://localhost:8000
+    fi
+}
+
+
 
 main (){
 
@@ -71,6 +86,8 @@ docker-compose images
 echo "Starts the application in docker containers"
 docker-compose -f ${DOCKER_COMPOSE_FILE} up -d
 echo "------------END------------"
+
+openServerPage
 
 }
 
