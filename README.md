@@ -107,6 +107,7 @@ Try:
   - Check to confirm all is down: `docker-compose ps`.
   - Check to confirm none running: `docker container ls`.
     - Remove any using `docker stop <container_id>`.
+    - Delete stopped containers `docker container prune`.
     - If necessary, stop and restart your docker VM in VirtualBox:
       - Click on machine in VirtualBox. Run command: `sudo shutdown -h now`.
 
