@@ -9,6 +9,9 @@ docker-compose build
 # Create the Django project files
 docker-compose run webinterface sh -c "django-admin.py startproject webinterface ."
 
+# Start up the services
+docker-compose up -d --build
+
 # Migrate the database for the new project
 docker-compose exec webinterface python manage.py migrate --noinput
 
