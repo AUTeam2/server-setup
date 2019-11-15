@@ -37,16 +37,27 @@ The services are created using `docker-compose up -d`. The `-d` options creates 
 
 If you want to see console and log output from the services, run in foreground as `docker-compose up`.
 
-The services are destroyed using `docker-compose down`. If running in the foreground, stop them using *Ctrl-C*.
+The services are destroyed using `docker-compose down`.
+
+If running in the foreground, stop them using *Ctrl-C*. Run `docker-compose down` afterwards.
 
 You can see running services with `docker-compose ps`.
 
 ### Creating and destroying versus starting and stopping
-Services that are already built can be started and stopped without re-building, using `docker-compose start` and `docker-compose stop`. This is good for production, but if you change the build instructions, you are not guaranteed that your changes are included in the running services.
-
-The calls `docker-compose up -d --build` and `docker-compose down` ensure a re-build and destruction of containers at each run, which is good during development, ensuring that any changes to build specs are captured in the services.
 
 To see the built images on your computer, run `docker-compose images`.
+
+**Starting and stopping _without_ rebuilding:**
+- Services that are already built can be started and stopped without re-building, using:
+  - `docker-compose start`
+  - `docker-compose stop`.
+  
+This option is good for production, but if you change the build instructions, you are not guaranteed that your changes are included in the running services.
+
+**Starting and stopping _with_ rebuilding:**
+- The calls `docker-compose up -d --build` and `docker-compose down` ensure a re-build and destruction of containers at each run.
+
+This is good during development, ensuring that any changes to build specs are captured in the services. But it is slow.
 
 ### Creating volumes
 To make data persistent outside the Docker container, we use volumes. This is essentially just attached storage. 
