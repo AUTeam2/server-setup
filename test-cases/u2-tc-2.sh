@@ -1,4 +1,4 @@
-echo "Running testcase: U1.TC-2"
+echo "Running testcase: U2.TC-2"
 echo "Verifikation af at Django på Docker fungerer på lokalmaskine"
 echo "Linux og Mac"
 
