@@ -8,6 +8,8 @@ services:
       - "8000:8000"
     volumes:
       - //c/docker/webinterface/:/usr/src/webinterface/
+    env_file:
+      - ./.env.webinterface
     depends_on:
       - db
     command: python manage.py runserver 0.0.0.0:8000

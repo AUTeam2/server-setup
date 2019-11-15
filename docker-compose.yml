@@ -7,6 +7,8 @@ services:
       - "8000:8000"
     volumes:
       - ./webinterface/:/usr/src/webinterface/
+    env_file:
+      - ./.env.webinterface
     depends_on:
       - db
     command: >
