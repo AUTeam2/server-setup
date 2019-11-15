@@ -54,8 +54,8 @@ To make the needed volumes:
 
 ## Building the Webinterface image
 The first build of the Webinterface image takes a while, as many different libraries must be fetched and installed.
-- Build all the images for all services, without starting them, run: `docker-compose build`.
-- Build and start all services: `docker-compose up -d --build`.
+- Build all the images for all services, without starting them, run: `docker-compose build`, or
+- Build and _start_ all services: `docker-compose up -d --build`.
 
 ## Issuing command line commands to the services
 Commands can be issued to the containers through docker-compose:
