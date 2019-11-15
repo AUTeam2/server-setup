@@ -4,7 +4,7 @@ This repo contains files for setting up all needed server services for the Web i
 
 The containers are live on our development server, the Webinterface is accessed at: http://auteam2.mooo.com:8000/
 
-> _Be aware: We have now switched fully to the PostgreSQL database. If you experience any issues, remove your data-volume, re-create it, rebuild the docker-compose image, and try again. If the issue persists, let Janus know... :monkey:..._
+> _Be aware: We have now switched fully to the PostgreSQL database. If you experience any issues, remove your data-volume, re-create it, rebuild the docker-compose image, and try again. If the issue persists, tell someone... :monkey:..._
 
 - [Services](#Services)
 - [How to use](#How-to-use)
@@ -13,10 +13,10 @@ The containers are live on our development server, the Webinterface is accessed 
 
 ## Services
 The docker-compose now contains the following services:
-- Django webinterface, hosted via it's own temporary development server
-- PostgreSQL database server
-- Nginx webserver
-- Mosquitto MQTT server
+- Django webinterface, hosted via it's own temporary development server.
+- PostgreSQL database server.
+- Nginx webserver.
+- Mosquitto MQTT server.
 
 ### Docker-compose
 The *docker-compose.yml* file handles:
@@ -34,7 +34,7 @@ Before running the services the first time, see the sections:
 
 The services are created using `docker-compose up -d`. The `-d` options creates the services in a detached state, i.e. running in the background.
 
-If you want to see console and log output from the services, run in foreground as `docker-compose up`
+If you want to see console and log output from the services, run in foreground as `docker-compose up`.
 
 The services are destroyed using `docker-compose down`. If running in the foreground, stop them using *Ctrl-C*.
 
@@ -45,13 +45,13 @@ Services that are already built can be started and stopped without re-building, 
 
 The calls `docker-compose up -d --build` and `docker-compose down` ensure a re-build and destruction of containers at each run, which is good during development, ensuring that any changes to build specs are captured in the services.
 
-To see the built images on your computer, run `docker-compose images`
+To see the built images on your computer, run `docker-compose images`.
 
 ### Creating volumes
 To make data persistent outside the Docker container, we use volumes. This is essentially just attached storage. 
 To make the needed volumes:
-- for the database, run `docker volume create data-volume`
-- for the mosquitto server, run `docker volume create mqtt-volume`
+- For the database, run `docker volume create data-volume`, and
+- for the mosquitto server, run `docker volume create mqtt-volume`.
 
 ### Building the Webinterface image
 The first build of the Webinterface image takes a while, as many different libraries must be fetched and installed.
@@ -73,7 +73,7 @@ Useful commands on database server to look inside the database:
 - Find psql guides [here](https://github.com/AUTeam2/tools/blob/master/cheatsheets.md#PostgreSQL).
 
 If you want to see what's inside a data volume, just mount it to a simple container:
-- Try: `docker run -it --rm -v data-volume:/vol busybox ls -l /vol`
+- Try: `docker run -it --rm -v data-volume:/vol busybox ls -l /vol`.
 
 
 ## Running on Windows with Docker Toolbox
@@ -112,11 +112,11 @@ If you forget to do this, you will get an error when the webinterface container 
   - All passwords.
   - Various flexible settings.
 
-### Build a docker-compose-prod-yml file
+### Build a docker-compose-prod.yml file
 - [ ] Make a production file for starting services in production mode:
   - Different database volume (don't do development using production database).
   - Different server chain (as above).
-  - Different environment files (as above)
+  - Different environment files (as above).
 
 ### Compatibility
 - [ ] Test Windows compatibility of custom Python/Django image... Ongoing...
