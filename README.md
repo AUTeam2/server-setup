@@ -9,6 +9,7 @@ The containers are live on our development server, the Webinterface is accessed 
 - [Services](#Services)
 - [How to use](#How-to-use)
 - [Running on Windows with Docker Toolbox](#Running-on-Windows-with-Docker-Toolbox)
+- [Troubleshooting](#Troubleshooting)
 - [Future timebox development](#Future-timebox-development)
 
 ## Services
@@ -97,6 +98,33 @@ If you forget to do this, you will get an error when the webinterface container 
 **Startup:** To start the containers on Windows, run `docker-compose -f docker-compose-win.yml up -d`.
 
 **IP address:** You can find the local IP address using `docker-machine ip Default`, and then access the services in your browser with the correct IP and port number, e.g. 192.168.99.100:8000.
+
+
+## Troubleshooting
+Try:
+- Ensure all containers are off:
+  - `docker-compose down`.
+  - Check to confirm all is down: `docker-compose ps`.
+  - Check to confirm none running: `docker container ls`.
+    - Remove any using `docker stop <container_id>`.
+    - If necessary, stop and restart your docker VM in VirtualBox:
+      - Click on machine in VirtualBox. Run command: `sudo shutdown -h now`.
+
+- Remove data volumes:
+  - `docker volume rm data-volume`.
+  - `docker volume rm mqtt-volume`.
+  - Recreate the volumes as described elsewhere.
+
+- Rebuild all images without using old cache, use {} only on Docker Toolbox on Win:
+  - `docker-compose {-f docker-compose-win.yml} build --no-cache`.
+  - `docker-compose {-f docker-compose-win.yml} up`.
+
+- Inspect contents of data volume:
+  - Should contain PostgreSQL files: `docker run -it --rm -v data-volume:/vol busybox ls -l /vol`.
+
+- Attempt to log on to PostgreSQL server (must be running), use {} only on Docker Toolbox on Win:
+  - `docker-compose {-f docker-compose-win.yml} exec db psql --username=team2 --dbname=webinterface_dev`.
+  - `docker-compose {-f docker-compose-win.yml} exec db psql --username=team2`.
 
 
 ## Future timebox development
