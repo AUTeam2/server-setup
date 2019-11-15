@@ -6,10 +6,10 @@ The containers are live on our development server, the Webinterface is accessed 
 
 > _Be aware: We have now switched fully to the PostgreSQL database. If you experience any issues, remove your data-volume, re-create it, rebuild the docker-compose image, and try again. If the issue persists, let Janus know... :monkey:..._
 
-## TO DO:
-- [ ] Test Windows compatibility of custom Python/Django image... Ongoing...
-- [ ] Connect Nginx webserver with Django through gunicorn... Next Timebox
-- [ ] Build environment files... Next Timebox
+- [Services](#Services)
+- [How to use](#How-to-use)
+- [Running on Windows with Docker Toolbox](#Running-on-Windows-with-Docker-Toolbox)
+- [Future timebox development](#Future-timebox-development)
 
 ## Services
 The docker-compose now contains the following services:
@@ -18,12 +18,13 @@ The docker-compose now contains the following services:
 - Nginx webserver
 - Mosquitto MQTT server
 
-## Docker-compose
+### Docker-compose
 The *docker-compose.yml* file handles:
 - Coordination of construction, startup, shutdown and destruction of the services (running in containers).
 - Creation of networking bridges between running services (between containers). 
 - Mapping of ports between containers and the host OS.
 - Specification of storage volumes and mapping to local folders.
+
 
 ## How to use
 Before running the services the first time, see the sections:
@@ -39,25 +40,25 @@ The services are destroyed using `docker-compose down`. If running in the foregr
 
 You can see running services with `docker-compose ps`.
 
-## Creating and destroying versus starting and stopping
+### Creating and destroying versus starting and stopping
 Services that are already built can be started and stopped without re-building, using `docker-compose start` and `docker-compose stop`. This is good for production, but if you change the build instructions, you are not guaranteed that your changes are included in the running services.
 
 The calls `docker-compose up -d --build` and `docker-compose down` ensure a re-build and destruction of containers at each run, which is good during development, ensuring that any changes to build specs are captured in the services.
 
 To see the built images on your computer, run `docker-compose images`
 
-## Creating volumes
+### Creating volumes
 To make data persistent outside the Docker container, we use volumes. This is essentially just attached storage. 
 To make the needed volumes:
 - for the database, run `docker volume create data-volume`
 - for the mosquitto server, run `docker volume create mqtt-volume`
 
-## Building the Webinterface image
+### Building the Webinterface image
 The first build of the Webinterface image takes a while, as many different libraries must be fetched and installed.
 - Build all the images for all services, without starting them, run: `docker-compose build`, or
 - Build and _start_ all services: `docker-compose up -d --build`.
 
-## Issuing command line commands to the services
+### Issuing command line commands to the services
 Commands can be issued to the containers through docker-compose:
 - `docker-compose exec <service_name>` executes a command in an already running container of service: *service_name*,
 - `docker-compose run <service_name>` starts up a new container to perform the command.
@@ -71,13 +72,9 @@ Useful commands on database server to look inside the database:
 - Start a psql client to look inside the database: `docker-compose exec db psql --username=team2 --dbname=webinterface_dev`.
 - Find psql guides [here](https://github.com/AUTeam2/tools/blob/master/cheatsheets.md#PostgreSQL).
 
-If you want to see what's inside a data volumes, just mount it to a simple container:
+If you want to see what's inside a data volume, just mount it to a simple container:
 - Try: `docker run -it --rm -v data-volume:/vol busybox ls -l /vol`
 
-## Development server -> Production server
-- Current service setup runs Django hosted on its own development server.
-- This server is unsafe, insecure, slow and doesn't handle multiple concurrent connections.
-- In the next timebox, we will connect Django and Nginx via a gateway interface (WSGI), we use gunicorn.
 
 ## Running on Windows with Docker Toolbox
 
@@ -100,5 +97,29 @@ If you forget to do this, you will get an error when the webinterface container 
 **Startup:** To start the containers on Windows, run `docker-compose -f docker-compose-win.yml up -d`.
 
 **IP address:** You can find the local IP address using `docker-machine ip Default`, and then access the services in your browser with the correct IP and port number, e.g. 192.168.99.100:8000.
+
+
+## Future timebox development
+### Development server -> Production server
+- [ ] Connect Nginx webserver with Django through gunicorn... Next Timebox:
+  - Current service setup runs Django hosted on its own development server.
+  - This server is unsafe, insecure, slow, doesn't serve staticfiles and doesn't handle multiple concurrent connections.
+  - In the next timebox, we will connect Django and Nginx via a gateway interface (WSGI), we use gunicorn.
+
+### Make it safer and smarter
+- [ ] Build environment files... Next Timebox:
+  - All secret keys into environment files.
+  - All passwords.
+  - Various flexible settings.
+
+### Build a docker-compose-prod-yml file
+- [ ] Make a production file for starting services in production mode:
+  - Different database volume (don't do development using production database).
+  - Different server chain (as above).
+  - Different environment files (as above)
+
+### Compatibility
+- [ ] Test Windows compatibility of custom Python/Django image... Ongoing...
+
 
 :rocket:
