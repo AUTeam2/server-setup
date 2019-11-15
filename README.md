@@ -58,7 +58,7 @@ The first build of the Webinterface image takes a while, as many different libra
 - Build all the images for all services, without starting them, run: `docker-compose build`, or
 - Build and _start_ all services: `docker-compose up -d --build`.
 
-### Issuing command line commands to the services
+### Issuing commands to services
 Commands can be issued to the containers through docker-compose:
 - `docker-compose exec <service_name>` executes a command in an already running container of service: *service_name*,
 - `docker-compose run <service_name>` starts up a new container to perform the command.
