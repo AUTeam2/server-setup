@@ -40,18 +40,16 @@ dockerIsDesktop()
 openServerPage()
 {
     if [ "${USER_OS}" == "Windows" ];then
-      start chrome http://localhost:8000
+      start chrome ${URL}:${PORT}
     elif [ "${USER_OS}" == "macOS" ];then
-      open http://localhost:8000
+      open "${URL}:${PORT}"
     elif [ "${USER_OS}" == "Linux" ];then
-      xdg-open http://localhost:8000
+      xdg-open "${URL}:${PORT}"
     else
       echo "${USER_OS} OS, tries with windows settings to open browser"
-      start chrome http://localhost:8000
+      start chrome ${URL}:${PORT}
     fi
 }
-
-
 
 main (){
 
@@ -60,13 +58,15 @@ USER_OS="Doh! no OS Found"
 DOCKER_DEFAULT_YML=docker-compose.yml
 DOCKER_TOOLBOX_YML=docker-compose-win.yml
 DOCKER_COMPOSE_FILE=${DOCKER_DEFAULT_YML}
+URL=127.0.0.1
+PORT=8000
 
 # Set USER_OS to reflect actual OS on the Host machine
 detectOStype
 
-# If OS is Windows check whether Docker toolbox or
+# If OS is Windows or "unknown" check whether Docker toolbox or
 # Docker Desktop is installed to select Docker-Compose yml
-if [ "${USER_OS}" == "Windows" ]; then
+if [ "${USER_OS}" == "Windows" ] || [ "${USER_OS}" == "unknown"  ]; then
     dockerIsToolboxOrDesktop
 fi
 
@@ -87,8 +87,9 @@ echo "Starts the application in docker containers"
 docker-compose -f ${DOCKER_COMPOSE_FILE} up -d
 echo "------------END------------"
 
+# Opens 127.0.0.1:8000 (localhost) in a browser
+sleep 5.0
 openServerPage
-
 }
 
 # Run Main sequence
