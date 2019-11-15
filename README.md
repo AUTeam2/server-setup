@@ -9,6 +9,7 @@ The containers are live on our development server, the Webinterface is accessed 
 - [Services](#Services)
 - [How to use](#How-to-use)
 - [Running on Windows with Docker Toolbox](#Running-on-Windows-with-Docker-Toolbox)
+- [Test-cases](#Test-cases)
 - [Troubleshooting](#Troubleshooting)
 - [Future timebox development](#Future-timebox-development)
 
@@ -109,6 +110,13 @@ If you forget to do this, you will get an error when the webinterface container 
 **Startup:** To start the containers on Windows, run `docker-compose -f docker-compose-win.yml up -d`.
 
 **IP address:** You can find the local IP address using `docker-machine ip Default`, and then access the services in your browser with the correct IP and port number, e.g. 192.168.99.100:8000.
+
+
+## Test-cases
+
+The test cases and results for these files are stored in the folder *test-cases/*. To run, do e.g.:
+- `test-cases/u2-tc-1.sh | tee -i test-cases/u2-tc-1-result.txt`
+- `tee -i` sends output both to the terminal and to a file, and ignores SIGINT (*Ctrl-C*).
 
 
 ## Troubleshooting
