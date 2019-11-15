@@ -7,6 +7,9 @@
 # Make a docker volume for the database
 docker volume create data-volume
 
+# Make a docker volume for the Mosquitto server
+docker volume create mqtt-volume
+
 # Build the containers
 docker-compose build
 
