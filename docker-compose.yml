@@ -1,30 +1,28 @@
 version: '3.7'
 
 services:
-  #Webinterface
   webinterface:
     build: ./webinterface
     ports:
       - "8000:8000"
     volumes:
       - ./webinterface/:/usr/src/webinterface/
+    env_file:
+      - ./.env.webinterface
     depends_on:
       - db
     command: >
-      python manage.py runserver 0.0.0.0:8000 
+      python manage.py runserver 0.0.0.0:8000
 
-#Postgres database
-  db: 
+  db:
     image: postgres:12.0-alpine
     restart: always
     volumes:
       - data-volume:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=team2   #Midlertidig
-      - POSTGRES_PASSWORD=team2   #Midlertidig
-      - POSTGRES_DB=webinterface_dev    #Midlertidig
+    env_file:
+      - ./.env.db
 
-#message broker, Subscribe transfer function
+
   mqtt:
     image: eclipse-mosquitto
     hostname: mosquitto

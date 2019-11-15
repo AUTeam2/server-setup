@@ -24,7 +24,13 @@ SECRET_KEY = 'cfh16z33oa@=vl^*5mfhsy&#4b6()l^usx3l#xo8llo)d=g6ox'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '192.168.99.100',
+    'auteam2.mooo.com',
+    '119.74.164.55',
+]
 
 # Application definition
 
@@ -70,10 +76,16 @@ WSGI_APPLICATION = 'webinterface.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# These values must match the docker-compose file
+# Change these to environment variables once the setup is stable
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'webinterface_dev',
+        'USER': 'team2',
+        'PASSWORD': 'team2',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
