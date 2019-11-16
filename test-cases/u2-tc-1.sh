@@ -34,14 +34,23 @@ echo "Running containers in interactive mode with logging"
 echo "Please quit with CTRL-C when done viewing output"
 echo "*** VERIFY NO ERRORS ***"
 sleep 5.0
-docker-compose up --build
+
+if [ "${USER_OS}" == "Windows" ];then
+  docker-compose -f ./../docker-compose-win.yml up --build
+else
+  docker-compose up --build
+fi
+
+sleep 2.0
+echo "***Vi starter lige forfra***"
 docker-compose down
 
 echo "*** RE-STARTING SERVICES AND BROWSER ***"
 docker-compose up -d
 sleep 2.0
 if [ "${USER_OS}" == "Windows" ];then
-  start chrome $URL_WIN:$PORT
+  start firefox $URL_WIN:$PORT
+  echo "***Starting firefox***"
 elif [ "${USER_OS}" == "macOS" ];then
   open "${URL}:${PORT}"
 elif [ "${USER_OS}" == "Linux" ];then

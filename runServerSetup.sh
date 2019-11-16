@@ -78,6 +78,9 @@ setURLForLocalOrServer()
   if [ "${LOCAL_OR_SERVER}" == "team2" ];then
       echo "We are Running on the spooky team2 SERVER"
       URL=${SERVER_URL}
+    elif [ "${DOCKER_TOOLBOX_INSTALL_PATH}" ];then
+      echo "We are running locally, but like a tool..."
+      URL=${TOOLBOX_URL}
     else
       echo "We are Running LOCALLY. There is no place like home, cheers!"
       URL=${LOCAL_URL}
@@ -95,6 +98,7 @@ DOCKER_COMPOSE_FILE=${DOCKER_DEFAULT_YML}
 
  # Inet settings
 LOCAL_URL=http://127.0.0.1
+TOOLBOX_URL=http://192.168.99.100
 SERVER_URL=http://119.74.164.55
 PORT=8000
 
