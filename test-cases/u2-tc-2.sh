@@ -42,7 +42,7 @@ exit"
 echo "*** OPENING BROWSER ***"
 sleep 2.0
 if [ "${USER_OS}" == "Windows" ];then
-  start chrome $URL_WIN:$PORT
+  start firefox $URL_WIN:$PORT
 elif [ "${USER_OS}" == "macOS" ];then
   open "${URL}:${PORT}"
 elif [ "${USER_OS}" == "Linux" ];then
