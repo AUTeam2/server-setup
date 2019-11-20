@@ -115,13 +115,13 @@ If you forget to do this, you will get an error when the webinterface container 
 
 ## Connecting to the MQTT message broker (Mosquitto)
 
-You can connect to the service on our development server at mqtt://auteam2.mooo.com.
+You can connect to the service on our development server at *auteam2.mooo.com*.
 
 **Clients for testing or monitoring:**
 You can use:
 - Our "homemade" clients for the project,
 - the simple command-line Mosquitto clients from Eclipse for testing,
-- a web client (connect to port 9001): [eclipse paho](https://www.eclipse.org/paho/clients/js/utility/),
+- a web client (connect to port 9001, websockets): [HiveMQ](http://www.hivemq.com/demos/websocket-client/),
 - or some client with GUI, [many good ones here](https://www.hivemq.com/blog/seven-best-mqtt-client-tools/).
 
 **AUTeam2 homemade clients:**
