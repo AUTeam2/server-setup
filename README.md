@@ -9,8 +9,9 @@ The containers are live on our development server, the Webinterface is accessed 
 - [Services](#Services)
 - [How to use](#How-to-use)
 - [Running on Windows with Docker Toolbox](#Running-on-Windows-with-Docker-Toolbox)
+- [Connecting to the MQTT message broker](#Connecting-to-the-MQTT-message-broker)
 - [Test-cases](#Test-cases)
-- [Troubleshooting](#Troubleshooting)
+- [Troubleshooting the server build](#Troubleshooting-the-server-build)
 - [Future timebox development](#Future-timebox-development)
 
 ## Services
@@ -18,7 +19,7 @@ The docker-compose now contains the following services:
 - Django webinterface, hosted via it's own temporary development server.
 - PostgreSQL database server.
 - Nginx webserver.
-- Mosquitto MQTT server.
+- Mosquitto MQTT message broker (server).
 
 ### Docker-compose
 The *docker-compose.yml* file handles:
@@ -112,6 +113,40 @@ If you forget to do this, you will get an error when the webinterface container 
 **IP address:** You can find the local IP address using `docker-machine ip Default`, and then access the services in your browser with the correct IP and port number, e.g. 192.168.99.100:8000.
 
 
+## Connecting to the MQTT message broker (Mosquitto)
+
+You can connect to the service on our development server at mqtt://auteam2.mooo.com.
+
+**Clients for testing or monitoring:**
+You can use:
+- Our "homemade" clients for the project,
+- the simple command-line Mosquitto clients from Eclipse for testing,
+- a web client (connect to port 9001): [eclipse paho](https://www.eclipse.org/paho/clients/js/utility/),
+- or some client with GUI, [many good ones here](https://www.hivemq.com/blog/seven-best-mqtt-client-tools/).
+
+**AUTeam2 homemade clients:**
+- Python client: _Insert link_.
+- C++ client: _Insert link_.
+
+**Mosquitto-clients from Eclipse:** (requires install on your machine) 
+- Subscribe to (=listen for) messages on a topic:
+    - `mosquitto_sub -h <server-address> -t "#" -v -u <username> -P <password>`
+    - The topic `"#"` is all topics, `"$SYS/#"` is all system messages.
+    - Otherwise, the topic is any text string, that you might expect broadcasts on.   
+- Publish (=send) a single message on a topic:
+    - `mosquitto_pub -h <server-address> -t "Topic" -m "Message Text" --id <YourName> -u <username> -P <password>`
+
+**Security:**
+- The message broker is password protected currently. Ask someone to get the username and password.
+- In the future, we will use TLS and that will require certificates.
+- When you've made a password file for the server, it needs to be hashed. Do that by (requires Mosquitto installed on your machine):
+    - `mosquitto_passwd -U mosquitto/passwd.txt`.
+
+**Connection methods:**
+- MQTT over TCP on port 1883.
+- MQTT over Websockets on port 9001.
+
+
 ## Test-cases
 
 The test cases and results for these files are stored in the folder *test-cases/*. To run, do e.g.:
@@ -119,7 +154,7 @@ The test cases and results for these files are stored in the folder *test-cases/
 - `tee -i` sends output both to the terminal and to a file, and ignores SIGINT (*Ctrl-C*).
 
 
-## Troubleshooting
+## Troubleshooting the server build
 Try:
 - Ensure all containers are off:
   - `docker-compose down`.
