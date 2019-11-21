@@ -13,21 +13,21 @@ TEST_MSG="This is a test message sent from publisher to subscriber via the serve
 
 # Attempting to determine the system, and set the correct commands
 # Prepare
-if [[ $(uname) =~ "MING"? ]];then
+if [[ "$(uname)" =~ "MING"? ]];then
   USER_OS="Windows"
   DOCKERCOMPOSEUP="docker-compose -f docker-compose-win.yml up -d --build"
   LOCALHOST="192.168.99.100"
   PORTSCANNER="nc -z"
   WORDSEARCH="grep -w"
 
-elif [[ $(uname) =~ "Darwin"? ]];then
+elif [[ "$(uname)" =~ "Darwin"? ]];then
   USER_OS="macOS"
   DOCKERCOMPOSEUP="docker-compose up -d --build"
   LOCALHOST="localhost"
   PORTSCANNER="nc -z"
   WORDSEARCH="grep -w"
 
-elif [[ $(uname) =~ "Linux"? ]];then
+elif [[ "$(uname)" =~ "Linux"? ]];then
   USER_OS="Linux"
   DOCKERCOMPOSEUP="docker-compose up -d --build"
   LOCALHOST="localhost"
