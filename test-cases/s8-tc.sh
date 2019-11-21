@@ -13,21 +13,21 @@ TEST_MSG="This is a test message sent from publisher to subscriber via the serve
 
 # Attempting to determine the system, and set the correct commands
 # Prepare
-if [[ `uname` =~ "MING"? ]];then
+if [[ $(uname) =~ "MING"? ]];then
   USER_OS="Windows"
   DOCKERCOMPOSEUP="docker-compose -f docker-compose-win.yml up -d --build"
   LOCALHOST="192.168.99.100"
   PORTSCANNER="nc -z"
   WORDSEARCH="grep -w"
 
-elif [[ `uname` =~ "Darwin"? ]];then
+elif [[ $(uname) =~ "Darwin"? ]];then
   USER_OS="macOS"
   DOCKERCOMPOSEUP="docker-compose up -d --build"
   LOCALHOST="localhost"
   PORTSCANNER="nc -z"
   WORDSEARCH="grep -w"
 
-elif [[ `uname` =~ "Linux"? ]];then
+elif [[ $(uname) =~ "Linux"? ]];then
   USER_OS="Linux"
   DOCKERCOMPOSEUP="docker-compose up -d --build"
   LOCALHOST="localhost"
@@ -52,7 +52,7 @@ service_running () {
 }
 
 listening_on () {
-  if [[ -z "$( ${PORTSCANNER} $1 $2 2>&1 | ${WORDSEARCH} "succeeded" )" ]]; then
+  if [[ -z "$( ${PORTSCANNER} "$1" "$2" 2>&1 | ${WORDSEARCH} "succeeded" )" ]]; then
     false #the word succeeded was not found, so the service is not listening on the specified URL and PORT
   else
     true
@@ -132,7 +132,7 @@ echo "Verifies that a message can be sent to the Mosquitto server on $LOCALHOST 
 
 # Ask and set credentials if not inherited from parent process
 get_credentials
-if mosquitto_pub -h ${LOCALHOST} -p ${MQTT_PORT} -t "Test/topic" -m "Test message" --id TestPublisher -u ${MOSQUITTO_USER} -P ${MOSQUITTO_PASSWORD}; then
+if mosquitto_pub -h ${LOCALHOST} -p ${MQTT_PORT} -t "Test/topic" -m "Test message" --id TestPublisher -u "${MOSQUITTO_USER}" -P "${MOSQUITTO_PASSWORD}"; then
   echo -e "${TC}: ${GREEN}OK${NC}. Service can accept publish messages."
 else
   echo -e "${TC}: ${RED}FAILED${NC}. Service declined the operation."
@@ -146,12 +146,12 @@ echo "Verifies that a topic can be subscribed to and that a message can received
 get_credentials
 
 # Start the subscriber as a background process and direct the output to a file
-mosquitto_sub -h ${LOCALHOST} -p ${MQTT_PORT} -t "Test/topic" --id TestSubscriber -u ${MOSQUITTO_USER} -P ${MOSQUITTO_PASSWORD} > $TMP_FILE & PROC_ID=$!
+mosquitto_sub -h ${LOCALHOST} -p ${MQTT_PORT} -t "Test/topic" --id TestSubscriber -u "${MOSQUITTO_USER}" -P "${MOSQUITTO_PASSWORD}" > "${TMP_FILE}" & PROC_ID=$!
 disown
 sleep 1 # Wait to ensure it's running
 
 # Send a publish message
-mosquitto_pub -h ${LOCALHOST} -p ${MQTT_PORT} -t "Test/topic" -m "${TEST_MSG}" --id TestPublisher -u ${MOSQUITTO_USER} -P ${MOSQUITTO_PASSWORD}
+mosquitto_pub -h ${LOCALHOST} -p ${MQTT_PORT} -t "Test/topic" -m "${TEST_MSG}" --id TestPublisher -u "${MOSQUITTO_USER}" -P "${MOSQUITTO_PASSWORD}"
 
 # Wait for message handling, kill the subscribe process
 sleep 1
@@ -166,6 +166,6 @@ else
   echo -e "${TC}: ${RED}FAILED${NC}. Nothing received or mismatch."
 fi
 
-rm "$TMP_FILE"
+rm "${TMP_FILE}"
 
 echo -e "${HEAD}Testcases done.${NC}"
