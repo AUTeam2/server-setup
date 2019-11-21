@@ -60,10 +60,11 @@ listening_on () {
 }
 
 get_credentials () {
-  if [[ -z "${MOSQUITTO_USER}" ]] && [[ -z "${MOSQUITTO_PASSWORD}" ]]; then
+  if [[ -z "${MOSQUITTO_USER}" ]] || [[ -z "${MOSQUITTO_PASSWORD}" ]]; then
     echo "Enter credentials for the Mosquitto server:"
     read -p "Enter User: " MOSQUITTO_USER
     read -s -p "Enter Password: " MOSQUITTO_PASSWORD
+    echo ""
     export MOSQUITTO_USER
     export MOSQUITTO_PASSWORD
   fi
