@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 # This script runs test cases S8.TC-1, TC-2, TC-3 and TC-4
+# Only tested on MacOS so far.
+# I don't think TC-4 is compatible on Windows, and I am not sure about the utils to use for windows to replace nc and grep...
 # Janus 21 Nov 2019
 
 MQTT_PORT="1883"
@@ -160,7 +162,7 @@ if [ "${RCV_MSG}" = "${TEST_MSG}" ]; then
   echo "Received the message: ${RCV_MSG}"
   echo -e "${TC}: ${GREEN}OK${NC}. Messages on subscribed topics can be received from the service."
 else
-  echo -e "${TC}: ${RED}FAILED${NC}. Nothing received."
+  echo -e "${TC}: ${RED}FAILED${NC}. Nothing received or mismatch."
 fi
 
 rm "$TMP_FILE"
