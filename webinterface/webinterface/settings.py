@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 # For the changes to take into account the server needs to started again after a command have been run
 CRONJOBS = [
     # The scheduler is set to run the command "Database_clean_up" every day at midnight
-    ('0 0 * * *', 'database_poc.cron.Database_clean_up')
+    ('*/1 * * * *', 'database_poc.cron.Database_clean_up')
 ]
 
 MIDDLEWARE = [

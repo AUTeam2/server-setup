@@ -19,7 +19,7 @@ echo "PostgreSQL started... Starting Django now."
 python manage.py crontab add
 
 #Migrating newly added models
-#python manage.py makemigrations
+python manage.py makemigrations database_poc
 
 #Migrate performs all database migrations
 python manage.py migrate
