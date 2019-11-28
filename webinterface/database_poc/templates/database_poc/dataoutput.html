@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data output page</title>
+</head>
+<style>
+    table, td, th {
+        border: 1px solid black;
+    }
+</style>
+<body>
+
+<h1>DATA OUTPUT TESTPAGE</h1>
+
+<table style="width: 100%">
+{% if all_data %}
+    <tr>
+        <th>ID</th>
+        <th>DATA</th>
+        <th>NO_DELETE</th>
+        <th>TIMESTAMP</th>
+    </tr>
+    {% for testdatabase in all_data %}
+    <tr>
+        <td>{{ testdatabase.id }}</td>
+        <td>{{ testdatabase.Data }}</td>
+        <td>{{ testdatabase.NODELETE }}</td>
+        <td>{{ testdatabase.Timestamp }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+    <h3>You don't have any data!</h3>
+{% endif %}
+
+
+</body>
+</html>
