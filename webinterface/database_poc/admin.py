@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import testdatabase
+from .models import Testdatabase
 
 # Register your models here.
-admin.site.register(testdatabase)
+admin.site.register(Testdatabase)

@@ -13,7 +13,12 @@ ENV PYTHONUNBUFFERED 1
 
 #Install dependencies for PostgreSQL (Psycopg2)
 RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev
+    && apk add postgresql-dev gcc python3-dev musl-dev shadow curl
+
+#Install suid for crontab to work
+RUN apk add --update busybox-suid
+#RUN apk add --no-cache dcron
+RUN set -ex && apk --no-cache add sudo
 
 #Install dependencies inside container
 RUN pip install --upgrade pip
@@ -26,11 +31,32 @@ COPY ./entrypoint.sh /usr/src/webinterface/entrypoint.sh
 #Copy all project files (Later: set up an auto sync)
 COPY . /usr/src/webinterface/
 
+# Allow anyone to run the script
 RUN chmod 777 /usr/src/webinterface/entrypoint.sh
 
-#Create a user to avoid running as root
-RUN adduser -D nonrootuser
+# https://github.com/dubiousjim/dcron
+#RUN groupadd cron
+#RUN chgrp cron /usr/local/bin/crontab
+#RUN chmod 4750 /usr/local/bin/crontab
+RUN touch /var/log/cron.log
+RUN touch /var/spool/cron/crontabs/nonrootuser
+
+# Allow the nonrootuser to edit his own crontab
+RUN echo nonrootuser > /etc/cron.allow
+#RUN echo -e "\n" > /var/spool/cron/crontabs/${u}
+RUN chmod 777 /var/spool/cron/crontabs/nonrootuser
+
+#Create a user to avoid running as root. DO NOT DO THIS, IF root in line 36
+RUN adduser -D nonrootuser cron
+#USER nonrootuser
+
+#RUN adduser -D -s /bin/sh -h /home/${u} -g "User" ${u}
+# Create a sudo'er without required password
+#RUN adduser -D -s /bin/sh dude
+#RUN echo "dude ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/dude
 USER nonrootuser
+ENTRYPOINT ["/usr/src/webinterface/entrypoint.sh"]
+
 
 #Run entrypoint, positional arguments can be added later
-ENTRYPOINT ["/usr/src/webinterface/entrypoint.sh"]
+#ENTRYPOINT ["/usr/src/webinterface/entrypoint.sh"]

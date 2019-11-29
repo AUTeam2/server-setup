@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import testdatabase
+from .models import Testdatabase
 from .forms import TestForm
 from django.views import View
 
@@ -34,5 +34,5 @@ class dataoutput(View):
 
     # The get request which loads the web page, which gets the objects from the database to be shown.
     def get(self, request):
-        all_data = testdatabase.objects.all()
+        all_data = Testdatabase.objects.all()
         return render(request, 'database_poc/dataoutput.html', {'all_data': all_data})
