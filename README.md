@@ -8,6 +8,7 @@ The containers are live on our development server, the Webinterface is accessed 
 
 - [Services](#Services)
 - [How to use](#How-to-use)
+- [Ensure Cron](#Ensure-CRON-is-running-as-root)
 - [Running on Windows with Docker Toolbox](#Running-on-Windows-with-Docker-Toolbox)
 - [Test-cases](#Test-cases)
 - [Troubleshooting](#Troubleshooting)
@@ -43,6 +44,12 @@ The services are destroyed using `docker-compose down`.
 If running in the foreground, stop them using *Ctrl-C*. Run `docker-compose down` afterwards.
 
 You can see running services with `docker-compose ps`.
+
+
+## Ensure CRON is running as root
+
+Inject this command into the running container to ensure that Cron is running as root:
+`docker-compose exec -d -u 0 webinterface sh -c "/usr/sbin/crond -f -l 8"`
 
 ### Creating and destroying versus starting and stopping
 
