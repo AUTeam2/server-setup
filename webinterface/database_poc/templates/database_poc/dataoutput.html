@@ -13,8 +13,8 @@
 
 <h1>DATA OUTPUT TESTPAGE</h1>
 
-<table style="width: 100%">
 {% if all_data %}
+<table style="width: 100%">
     <tr>
         <th>ID</th>
         <th>DATA</th>
@@ -33,7 +33,9 @@
 {% else %}
     <h3>You don't have any data!</h3>
 {% endif %}
-
+    <br>
+    <br>
+<input type="button" onclick="window.location.href = '{% url 'test' %}';" value="Back">
 
 </body>
 </html>

@@ -10,6 +10,9 @@
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit</button>
+    <br>
+    <br>
+<input type="button" onclick="window.location.href = '{% url 'test' %}';" value="Back">
 </form>
 
 </body>
