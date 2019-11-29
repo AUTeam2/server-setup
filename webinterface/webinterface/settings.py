@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 # And already set Cronjob is removed with the command "python manage.py crontab remove"
 # For the changes to take into account the server needs to started again after a command have been run
 CRONJOBS = [
-    # The scheduler is set to run the command "Database_clean_up" every day at midnight
+    # The scheduler is set to run the command "Database_clean_up" every minute of all hours of the day
     ('*/1 * * * *', 'database_poc.cron.Database_clean_up', '2>&1'),
 ]
 
