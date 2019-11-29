@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'django_crontab',
     'database_poc',
+    'homepage',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

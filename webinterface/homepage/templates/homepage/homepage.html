@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+<body>
+
+<img src="https://via.ritzau.dk/data/images/00203/901de3ff-02f0-44ba-8375-5ec48a9e13f5.png"
+style="width: 100%; height: auto">
+
+<form>
+<input type="button" onclick="window.location.href = '{% url 'admin:index' %}';" value="ADMIN">
+    <br>
+<input type="button" onclick="window.location.href = '{% url 'test' %}';" value="Database test">
+</form>
+
+</body>
+</html>

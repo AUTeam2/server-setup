@@ -19,7 +19,7 @@ echo "PostgreSQL started... Starting Django now."
 # Run something like: docker-compose exec webinterface python manage.py makemigrations database_poc
 
 #Migrating newly added models
-python manage.py makemigrations database_poc
+python manage.py makemigrations
 
 #Migrate performs all database migrations that are already prepared
 python manage.py migrate
