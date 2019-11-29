@@ -18,6 +18,9 @@ echo "PostgreSQL started... Starting Django now."
 # To make migrations for any newly added models -- don't do that here first...
 # Run something like: docker-compose exec webinterface python manage.py makemigrations database_poc
 
+#Migrating newly added models
+python manage.py makemigrations database_poc
+
 #Migrate performs all database migrations that are already prepared
 python manage.py migrate
 
