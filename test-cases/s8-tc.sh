@@ -6,7 +6,7 @@
 # Janus 21 Nov 2019
 
 MQTT_PORT="1883"
-WEBSOCK_PORT="9001"
+WEBSOCK_PORT="8081"
 URL="auteam2.mooo.com"
 TMP_FILE="./test-cases/s8-tc-tmp.txt"
 TEST_MSG="This is a test message sent from publisher to subscriber via the server."
