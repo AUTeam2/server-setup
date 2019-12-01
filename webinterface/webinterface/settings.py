@@ -46,9 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-# Cronjob is set with the command "python manage.py crontab add" and will start with the server
-# And already set Cronjob is removed with the command "python manage.py crontab remove"
-# For the changes to take into account the server needs to started again after a command have been run
+# Cronjob is set with the command "python manage.py crontab add" and will start with the server.
+# An already set Cronjob is removed with the command "python manage.py crontab remove".
+# For the changes to be taken into account, the server needs to be restarted after a command have been given.
 CRONJOBS = [
     # The scheduler is set to run the command "Database_clean_up" every minute of all hours of the day
     ('*/1 * * * *', 'database_poc.cron.Database_clean_up', '2>&1'),
