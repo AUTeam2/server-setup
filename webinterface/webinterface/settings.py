@@ -35,7 +35,6 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'demo_modul',
     'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,10 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'database_poc.apps.DatabasePocConfig',
 ]
 
 CRONJOBS = [
-('*/1 * * * *', 'demo_modul.cron.Database_clean_up')
+('0 0 * * *', 'database_poc.cron.Database_clean_up')    
 ]
 
 MIDDLEWARE = [
