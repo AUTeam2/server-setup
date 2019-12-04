@@ -153,7 +153,7 @@ You can use:
 
 **Connection methods:**
 - MQTT over TCP on port 1883.
-- MQTT over Websockets on port 9001.
+- MQTT over Websockets on port 8081.
 
 
 ## Test-cases
