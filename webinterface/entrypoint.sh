@@ -15,8 +15,17 @@ echo "PostgreSQL started... Starting Django now."
 #Flush clears the DB, good if you want to start from fresh for some reason
 #python manage.py flush --no-input
 
-#Migrate performs all database migrations
+# To make migrations for any newly added models -- don't do that here first...
+# Run something like: docker-compose exec webinterface python manage.py makemigrations database_poc
+
+#Migrating newly added models
+python manage.py makemigrations
+
+#Migrate performs all database migrations that are already prepared
 python manage.py migrate
+
+#Add tasks to the crontab scheduler
+python manage.py crontab add
 
 #Expand all positional arguments to this script and execute them, hand over control
 exec "$@"

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test_start_page</title>
+</head>
+<body>
+
+<h1>DATA TESTPAGE</h1>
+
+<form>
+<input type="button" onclick="window.location.href = '{% url 'datainput' %}';" value="Data input">
+    <br>
+<input type="button" onclick="window.location.href = '{% url 'dataoutput' %}';" value="Data output">
+    <br>
+    <br>
+<input type="button" onclick="window.location.href = '{% url 'homepage' %}';" value="Back">
+
+</form>
+
+</body>
+</html>

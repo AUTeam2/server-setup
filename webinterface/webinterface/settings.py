@@ -36,17 +36,22 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'django_crontab',
+    'database_poc',
+    'homepage',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'database_poc.apps.DatabasePocConfig',
 ]
 
+# Cronjob is set with the command "python manage.py crontab add" and will start with the server.
+# An already set Cronjob is removed with the command "python manage.py crontab remove".
+# For the changes to be taken into account, the server needs to be restarted after a command have been given.
 CRONJOBS = [
-('0 0 * * *', 'database_poc.cron.Database_clean_up')    
+    # The scheduler is set to run the command "Database_clean_up" every minute of all hours of the day
+    ('*/1 * * * *', 'database_poc.cron.Database_clean_up', '2>&1'),
 ]
 
 MIDDLEWARE = [
@@ -64,7 +69,7 @@ ROOT_URLCONF = 'webinterface.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
