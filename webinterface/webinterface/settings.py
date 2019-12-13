@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     '192.168.99.100',
     'auteam2.mooo.com',
     '119.74.164.55',
+    'webinterface',
 ]
 
 # Application definition
