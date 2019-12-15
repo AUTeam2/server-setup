@@ -36,6 +36,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'demo_module',
     'django_crontab',
     'database_poc',
     'homepage',
@@ -98,6 +99,16 @@ DATABASES = {
         'PASSWORD': 'team2',
         'HOST': 'db',
         'PORT': '5432',
+    }
+}
+
+# Internal uses the mqtt service built and hosted inside our docker-compose network
+MQTT = {
+    'internal': {
+        'HOST': 'mqtt',
+        'PORT': '1883',
+        'USER': 'team2',
+        'PASSWORD': 'team2',
     }
 }
 
