@@ -10,3 +10,6 @@ class TestForm(forms.ModelForm):
     class Meta:
         model = Testdatabase
         fields = ('Data', 'NODELETE',)
+        attrs = {
+            'class': 'form-control'
+        }

@@ -1,41 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Data output page</title>
-</head>
-<style>
-    table, td, th {
-        border: 1px solid black;
-    }
-</style>
-<body>
+{%  extends "base.html" %}
+{% block content %}
 
-<h1>DATA OUTPUT TESTPAGE</h1>
+<div class="container-fluid">
+    <h2>Data udlæst fra databasen</h2>
 
-{% if all_data %}
-<table style="width: 100%">
-    <tr>
-        <th>ID</th>
-        <th>DATA</th>
-        <th>NO_DELETE</th>
-        <th>TIMESTAMP</th>
-    </tr>
-    {% for testdatabase in all_data %}
-    <tr>
-        <td>{{ testdatabase.id }}</td>
-        <td>{{ testdatabase.Data }}</td>
-        <td>{{ testdatabase.NODELETE }}</td>
-        <td>{{ testdatabase.Timestamp }}</td>
-    </tr>
-    {% endfor %}
-</table>
-{% else %}
-    <h3>You don't have any data!</h3>
-{% endif %}
-    <br>
-    <br>
-<input type="button" onclick="window.location.href = '{% url 'test' %}';" value="Back">
+    {% if all_data %}
+    <table style="width: 100%">
+        <tr>
+            <th>ID</th>
+            <th>DATA</th>
+            <th>NO_DELETE</th>
+            <th>TIMESTAMP</th>
+        </tr>
+        {% for testdatabase in all_data %}
+        <tr>
+            <td>{{ testdatabase.id }}</td>
+            <td>{{ testdatabase.Data }}</td>
+            <td>{{ testdatabase.NODELETE }}</td>
+            <td>{{ testdatabase.Timestamp }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <h3>You don't have any data!</h3>
+    {% endif %}
+        <br>
+        <br>
+    <button type="button" class="btn btn-primary" onclick="window.location.href = '{% url 'test' %}';">Back</button>
 
-</body>
-</html>
+</div>
+
+{% endblock content %}

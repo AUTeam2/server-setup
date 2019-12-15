@@ -1,19 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Data testpage</title>
-</head>
-<body>
-<h1>DATA INPUT TESTPAGE</h1>
+{%  extends "base.html" %}
+{% block content %}
 
-<form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-    <br>
-    <br>
-<input type="button" onclick="window.location.href = '{% url 'test' %}';" value="Back">
-</form>
+<div class="container-fluid">
+    <h2>Indsæt data i databasen</h2>
 
-</body>
-</html>
+    <div class="form-group">
+
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href = '{% url 'test' %}';">Back</button>
+    </form>
+
+    </div>
+
+</div>
+
+{% endblock content %}

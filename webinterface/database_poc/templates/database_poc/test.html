@@ -1,22 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Test_start_page</title>
-</head>
-<body>
+{%  extends "base.html" %}
+{% block content %}
 
-<h1>DATA TESTPAGE</h1>
+<div class="container-fluid">
+    <h2>Test databasen</h2>
 
-<form>
-<input type="button" onclick="window.location.href = '{% url 'datainput' %}';" value="Data input">
-    <br>
-<input type="button" onclick="window.location.href = '{% url 'dataoutput' %}';" value="Data output">
-    <br>
-    <br>
-<input type="button" onclick="window.location.href = '{% url 'homepage' %}';" value="Back">
+    <form>
+        <button type="button"
+               class="btn btn-primary"
+               onclick="window.location.href = '{% url 'datainput' %}';">Data input</button>
+        <button type="button"
+               class="btn btn-primary"
+               onclick="window.location.href = '{% url 'dataoutput' %}';">Data output</button>
+        <button type="button"
+               class="btn btn-primary"
+                onclick="window.location.href = '{% url 'homepage' %}';">Back</button>
+    </form>
+</div>
 
-</form>
-
-</body>
-</html>
+{% endblock content %}
