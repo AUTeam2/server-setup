@@ -2,7 +2,7 @@
 
 This repo contains files for setting up all needed server services for the Web interface for Pro3 and Pro4.
 
-The containers are live on our development server, the Webinterface is accessed at: http://auteam2.mooo.com:8000/
+The containers are live on our development server, the Webinterface is accessed at: http://auteam2.mooo.com:81/
 
 > _Be aware: We have now switched fully to the PostgreSQL database. If you experience any issues, remove your data-volume, re-create it, rebuild the docker-compose image, and try again. If the issue persists, tell someone... :monkey:..._
 
@@ -17,10 +17,10 @@ The containers are live on our development server, the Webinterface is accessed 
 
 ## Services
 The docker-compose now contains the following services:
-- Django webinterface, hosted via it's own temporary development server.
-- PostgreSQL database server.
-- Nginx webserver.
+- Nginx webserver (port 81) - serves Django and static files.
+- Django webinterface (port 8000) - if you want to see the devserver (but not needed).
 - Mosquitto MQTT message broker (server).
+- PostgreSQL database server.
 
 ### Docker-compose
 The *docker-compose.yml* file handles:
@@ -75,6 +75,7 @@ To make data persistent outside the Docker container, we use volumes. This is es
 To make the needed volumes:
 - For the database, run `docker volume create data-volume`, and
 - for the mosquitto server, run `docker volume create mqtt-volume`.
+- For sharing staticfiles between Django and Nginx, an automatically built volume called `static_volume` is used.
 
 ### Building the Webinterface image
 The first build of the Webinterface image takes a while, as many different libraries must be fetched and installed.

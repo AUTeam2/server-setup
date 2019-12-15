@@ -7,6 +7,8 @@ services:
       - "8000:8000"
     volumes:
       - ./webinterface/:/usr/src/webinterface/
+      - ./staticassets/:/var/www/static/
+      - static_volume:/usr/src/webinterface/staticfiles/
     env_file:
       - ./.env.webinterface
     depends_on:
@@ -35,19 +37,20 @@ services:
       - mqtt-volume:/mosquitto/data
       - mqtt-volume:/mosquitto/log
 
-#Webserver docker
   nginx:
     image: nginx
     depends_on:
-      - db
+      - webinterface
     restart: always
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - static_volume:/usr/src/webinterface/staticfiles/
     ports:
       - "81:80"
       - "444:443"
 
 volumes:
+  static_volume:
   data-volume:
     external: true
   mqtt-volume:
