@@ -16,6 +16,7 @@ class MqttClient():
     def on_connect(client, userdata, flags, rc):
         print("Connected with result code " + str(rc))
 
+    # This function is NOT currently used.
     @staticmethod
     def on_message(client, userdata, msg):
         p2 = Payload()
@@ -31,12 +32,12 @@ class MqttClient():
     def on_log(client, userdata, level, buf):
         print("log: ", buf)
 
-    def __init__(self, name):
+    def __init__(self, name, on_message):
         """ Handles all setup and connection when object is initialized. """
         self.client = mqtt.Client(client_id=name, clean_session=True, userdata=None, transport="tcp")
         self.client.username_pw_set(MqttClient.username, MqttClient.password)
         self.client.on_connect = MqttClient.on_connect
-        self.client.on_message = MqttClient.on_message
+        self.client.on_message = on_message
         self.client.on_log = MqttClient.on_log
         self.client.enable_logger()
         self.client.will_set(name, MqttClient.will_message)
