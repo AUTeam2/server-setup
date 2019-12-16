@@ -26,12 +26,17 @@ class Command(BaseCommand):
             #Create a new message object
             m = protocol.Message()
 
-            # Do some validation here
-            # TO DO...
-
             # Convert the incoming JSON message to Python vars
             msg = message.payload.decode("utf-8")
             obj = protocol.ProtocolSchema.read_jsonstr(msg)
+
+            # Do some validation here
+            # Evaluate if the Python object conforms to the protocol
+            schema_validation_result = protocol.ProtocolSchema.validating(obj, m.protocol_schema)
+
+            # Consider implementing a break if the validation fails.
+
+            # Insert into struct-like variables in the m-object.
             m.unpack(**obj)
 
             # Store any received statuscodes

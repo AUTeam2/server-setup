@@ -107,13 +107,16 @@ class ProtocolSchema():
         The schema to compare against
         :return:
         """
-        print("Validating the input data using jsonschema:")
+        #print("Validating the input data using jsonschema:")
         try:
             validate(jsondata, schema)
-            sys.stdout.write("Validation OK\n")
+            #sys.stdout.write("Validation OK\n")
+            return True #The validation went well happy happy
         except jsonschema.exceptions.ValidationError as ve:
+            print("Timmy says validation baaad mkaayy:")
             sys.stderr.write("Record #{}: ERROR\n".format(jsondata))
             sys.stderr.write(str(ve) + "\n")
+            return False #bad! very bad!
 
     @staticmethod
     def message_is_valid(message, schema):

@@ -28,6 +28,11 @@ class MqttClient():
     def on_log(client, userdata, level, buf):
         print("log: ", buf)
 
+    # By default, do nothing on_message
+    @staticmethod
+    def on_message_default(client, userdata, message):
+        pass
+
     #Initialize the client, straight on create
     def __init__(self, name, on_message, will_message="Logging off"):
         """ __init__ Handles all setup and connection when object is initialized.
@@ -51,13 +56,16 @@ class MqttClient():
         self.client.connect(MqttClient.broker_address)
 
     def publish(self, topic, payload):
-        self.client.publish(topic, payload)
+        return self.client.publish(topic, payload)
 
     def subscribe(self, topic):
-        self.client.subscribe(topic)
+        return self.client.subscribe(topic)
 
     def loop(self):
-        self.client.loop_forever(retry_first_connection=False)
+        return self.client.loop_forever(retry_first_connection=False)
+
+    def disconnect(self):
+        return self.client.disconnect()
 
     # def async_loop(self):
     #     self.client.loop_start()
