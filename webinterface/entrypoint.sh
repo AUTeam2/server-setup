@@ -24,6 +24,9 @@ python manage.py makemigrations
 #Migrate performs all database migrations that are already prepared
 python manage.py migrate
 
+#Collect all static files (images, sound, etc.) into staticfiles-folder to be served by Nginx
+python manage.py collectstatic --no-input --clear
+
 #Add tasks to the crontab scheduler
 python manage.py crontab add
 

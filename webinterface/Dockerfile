@@ -3,7 +3,11 @@ FROM python:3.8.0-alpine
 MAINTAINER Team Web, Janus Bo Andersen
 
 #Set the working directory inside the Alpine Container
-WORKDIR /usr/src/webinterface
+ENV APP_HOME=/usr/src/webinterface
+WORKDIR $APP_HOME
+
+#Make a directory for serving the staticfiles
+RUN mkdir $APP_HOME/staticfiles
 
 #Set environment variables
 #don't write .pyc files to disk
@@ -48,7 +52,9 @@ RUN chmod 777 /var/spool/cron/crontabs/nonrootuser
 
 #Create a user to avoid running as root. DO NOT DO THIS, IF root in line 36
 RUN adduser -D nonrootuser cron
-#USER nonrootuser
+
+#Give ownership permission to write files to the staticfiles
+RUN chown -R nonrootuser:nonrootuser $APP_HOME
 
 #RUN adduser -D -s /bin/sh -h /home/${u} -g "User" ${u}
 # Create a sudo'er without required password
