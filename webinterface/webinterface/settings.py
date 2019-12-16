@@ -112,6 +112,10 @@ MQTT = {
     }
 }
 
+# Path for the protocol schema
+PROTOCOL_SCHEMA_NAME = "protocol_v1_0.schema"
+PROTOCOL_SCHEMA_PATH = os.path.join(BASE_DIR, "webinterface", PROTOCOL_SCHEMA_NAME)
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 

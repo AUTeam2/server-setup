@@ -1,0 +1,17 @@
+{
+    "$schema": "AUTeam2 JSONschema",
+    "title": "PayloadSchema",
+    "type": "object",
+    "properties": {
+        "protocolVersion": {"type": "number"},
+        "sentBy": {"type": "string"},
+        "msgType": {"type": "string"},
+        "commandList": {"type": "array"},
+        "statusCode": {"type": "string"},
+        "parameterObj": {"type": "object"},
+        "dataObj": {"type": "object"},
+        "embeddedFileFormat": {"type": "string"},
+        "embeddedFile": {"type": "string"}
+    },
+	"required": ["protocolVersion", "sentBy", "msgType"]
+}

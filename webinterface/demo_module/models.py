@@ -56,6 +56,9 @@ class Status(models.Model):
             s.latest_power_code = '620'
             s.save()                        # save a new row
 
+    def __str__(self):
+        return f"Latest Status Code: {self.latest_status_code}, Latest Power Code: {self.latest_power_code}."
+
 
 class Result(models.Model):
     """
