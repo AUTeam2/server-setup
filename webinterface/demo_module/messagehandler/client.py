@@ -4,7 +4,7 @@ This module implements a custome MQTT client, which can be of two types:
 - Publisher: Sends messages on a given topic
 
 Uses Django's settings module, where the MQTT-settings are stored
-Uses the B39 JSON schema, which implements the protocol v1.0
+
 """
 
 import paho.mqtt.client as mqtt

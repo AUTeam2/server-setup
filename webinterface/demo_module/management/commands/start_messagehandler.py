@@ -1,10 +1,12 @@
 """
-This module implements B41
 This is a management command, that listens for inbound messages.
-
 This module is responsible for storing inbound status messages and data messages.
 
+This module implements B41.
+Design is documented in B36-B38.
+Uses the B39 JSON schema, which implements the protocol v1.0.
 """
+
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from demo_module.messagehandler.client import MqttClient
