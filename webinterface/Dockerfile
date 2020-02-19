@@ -66,3 +66,4 @@ ENTRYPOINT ["/usr/src/webinterface/entrypoint.sh"]
 
 #Run entrypoint, positional arguments can be added later
 #ENTRYPOINT ["/usr/src/webinterface/entrypoint.sh"]
+
