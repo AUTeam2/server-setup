@@ -59,6 +59,10 @@
                             <a class="nav-link" href="{% url 'test' %}">Test databasen</a>
                         </li>
 
+                         <li class="nav-item {% if request.path == "/demo_module/" %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'demo_modul' %}">Demo-modul</a>
+                        </li>
+
                         <li class="nav-item {% if request.path == "/admin/" %}active{% endif %}">
                             <a class="nav-link" href="/admin/">Admin</a>
                         </li>

@@ -36,6 +36,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'demo_module',
     'django_crontab',
     'database_poc',
     'homepage',
@@ -100,6 +101,20 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+# Internal uses the mqtt service built and hosted inside our docker-compose network
+MQTT = {
+    'internal': {
+        'HOST': 'mqtt',
+        'PORT': '1883',
+        'USER': 'team2',
+        'PASSWORD': 'team2',
+    }
+}
+
+# Path for the protocol schema
+PROTOCOL_SCHEMA_NAME = "protocol_v1_0.schema"
+PROTOCOL_SCHEMA_PATH = os.path.join(BASE_DIR, "webinterface", PROTOCOL_SCHEMA_NAME)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
