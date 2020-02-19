@@ -9,6 +9,7 @@ The containers are live on our development server, the Webinterface is accessed 
 - [Services](#Services)
 - [How to use](#How-to-use)
 - [Ensure Cron](#Ensure-CRON-is-running-as-root)
+- [Start background MQTT message handler](#Start-background-MQTT-message-handler)
 - [Running on Windows with Docker Toolbox](#Running-on-Windows-with-Docker-Toolbox)
 - [Connecting to the MQTT message broker](#Connecting-to-the-MQTT-message-broker)
 - [Test-cases](#Test-cases)
@@ -53,6 +54,19 @@ Inject this command into the running container to ensure that Cron is running as
 `docker-compose exec -d -u 0 webinterface sh -c "/usr/sbin/crond -f -l 8"`
 
 If Cron is not running, the crontab jobs from django-crontab will not be executed.
+
+
+### Start background MQTT message handler
+
+The messagehandler is a background process. It subscribes to one or more topics on the Mosquitto server (i.e. listens to anything relevant, such as 'teststand1/inbound'). The messagehandler processes incoming messages, in line with descriptions in documentation B41. In short, it first validates and inspects the received JSON data versus the protocol schema, then determines whether the message is either a status update or a result data transmission. It then stores the data in the relevant tables in the database for the given teststand.
+
+The background process is started by issuing a "django management command" at the command line. This command is either issued into the running django container, or if inside the container, issued directly to the manage.py interface.
+
+- Inject into container: `docker-compose exec webinterface python manage.py start_messagehandler`
+- Inside container (starts in foreground): `python manage.py start_messagehandler`
+
+The management command is defined in: `webinterface/demo_module/management/commands/start_messagehandler.py`
+
 
 ### Creating and destroying versus starting and stopping
 
