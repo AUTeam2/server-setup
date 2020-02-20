@@ -5,7 +5,10 @@ from demo_module.messagehandler import protocol
 from django.template import loader
 
 
-# Create your views here.
+# Show homepage for the demo module
+def demo_home(request):
+    return render(request, 'demo_module/home.html')
+
 
 def send_mqtt(request):
 
@@ -39,7 +42,7 @@ def send_mqtt(request):
     publisher.disconnect()
 
     # Render a response
-    template = loader.get_template('message_sent.html')
+    template = loader.get_template('demo_module/message_sent.html')
 
     if rc:
         outcome = "Success. Message was sent."

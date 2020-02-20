@@ -3,10 +3,7 @@ from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
-    path(
-        '',
-        views.send_mqtt,
-        name='demo_modul',
-    ),
+    path('', views.demo_home, name='demo_home'),
+    path('send_mqtt', views.send_mqtt, name='demo_send'),
 ]
 
