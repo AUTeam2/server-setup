@@ -34,6 +34,15 @@ html, body {
     color: #FFF;    /* Sandwich menu for mobile devices */
 }
 
+.navbar-nav > li > .dropdown-menu {
+    background-color: rgb(0, 37, 70);
+}
+
+.navbar-nav > li > .dropdown-menu a:hover {
+    background-color: rgb(55,160,203); /* AU light blue */
+}
+
+
 #home {
     background: url(nygaard.jpg) no-repeat center center fixed;
     display: table;
@@ -44,10 +53,13 @@ html, body {
 }
 
 .landing-text {
-    display: table-cell;
+    /*display: table-cell;*/
+    /*background-color: #aaaaaa;*/
+    backdrop-filter: sepia(90%);
     text-align: center;
     vertical-align: middle;
     font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+
 }
 
 .landing-text h1 {
@@ -125,4 +137,26 @@ footer {
     background-color: rgb(0, 61, 115);
     outline-color: rgb(0, 61, 115);
     color: #FFF; /* AU Pantone 287 */
+}
+
+#module_home {
+    background: url(cartoon_bg.png) no-repeat center center fixed;
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+}
+
+.module-text {
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.module-text h1 {
+    font-size: 500%;
+    font-weight: 700;
+    color: rgb(0, 37, 70);
+    padding: 5px 5px;
 }
