@@ -1,0 +1,128 @@
+/* Stylesheet for various pages on the Webinterface
+* Janus, December 2019 */
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.navbar {
+    background-color: rgb(0, 37, 70); /* AU Pantone 289 */
+    padding: 0 0;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.navbar-brand {
+  /*  min-height: 55px; */
+    padding: 5px 5px;
+}
+
+.navbar-brand img {
+    max-height: 50px;
+}
+
+.navbar-default .navbar-nav li a {
+    color: #FFF; /* White, but perhaps change to some AU colour later */
+}
+
+.navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a.active {
+    color: rgb(55,160,203); /* AU light blue */
+}
+
+.navbar-toggler {
+    color: #FFF;    /* Sandwich menu for mobile devices */
+}
+
+#home {
+    background: url(nygaard.jpg) no-repeat center center fixed;
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+}
+
+.landing-text {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.landing-text h1 {
+    font-size: 500%;
+    font-weight: 700;
+    color: rgb(0, 37, 70);
+    padding: 5px 5px;
+}
+
+.landing-text h3 {
+    font-size: 300%;
+    font-weight: 500;
+    color: rgb(0, 37, 70);
+    padding: 5px 5px;
+}
+
+.padding {
+    padding: 50px 0;
+}
+
+.padding img {
+    width: 100%; /* Keep it within its container */
+}
+
+#fixed {
+    background: url(auimg.jpg) no-repeat center center fixed; /* Scrolling effect for the fixed parallax image */
+    display: table;
+    height: 60%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+}
+
+footer {
+    width: 100%;
+    background-color: rgb(0, 37, 70); /* AU dark blue*/
+    padding: 5% 5% 10% 5%;
+    color: #FFF;
+}
+
+/* FontAwesome Brand Logos */
+.fab {
+    padding: 15px;
+    font-size: 25px;
+    color: #FFF;
+}
+
+.fab:hover {
+    color: rgb(55,160,203); /* Like for the navigation */
+    text-decoration: none;
+}
+
+/* FontAwesome icons solid */
+.fas {
+    padding: 15px;
+    color: rgb(0, 37, 70);
+}
+
+/* AU logo in bottom right not too big.. */
+#segl {
+    max-width: 200px;
+}
+
+.icon {
+    max-width: 200px;
+}
+
+.btn-primary {
+    background-color: rgb(0, 37, 70);
+    outline-color: rgb(0, 37, 70);
+    color: #FFF; /* AU Pantone 287 */
+}
+
+.btn-primary:hover {
+    background-color: rgb(0, 61, 115);
+    outline-color: rgb(0, 61, 115);
+    color: #FFF; /* AU Pantone 287 */
+}
