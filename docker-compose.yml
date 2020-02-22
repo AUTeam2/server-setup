@@ -50,6 +50,15 @@ services:
       - "81:80"
       - "444:443"
 
+  videostream:
+    build:
+      context: ./videostream/image
+    restart: always
+    volumes:
+      - ./videostream/:/usr/src/videostream/
+    ports:
+      - "8001:5555"
+
 volumes:
   static_volume:
   data-volume:
