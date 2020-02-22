@@ -104,7 +104,7 @@ Commands can be issued to the containers through docker-compose:
 
 Useful commands on the Webinterface:
 - Start a new project, if you don't have the webinterface/manage.py file and webinterface/webinterface folder: `docker-compose run webinterface sh -c "django-admin.py startproject webinterface ."`.
-- Update database (requires services already running): `docker-compose exec python manage.py migrate --no-input`. 
+- Update database (requires services already running): `docker-compose exec webinterface python manage.py migrate --no-input`. 
 - Create a new superuser (requires services already running): `docker-compose exec webinterface python manage.py createsuperuser --username ditnavn --email din@email.dk`.
 
 Useful commands on database server to look inside the database:
