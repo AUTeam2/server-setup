@@ -104,7 +104,7 @@ echo "Enter go"
 read starttest
 
 if [ "${starttest}" == "go" ]; then
-    curl http://localhost:5555/install-test-stand/67 -d "data="http://188.178.124.160:80/mjpg/video.mjpg"" -X put
+    curl ${URL}:${PORT}/install-test-stand/67 -d "data="http://188.178.124.160:80/mjpg/video.mjpg"" -X put
     seconds=3
     while [ $seconds -gt 0 ]
     do       
@@ -145,7 +145,7 @@ echo "Enter go"
 read starttest
 
 if [ "${starttest}" == "go" ]; then
-    curl http://localhost:5555/install-test-stand/67 -d "data=""" -X put
+    curl ${URL}:${PORT}/install-test-stand/67 -d "data=""" -X put
     seconds=3
     while [ $seconds -gt 0 ]
     do       

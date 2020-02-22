@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 from flask import Flask, request
 from flask import render_template, Response
 from flask_restful import Resource, Api
@@ -58,5 +59,5 @@ def index(ts_id):
 
 
 if __name__ == '__main__':
-    # app.run()
-    app.run(host='127.0.0.1', port=5555, debug=True)
+    app.run()
+    #app.run(host='127.0.0.1', port=5555, debug=True)
