@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 from cv2 import VideoCapture, imencode, resize
 
+# "/vstream/test-stand/0" is just a test channel
+web_cam_url = {"0": "http://188.178.124.160:80/mjpg/video.mjpg"}
+
 
 class Camera_from_url(object):
     """Camera_from_url captures video from a <url>.mjpg source
@@ -13,11 +16,19 @@ class Camera_from_url(object):
     """
 
     def __init__(self):
-        self.video = VideoCapture(
-            'http://188.178.124.160:80/mjpg/video.mjpg')
+        nothing_to_do = "yes"
+
+    def init_teststand(self, url):
+        if url is None:
+            self.video = None
+        elif url is not None:
+            self.video = VideoCapture(url)
 
     def __del__(self):
-        self.video.release()
+        if self.video is None:
+            nothing_to_do = "yes"
+        else:
+            self.video.release()
 
     def get_frame(self):
         _, image = self.video.read()
