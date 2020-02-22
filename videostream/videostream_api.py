@@ -48,7 +48,6 @@ api.add_resource(Init_Webcam, '/install-test-stand/<path:ts_id>')
 @app.route('/vstream/test-stand/<string:ts_id>')
 def index(ts_id):
     global test_stand_id
-    print("ID =", ts_id)
     test_stand_id = web_cam_url.get(ts_id)
     if test_stand_id == "":
         test_stand_id = None
