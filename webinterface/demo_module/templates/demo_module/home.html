@@ -5,10 +5,12 @@
 
 <div id="module_home">
 
-  <div class="container-fluid">
-    <div class="module-text">
-      <h1>Demo-modul</h1>
-      <h3>Velkommen til demo-modulet...</h3>
+  <div class="padding">
+    <div class="container-fluid" id="underlay">
+        <div class="module-text">
+            <h1>Demo-modul</h1>
+            <h3>Velkommen til demo-modulet...</h3>
+        </div>
     </div>
   </div>
 
@@ -23,7 +25,7 @@
               <div class="card-body">
                 <h5 class="card-title">Information</h5>
                 <p class="card-text">Information om prøvestanden og tilgængelige komponenter.</p>
-                <a href="#" class="btn btn-primary">Se mere</a>
+                <a href="{% url 'demo_show_info' %}" class="btn btn-primary">Se mere info</a>
               </div>
             </div>
           </div>
@@ -45,7 +47,7 @@
               <div class="card-body">
                 <h5 class="card-title">Se data</h5>
                 <p class="card-text">Se og hent data for afviklede tests (fra teststub).</p>
-                <a href="#" class="btn btn-primary">Se data</a>
+                <a href="{% url 'demo_show_result' %}" class="btn btn-primary">Se data</a>
               </div>
             </div>
           </div>
