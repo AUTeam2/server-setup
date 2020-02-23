@@ -9,6 +9,7 @@ from demo_module.messagehandler.client import MqttClient
 from demo_module.messagehandler import protocol
 from django.template import loader
 from .forms import TestForm
+import json
 
 # Show landing page for the demo module
 def demo_home(request):
@@ -47,6 +48,11 @@ def demo_make_test(request):
 
 
 def transmit_mqtt(form_obj):
+    """
+    This function is not a view.
+    This function transmits a validated message.
+    """
+
     # Print to console for debug
     print(form_obj)
 
@@ -58,6 +64,23 @@ def transmit_mqtt(form_obj):
     m.sentBy = form_obj['sender']
     m.msgType = form_obj['msg_type']
     m.statusCode = form_obj['status_code']
+
+    # try-except on the json conversions
+    # convert json -> python
+    try:
+        m.commandList = json.loads(form_obj['command_list_str'])
+    except:
+        print("Error converting commandlist -> insert empty")
+
+    try:
+        m.dataObj = json.loads(form_obj['data_obj_str'])
+    except:
+        print("Error converting dataObj -> insert empty")
+
+    try:
+        m.parameterObj = json.loads(form_obj['parameter_obj_str'])
+    except:
+        print("Error converting parameterObj -> insert empty")
 
     # Done inserting data
     m.pack()
@@ -73,7 +96,7 @@ def transmit_mqtt(form_obj):
         pass
 
     # Create client
-    publisher = MqttClient("MessageSender", donothing)
+    publisher = MqttClient("DemoModuleMessageSender", donothing)
 
     # Send and disconnect
     rc = publisher.publish(topic, send_me)
