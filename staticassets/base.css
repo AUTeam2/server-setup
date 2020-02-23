@@ -59,21 +59,24 @@ html, body {
     text-align: center;
     vertical-align: middle;
     font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
-
 }
 
 .landing-text h1 {
-    font-size: 500%;
+    /* font-size: 500%; */
+    font-size: 8vw;
     font-weight: 700;
     color: rgb(0, 37, 70);
     padding: 5px 5px;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
 
 .landing-text h3 {
-    font-size: 300%;
+    font-size: 4vw;
+    /*font-size: 300%;*/
     font-weight: 500;
     color: rgb(0, 37, 70);
     padding: 5px 5px;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
 
 .padding {

@@ -1,0 +1,39 @@
+{%  extends "base.html" %}
+{%  load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div id="module_home">
+
+  <div class="container-fluid">
+    <div class="module-text">
+      <h1>Demo-modul</h1>
+
+    </div>
+  </div>
+
+
+<div class="padding">
+  <div class="container-fluid">
+      <div class="row justify-content-center">
+
+        <div class="container bg-light">
+
+            <h3>Opret ny test</h3>
+
+            <div class="padding">
+                {% crispy form %}
+            </div>
+
+        </div>
+
+      </div>
+  </div>
+</div>
+
+</div>
+
+<!-- managed via the css file -->
+
+{% endblock content %}
+

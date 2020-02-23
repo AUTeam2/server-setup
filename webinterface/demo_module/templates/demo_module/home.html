@@ -12,31 +12,59 @@
     </div>
   </div>
 
+
+<div class="padding">
   <div class="container-fluid">
-      <div class="row">
-          <div class="col-lg-6">
+      <div class="row justify-content-center">
+
+          <div class="col-sm-2">
+            <div class="card" style="width: 18rem;">
+             <!-- <img src="..." class="card-img-top" alt="..."> -->
+              <div class="card-body">
+                <h5 class="card-title">Information</h5>
+                <p class="card-text">Information om prøvestanden og tilgængelige komponenter.</p>
+                <a href="#" class="btn btn-primary">Se mere</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-2">
             <div class="card" style="width: 18rem;">
              <!-- <img src="..." class="card-img-top" alt="..."> -->
               <div class="card-body">
                 <h5 class="card-title">Opret test</h5>
                 <p class="card-text">Opret en ny test til afvikling i demo-prøvestand (stub).</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="{% url 'demo_make_test' %}" class="btn btn-primary">Opret test</a>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-6">
+          <div class="col-sm-2">
             <div class="card" style="width: 18rem;">
              <!-- <img src="..." class="card-img-top" alt="..."> -->
               <div class="card-body">
                 <h5 class="card-title">Se data</h5>
-                <p class="card-text">Se data for afviklede tests (fra teststub).</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <p class="card-text">Se og hent data for afviklede tests (fra teststub).</p>
+                <a href="#" class="btn btn-primary">Se data</a>
               </div>
             </div>
           </div>
+
+          <div class="col-sm-2">
+            <div class="card" style="width: 18rem;">
+             <!-- <img src="..." class="card-img-top" alt="..."> -->
+              <div class="card-body">
+                <h5 class="card-title">Se webcam</h5>
+                <p class="card-text">Se videofeed fra test under afvikling.</p>
+                <a href="#" class="btn btn-primary">Se webcam</a>
+              </div>
+            </div>
+          </div>
+
+
       </div>
   </div>
+</div>
 
 </div>
 
