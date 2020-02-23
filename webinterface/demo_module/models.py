@@ -105,3 +105,12 @@ class Test(models.Model):
     """
 
     inbound_payload = JSONField()
+
+
+class Test2(models.Model):
+    """
+    This model is only for testing the ability of the MQTT Client.
+    The entire inbound payload will be saved to the single field.
+    """
+
+    inbound_payload = JSONField()

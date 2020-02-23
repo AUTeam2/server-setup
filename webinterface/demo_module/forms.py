@@ -33,6 +33,8 @@ class TestForm(forms.Form):
     TOPICS = (
         ('demo_module/inbound', 'demo_module/inbound'),
         ('demo_module/outbound', 'demo_module/outbound'),
+        ('test-stub-in', 'test-stub-in'),
+        ('test-stub-out', 'test-stub-out'),
     )
 
     MSG_TYPES = (
@@ -66,7 +68,8 @@ class TestForm(forms.Form):
     command_list_str = forms.CharField(
         label='Kommandoer (JSON-streng med liste af key-value pairs)',
         widget=forms.TextInput(attrs={
-            'value': '{"cmd1": "val1", "cmd2": "val2"}'
+            'value': '["cmd1", "cmd2"]',
+            'placeholder': '["cmd1", "cmd2"]'
         }),
         required=False
     )
@@ -76,6 +79,7 @@ class TestForm(forms.Form):
         widget=forms.Textarea(attrs={
             'placeholder': '{"param1": "val1", "param2": "val2"}'
         }),
+        initial='{"param1": "val1", "param2": "val2"}',
         required=False
     )
 
@@ -84,6 +88,7 @@ class TestForm(forms.Form):
         widget=forms.Textarea(attrs={
             'placeholder': '{ "x": [1,2,3,4,5,6,7,8,9,10], "y": [1,4,9,16,25,36,49,64,81,100] }'
         }),
+        initial='{ "x": [1,2,3,4,5,6,7,8,9,10], "y": [1,4,9,16,25,36,49,64,81,100] }',
         required=False
     )
 
