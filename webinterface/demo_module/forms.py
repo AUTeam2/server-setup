@@ -38,9 +38,10 @@ class TestForm(forms.Form):
     )
 
     MSG_TYPES = (
+        ('command', 'command'),
         ('data', 'data'),
         ('status', 'status'),
-        ('result', 'result')
+        ('result', 'result'),
     )
 
     #
