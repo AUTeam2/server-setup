@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     '192.168.99.100',
     'auteam2.mooo.com',
     '119.74.164.55',
+    '192.168.1.7',
     'webinterface',
 ]
 
@@ -46,7 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
 ]
+
+# Crispy templates support form validation and rendering using Bootstrap V4
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Cronjob is set with the command "python manage.py crontab add" and will start with the server.
 # An already set Cronjob is removed with the command "python manage.py crontab remove".

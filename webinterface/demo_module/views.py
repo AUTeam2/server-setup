@@ -1,13 +1,85 @@
+"""
+Contains view functions for the demo_module
+URL paths that lead here are in demo_module/urls.py
+"""
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from demo_module.messagehandler.client import MqttClient
 from demo_module.messagehandler import protocol
 from django.template import loader
+from .forms import TestForm
 
-
-# Show homepage for the demo module
+# Show landing page for the demo module
 def demo_home(request):
     return render(request, 'demo_module/home.html')
+
+# Show test creation form for the demo module
+def demo_make_test(request):
+
+    if request.method == 'POST':
+        form = TestForm(request.POST)
+
+        # Validate form
+        if form.is_valid():
+            # Do something with it, e.g. store it and send the MQTT message
+            print("Form submitted!")
+
+            template = loader.get_template('demo_module/message_sent.html')
+
+            # Attempt to transmit MQTT-message based on validated form data
+            if (transmit_mqtt(form.cleaned_data)):
+                outcome = "Succes. Beskeden blev sendt."
+            else:
+                outcome = "Fejl. Beskeden blev ikke."
+
+            # Show result to user
+            context = {'outcome': outcome, }
+            return HttpResponse(template.render(context, request))
+
+    # GET-request, possibly failed submission
+    else:
+        # instantiate a new form to pass into the template context
+        form = TestForm()
+
+    # Render the form template
+    return render(request, 'demo_module/make_test.html', {'form': form})
+
+
+def transmit_mqtt(form_obj):
+    # Print to console for debug
+    print(form_obj)
+
+    # Create a message to send
+    topic = form_obj['topic']
+    # Payload
+    m = protocol.Message()
+    m.new()
+    m.sentBy = form_obj['sender']
+    m.msgType = form_obj['msg_type']
+    m.statusCode = form_obj['status_code']
+
+    # Done inserting data
+    m.pack()
+    send_me = protocol.ProtocolSchema.write_jsonstr(m.payload)
+
+    # debug output to console
+    print(send_me)
+
+    # Send it
+
+    # The donothing callback function
+    def donothing(client, userdata, message):
+        pass
+
+    # Create client
+    publisher = MqttClient("MessageSender", donothing)
+
+    # Send and disconnect
+    rc = publisher.publish(topic, send_me)
+    publisher.disconnect()
+
+    return rc
 
 
 def send_mqtt(request):

@@ -3,16 +3,19 @@
 {% block content %}
 
 <div id="home">
-  <div class="landing-text">
-    <h1>{{ outcome }}</h1>
-    <div class="row">
-      <div class="col-lg-4 text-center"></div>
-      <div class="col-lg-4 text-center alert alert-success">
-        <p>Topic: {{ topic }}</p>
-        <p>Message: {{ msg }}</p>
+
+    <div class="padding">
+      <div class="row">
+        <div class="col-lg-4 text-center"></div>
+        <div class="col-lg-4 text-center alert alert-success">
+          <p>Udfald: {{ outcome }}</p>
+          <!--<p>Topic: {{ topic }}</p>
+          <p>Message: {{ msg }}</p>-->
+        </div>
+        <div class="col-lg-4 text-center"></div>
       </div>
-      <div class="col-lg-4 text-center"></div>
     </div>
+
   </div>
 </div>
 
