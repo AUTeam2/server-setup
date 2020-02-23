@@ -7,7 +7,7 @@ PROTOCOL_SCHEMA_PATH = "protocol_v1_0.schema"
 __VERSION__ = 1.0
 ID = "Teststub"
 TOPOUT = "demo_module/inbound"
-TOPIN = "demo_module/outbound"
+TOPIN = "test-stub-in"
 
 status = "600"
 
@@ -116,10 +116,6 @@ def on_message_callback(client, userdata, message):
 
 # Pass the callback to the client
 ts = MqttClient("teststub", on_message_callback)
-ts.broker_address = "auteam2.mooo.com"
-ts.broker_port = 1883
-ts.username = "team2"
-ts.password = "team2"
 time.sleep(5)
 answer()
 
