@@ -1,3 +1,2 @@
 DEBUG = False
 TESTING = False
-SERVER_NAME = "0.0.0.0:5555"

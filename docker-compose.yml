@@ -26,6 +26,7 @@ services:
     env_file:
       - ./.env.db
 
+
   mqtt:
     image: eclipse-mosquitto:1.6
     hostname: mosquitto
@@ -54,10 +55,12 @@ services:
     build:
       context: ./videostream/image
     restart: always
+    env_file: 
+      - ./videostream/instance/vstream.env
     volumes:
       - ./videostream/:/usr/src/videostream/
     ports:
-      - "8001:5555"
+      - "5555:5555"
 
 volumes:
   static_volume:

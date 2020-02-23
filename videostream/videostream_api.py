@@ -58,6 +58,10 @@ def index(ts_id):
         return render_template('videostream/videostream-not-installed.html')
 
 
+@app.route('/')
+def index2():
+    return render_template('videostream/videostream-not-installed.html')
+
+
 if __name__ == '__main__':
-    app.run()
-    #app.run(host='127.0.0.1', port=5555, debug=True)
+    app.run(host='0.0.0.0', port=5555)
