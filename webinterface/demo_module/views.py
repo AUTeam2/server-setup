@@ -7,6 +7,40 @@ from django.template import loader
 
 # Create your views here.
 
+#main demo_module page
+def index(request):
+    return render(request,'/demo_module/templates/index.html')
+
+#start/create test page
+def start_test(request):
+    return render(request, '/demo_module/templates/start_test.html')
+
+#show running test page
+def running_test(request):
+    return render(request, '/demo_module/templates/running_test.html')
+
+#show saved test page
+def saved_data(request):
+    #import all test, when database is implementet uncomment these
+    #all_test = Date_list.objects.all()
+    #context = {"all_test" : all_test}
+    #return render(request, '/demo_module/templates/saved_data.html',context)
+    return render(request, '/demo_module/templates/saved_data.html')
+
+#Show specific data page, specific datapoints from a test from saved_data
+def show_data(request,data_id):
+    #import specific test data, when database is implementet uncomment these
+    #datatype_list = date_list.objects.get(pk= 'primary_key')
+    #datapoints = datapoints.objects.filter(collection=datatype_list)
+    #context = {"datapoints" : datapoints}
+    #return render(request, '/demo_module/templates/show_data.html',context)
+    return render(request, '/demo_module/templates/show_data.html',)
+
+#busy page, test already running
+def busy(request):
+    return render(request, '/demo_module/templates/busy.html')
+
+#mqtt handler
 def send_mqtt(request):
 
     # Create a message to send
