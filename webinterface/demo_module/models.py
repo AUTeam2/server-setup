@@ -11,18 +11,18 @@ class Status(models.Model):
     """
 
     STATUS_CODES = [
-        ('200', 'OK'),
-        ('202', 'Received and accepted'),
-        ('400', 'Bad request'),
-        ('404', 'Not found'),
-        ('405', 'Method not allowed'),
-        ('500', 'Internal error on device'),
+        ('200', '200 OK'),
+        ('202', '202 Received and accepted'),
+        ('400', '400 Bad request'),
+        ('404', '404 Not found'),
+        ('405', '405 Method not allowed'),
+        ('500', '500 Internal error on device'),
     ]
 
     POWER_CODES = [
-        ('600', 'Device on'),
-        ('610', 'Device in hibernation'),
-        ('620', 'Device off'),
+        ('600', '600 Device on'),
+        ('610', '610 Device in hibernation'),
+        ('620', '620 Device off'),
     ]
 
     latest_status_code = models.CharField(max_length=3, choices=STATUS_CODES, default='200')
@@ -99,6 +99,15 @@ class Result(models.Model):
 
 
 class Test(models.Model):
+    """
+    This model is only for testing the ability of the MQTT Client.
+    The entire inbound payload will be saved to the single field.
+    """
+
+    inbound_payload = JSONField()
+
+
+class Test2(models.Model):
     """
     This model is only for testing the ability of the MQTT Client.
     The entire inbound payload will be saved to the single field.

@@ -4,7 +4,9 @@
 <head>
     <!-- required meta tags -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, inital-scale=1, shrink-to-fit=no">
+
+<!--    <meta name="viewport" content="width=device-width, inital-scale=1, shrink-to-fit=no"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -55,12 +57,27 @@
                             <a class="nav-link" href="/">Hovedmenu</a>
                         </li>
 
-                         <li class="nav-item {% if request.path == "/test/" %}active{% endif %}">
-                            <a class="nav-link" href="{% url 'test' %}">Test databasen</a>
-                        </li>
+                        <!-- drop down menu for many test stands -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-item nav-link dropdown-toggle" href="#" id="navbar-dropdown" data-toggle="dropdown">
+                                Prøvestande
+                            </a>
+                            <div class="dropdown-menu">
 
-                         <li class="nav-item {% if request.path == "/demo_module/" %}active{% endif %}">
-                            <a class="nav-link" href="{% url 'demo_modul' %}">Demo-modul</a>
+
+                                    <a class="
+                                        dropdown-item
+                                        nav-link
+                                        {% if request.path == '/demo_module/' %}active{% endif %}"
+                                       href="{% url 'demo_home' %}">Demo-modul</a>
+
+                                    <a class="
+                                        dropdown-item
+                                        nav-link
+                                        {% if request.path == '/test/' %}active{% endif %}"
+                                       href="{% url 'test' %}">Test databasen</a>
+
+                            </div>
                         </li>
 
                         <li class="nav-item {% if request.path == "/admin/" %}active{% endif %}">
@@ -70,8 +87,7 @@
 
                     </ul>
                 </div>
-            <!-- </div> -->
-        </div>
+            </div>
     </nav>
 
     <!-- All our content is injected into the blocks on rendering -->

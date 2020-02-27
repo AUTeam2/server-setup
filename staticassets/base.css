@@ -34,8 +34,17 @@ html, body {
     color: #FFF;    /* Sandwich menu for mobile devices */
 }
 
+.navbar-nav > li > .dropdown-menu {
+    background-color: rgb(0, 37, 70);
+}
+
+.navbar-nav > li > .dropdown-menu a:hover {
+    background-color: rgb(55,160,203); /* AU light blue */
+}
+
+
 #home {
-    background: url(nygaard.jpg) no-repeat center center fixed;
+    background: url(visitherning_resize.jpg) no-repeat center center fixed;
     display: table;
     height: 100%;
     position: relative;
@@ -44,24 +53,30 @@ html, body {
 }
 
 .landing-text {
-    display: table-cell;
+    /*display: table-cell;*/
+    /*background-color: #aaaaaa;*/
+    /* backdrop-filter: sepia(90%); */
     text-align: center;
     vertical-align: middle;
     font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
 
 .landing-text h1 {
-    font-size: 500%;
+    /* font-size: 500%; */
+    font-size: 6vw;
     font-weight: 700;
-    color: rgb(0, 37, 70);
+    color: whitesmoke;/* rgb(0, 37, 70);*/
     padding: 5px 5px;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
 
 .landing-text h3 {
-    font-size: 300%;
+    font-size: 4vw;
+    /*font-size: 300%;*/
     font-weight: 500;
     color: rgb(0, 37, 70);
     padding: 5px 5px;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
 
 .padding {
@@ -73,7 +88,7 @@ html, body {
 }
 
 #fixed {
-    background: url(auimg.jpg) no-repeat center center fixed; /* Scrolling effect for the fixed parallax image */
+    background: url(jacob_resize.jpg) no-repeat center center fixed; /* Scrolling effect for the fixed parallax image */
     display: table;
     height: 60%;
     position: relative;
@@ -117,12 +132,50 @@ footer {
 
 .btn-primary {
     background-color: rgb(0, 37, 70);
-    outline-color: rgb(0, 37, 70);
-    color: #FFF; /* AU Pantone 287 */
+    border-color: rgb(0, 37, 70);
+    outline-color: #FFF; /* rgb(0, 37, 70);*/
+    color: #FFF;
 }
 
 .btn-primary:hover {
     background-color: rgb(0, 61, 115);
+    border-color: rgb(0, 61, 115);
     outline-color: rgb(0, 61, 115);
-    color: #FFF; /* AU Pantone 287 */
+    color: #FFF;
+}
+
+#module_home {
+    background: url(cartoon_bg.png) no-repeat center center fixed;
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+}
+
+#underlay {
+    background-color: rgba(100,100,100,0.5);
+}
+
+.underlay {
+    background-color: rgba(100,100,100,0.5);
+    color: whitesmoke;
+}
+
+.underlay h3 {
+    color: whitesmoke;
+}
+
+.module-text {
+    text-align: center;
+    color: whitesmoke;
+    vertical-align: middle;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.module-text h1 {
+    font-size: 500%;
+    font-weight: 700;
+    color: whitesmoke; /* rgb(0, 37, 70);*/
+    padding: 5px 5px;
 }
