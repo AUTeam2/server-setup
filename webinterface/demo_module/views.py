@@ -15,12 +15,14 @@ from .models import Result, Status
 
 import json
 
+
 # Show landing page for the demo module
-def demo_home(request):
+def demo_main_page(request):
     return render(request, 'demo_module/home.html')
 
+
 # Show test creation form for the demo module
-def demo_make_test(request):
+def demo_create_test(request):
 
     if request.method == 'POST':
         form = TestForm(request.POST)
@@ -51,73 +53,42 @@ def demo_make_test(request):
     return render(request, 'demo_module/make_test.html', {'form': form})
 
 
-def transmit_mqtt(form_obj):
-    """
-    This function is not a view.
-    This function transmits a validated message.
-    """
-
-    # Print to console for debug
-    print(form_obj)
-
-    # Create a message to send
-    topic = form_obj['topic']
-    # Payload
-    m = protocol.Message()
-    m.new()
-    m.sentBy = form_obj['sender']
-    m.msgType = form_obj['msg_type']
-    m.statusCode = form_obj['status_code']
-
-    # try-except on the json conversions
-    # convert json -> python
-    try:
-        m.commandList = json.loads(form_obj['command_list_str'])
-    except:
-        print("Error converting commandlist -> insert empty")
-
-    try:
-        m.dataObj = json.loads(form_obj['data_obj_str'])
-    except:
-        print("Error converting dataObj -> insert empty")
-
-    try:
-        m.parameterObj = json.loads(form_obj['parameter_obj_str'])
-    except:
-        print("Error converting parameterObj -> insert empty")
-
-    # Done inserting data
-    m.pack()
-    send_me = protocol.ProtocolSchema.write_jsonstr(m.payload)
-
-    # debug output to console
-    print(send_me)
-
-    # Send it
-
-    # The donothing callback function
-    def donothing(client, userdata, message):
-        pass
-
-    # Create client
-    publisher = MqttClient("DemoModuleMessageSender", donothing)
-
-    # Send and disconnect
-    rc = publisher.publish(topic, send_me)
-    publisher.disconnect()
-
-    return rc
+# show running test page will include webcam feed
+def demo_running_test(request):
+    #Not done
+    return render(request, 'demo_module/running_test.html')
 
 
+# show saved test page
+def saved_data(request):
+    # import all test, when database is implementet uncomment these
+    # all_test = Date_list.objects.all()
+    # context = {"all_test" : all_test}
+    # return render(request, '/demo_module/templates/saved_data.html',context)
+    return render(request, 'demo_module/saved_data.html')
+
+
+# Show specific data page, specific datapoints from a test from saved_data
+class show_data(ListView):
+    #model = Result
+    template_name = 'demo_module/show_data.html'
+
+
+#All saved tests
 class ResultListView(ListView):
     model = Result
     queryset = Result.objects.all().order_by('-job_received_time')
 
 
+#Info page about the demo module
 class StatusListView(ListView):
     model = Status
     queryset = Status.objects.all()
 
+
+# busy page, test already running
+def demo_busy(request):
+    return render(request, 'demo_module/busy.html')
 
 # def send_mqtt(request):
 #
@@ -163,4 +134,3 @@ class StatusListView(ListView):
 #                'msg': send_me}
 #
 #     return HttpResponse(template.render(context, request))
-
