@@ -93,16 +93,6 @@ class TestForm(forms.Form):
         required=False
     )
 
-    """
-    data_obj = forms.TextField(
-        label='Kommandoer ({}-indpakket liste af key-value pairs)',
-        required=False,
-        widget=forms.TextInput(attrs={
-            'placeholder': '{"cmd1": "val1", "cmd2": "val2"}'
-        })
-    )
-    """
-
     # Who requested this data
     sender = forms.CharField(
         label='Opretter (navn)',
