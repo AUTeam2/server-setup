@@ -7,7 +7,7 @@ Django 2.2 uses the function path, not url.
 
 from django.urls import path
 from django.views.generic import TemplateView
-from sphinx.testing.path import path
+
 
 from . import views
 
