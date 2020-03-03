@@ -11,8 +11,9 @@ from . import views
 
 urlpatterns = [
     path('', views.demo_home, name='demo_home'),
-    path('make_test', views.demo_make_test, name='demo_make_test'),
-    path('show_result', views.ResultListView.as_view(), name='demo_show_result'),
-    path('show_info', views.StatusListView.as_view(), name='demo_show_info'),
+    path('make_test/', views.demo_make_test, name='demo_make_test'),
+    path('show_result/', views.ResultListView.as_view(), name='demo_show_result'),
+    path('show_info/', views.StatusListView.as_view(), name='demo_show_info'),
+    path('bokeh/', views.bokeh, name='demo_bokeh'),
     #path('send_mqtt', views.send_mqtt, name='demo_send'),
 ]

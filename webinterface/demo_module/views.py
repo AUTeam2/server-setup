@@ -3,7 +3,7 @@ Contains view functions for the demo_module
 URL paths that lead here are in demo_module/urls.py
 """
 
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.template import loader
@@ -13,7 +13,48 @@ from demo_module.messagehandler import protocol
 from .forms import TestForm
 from .models import Result, Status
 
+# Bokeh for charts
+from bokeh.plotting import figure
+from bokeh.embed import components
+from bokeh.models import HoverTool, ResetTool, FreehandDrawTool
+
+# Numpy for data
+import numpy as np
+from numpy import fft as fft
+
 import json
+
+def bokeh(request):
+
+    N = 44100    # Num samples
+    fs = 44100  # Sampling freq
+    Ts = 1/fs   # Sampling time
+    A = 5       # Amplitude
+    f0 = 10000     # Hz
+
+    t = np.linspace(0, N*Ts, N)
+    n = np.arange(0, N)
+    x = A*np.sin(2*np.pi*f0/fs*n)
+
+    X = np.abs(fft.fft(x, N))
+    f = fft.fftfreq(N, d=Ts)
+
+    #plot = figure(title='Sinuskurve 😍', x_axis_label='t [s]', y_axis_label='x(t)',
+    #              toolbar_location="below")
+
+    plot = figure(title='FFT 😍', x_axis_label='f [Hz]', y_axis_label='X(f)',
+                  toolbar_location="below")
+
+
+    plot.add_tools(HoverTool())
+
+    plot.line(f, X, legend_label='fft(x)', color='blue')
+
+    script, div = components(plot)
+
+
+
+    return render(request, 'demo_module/bokeh.html', {'script': script, 'div': div})
 
 # Show landing page for the demo module
 def demo_home(request):

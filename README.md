@@ -173,9 +173,16 @@ You can use:
 
 ## Test-cases
 
-The test cases and results for these files are stored in the folder *test-cases/*. To run, do e.g.:
+There are two kinds of test cases:
+- Cases for the entire infrastructure and services setup, based on shell script runners.
+- Test cases / unit tests for Webinterface (Django)
+
+Infrastructure: The test cases and results for these files are stored in the folder *test-cases/*. To run, do e.g.:
 - `test-cases/u2-tc-1.sh | tee -i test-cases/u2-tc-1-result.txt`
 - `tee -i` sends output both to the terminal and to a file, and ignores SIGINT (*Ctrl-C*).
+
+Django unit tests:
+- Run via: `docker-compose exec webinterface python manage.py test`
 
 
 ## Troubleshooting the server build
