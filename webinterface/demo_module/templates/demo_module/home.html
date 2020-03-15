@@ -16,11 +16,12 @@
 
 
 <div class="padding">
-  <div class="container-fluid">
+  <div class="container">
       <div class="row justify-content-center">
 
-          <div class="col-sm-2">
-            <div class="card" style="width: 18rem;">
+          <div class="card-deck">
+
+            <div class="card">
              <!-- <img src="..." class="card-img-top" alt="..."> -->
               <div class="card-body">
                 <h5 class="card-title">Information</h5>
@@ -28,10 +29,10 @@
                 <a href="{% url 'demo_show_info' %}" class="btn btn-primary">Se mere info</a>
               </div>
             </div>
-          </div>
 
-          <div class="col-sm-2">
-            <div class="card" style="width: 18rem;">
+
+
+            <div class="card">
              <!-- <img src="..." class="card-img-top" alt="..."> -->
               <div class="card-body">
                 <h5 class="card-title">Opret test</h5>
@@ -39,10 +40,10 @@
                 <a href="{% url 'demo_make_test' %}" class="btn btn-primary">Opret test</a>
               </div>
             </div>
-          </div>
 
-          <div class="col-sm-2">
-            <div class="card" style="width: 18rem;">
+
+
+            <div class="card">
              <!-- <img src="..." class="card-img-top" alt="..."> -->
               <div class="card-body">
                 <h5 class="card-title">Se data</h5>
@@ -50,11 +51,21 @@
                 <a href="{% url 'demo_show_result' %}" class="btn btn-primary">Se data</a>
               </div>
             </div>
-          </div>
 
-          <div class="col-sm-2">
-            <div class="card" style="width: 18rem;">
-             <!-- <img src="..." class="card-img-top" alt="..."> -->
+
+
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">GUI-demo</h5>
+                <p class="card-text">Se demo på GUI-elementer</p>
+                <a href="{% url 'demo_gui' %}" class="btn btn-primary">Se demo</a>
+              </div>
+            </div>
+
+
+          <!--
+          <div class="col-sm-3">
+            <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Se webcam</h5>
                 <p class="card-text">Se videofeed fra test under afvikling.</p>
@@ -62,8 +73,9 @@
               </div>
             </div>
           </div>
+        -->
 
-
+        </div>
       </div>
   </div>
 </div>

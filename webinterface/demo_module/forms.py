@@ -130,3 +130,80 @@ class TestForm(forms.Form):
             'no_delete',
             Submit('submit', 'Start test')
         )
+
+
+
+class AccelerometerForm(forms.Form):
+    """
+    Denne klasse implementerer formularen til GUI-demo, som vises på Webinterface
+    """
+    SENSOR_TYPES = (
+        ('adxl345', 'adxl345'),
+        ('Kx224', 'Kx224'),
+    )
+
+    FREQ_LIST = (
+        ('10', '10 Hz'),
+        ('100', '100 Hz'),
+        ('1000', '1 kHz'),
+        ('10000', '10 kHz'),
+    )
+
+    sensor_type = forms.ChoiceField(
+        label='Sensortype',
+        choices=SENSOR_TYPES
+    )
+
+    duration = forms.CharField(
+        label='Varighed af test (sekunder)',
+        widget=forms.TextInput(attrs={
+            'value': '10',
+            'placeholder': 'Indtast antal sekunder her'
+        }),
+        required=True
+    )
+
+    step = forms.CharField(
+        label='Steps',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Indtast steps her'
+        }),
+        required=True
+    )
+
+    stepTime = forms.CharField(
+        label='Steptime i [ms]',
+        widget=forms.TextInput(attrs={
+            'value': '10',
+            'placeholder': 'Indtast stepTime her'
+        }),
+        required=True
+    )
+
+    stepSize = forms.CharField(
+        label='Steptime [int]',
+        widget=forms.TextInput(attrs={
+            'value': '10',
+            'placeholder': 'Indtast stepSize her'
+        }),
+        required=True
+    )
+
+    freq = forms.ChoiceField(
+        label='Frekvens [Hz]',
+        choices=FREQ_LIST
+    )
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'sensor_type',
+            'duration',
+            'step',
+            'stepTime',
+            'stepSize',
+            'freq',
+            Submit('submit', 'En knap :)')
+        )
