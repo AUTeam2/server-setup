@@ -24,14 +24,20 @@ urlpatterns = [
     #/demo_module/saved_data/
     path('saved_data/',views.ResultListView.as_view(),name='demo_show_result'),
 
+    # /demo_module/info
+    path('show_info', views.StatusListView.as_view(), name='demo_show_info'),
+
+    # Show various GUI elements
+    path('gui_demo/', views.gui_demo, name='demo_gui'),
+
+
+    # Below here must be fully implemented
     #/demo_module/saved_data/{test_id}/
     path('saved_data/<pk>/',views.show_data.as_view(),name='demo_specific_data'),
 
-    #/demo_module/info
-    path('show_info', views.StatusListView.as_view(), name='demo_show_info'),
-
     #/demo_module/busy/
-    path('busy/',views.demo_busy,name='demo_busy')
+    path('busy/',views.demo_busy,name='demo_busy'),
+
 
     #path for MQTT
     #path('',views.send_mqtt,name='demo_modul')

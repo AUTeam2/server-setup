@@ -17,7 +17,10 @@ ENV PYTHONUNBUFFERED 1
 
 #Install dependencies for PostgreSQL (Psycopg2)
 RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev shadow curl
+    && apk add postgresql-dev gcc python3-dev musl-dev shadow curl \
+    zlib-dev jpeg-dev
+
+    #tiff freetype liblcms libwebp tk openjpeg
 
 #Install suid for crontab to work
 RUN apk add --update busybox-suid
@@ -28,7 +31,7 @@ RUN set -ex && apk --no-cache add sudo
 RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/webinterface/requirements.txt
 RUN pip install -r requirements.txt
-
+# LDFLAGS=-L/usr/lib/x86-64-linux-gnu/, --no-binary
 #Copy the entry point file
 COPY ./entrypoint.sh /usr/src/webinterface/entrypoint.sh
 
