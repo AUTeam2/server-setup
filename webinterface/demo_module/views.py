@@ -15,12 +15,14 @@ from .models import Result, Status
 
 import json
 
+
 # Show landing page for the demo module
-def demo_home(request):
+def demo_main_page(request):
     return render(request, 'demo_module/home.html')
 
+
 # Show test creation form for the demo module
-def demo_make_test(request):
+def demo_create_test(request):
 
     if request.method == 'POST':
         form = TestForm(request.POST)
@@ -109,15 +111,33 @@ def transmit_mqtt(form_obj):
     return rc
 
 
+# show running test page will include webcam feed
+def demo_running_test(request):
+    #Not done
+    return render(request, 'demo_module/running_test.html')
+
+
+# Show specific data page, specific datapoints from a test from saved_data
+class show_data(ListView):
+    #model = Result
+    template_name = 'demo_module/show_data.html'
+
+
+#All saved tests
 class ResultListView(ListView):
     model = Result
     queryset = Result.objects.all().order_by('-job_received_time')
 
 
+#Info page about the demo module
 class StatusListView(ListView):
     model = Status
     queryset = Status.objects.all()
 
+
+# busy page, test already running
+def demo_busy(request):
+    return render(request, 'demo_module/busy.html')
 
 # def send_mqtt(request):
 #
@@ -163,4 +183,3 @@ class StatusListView(ListView):
 #                'msg': send_me}
 #
 #     return HttpResponse(template.render(context, request))
-
