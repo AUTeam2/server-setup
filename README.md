@@ -22,6 +22,7 @@ The docker-compose now contains the following services:
 - Django webinterface (port 8000) - if you want to see the devserver (but not needed).
 - Mosquitto MQTT message broker (server).
 - PostgreSQL database server.
+- Videostream (port 5555) - See documentation in TB5-SRV-14
 
 ### Docker-compose
 The *docker-compose.yml* file handles:

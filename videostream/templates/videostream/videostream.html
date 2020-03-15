@@ -1,0 +1,104 @@
+{%  extends "base.html" %}
+{% block content %}
+
+<div id="home">
+    <div class="landing-text">
+        <h1>AU Online Engineering Lab</h1>
+        <h3>Velkommen til AU Online Engineering Lab i Herning...</h3>
+    </div>
+</div>
+
+<!-- managed via the css file -->
+
+<div class="padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Prøvestand, Videostream</h1>
+                <img id="bg" src="{{ url_for('video_feed') }}">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="padding">
+    <div class="container">
+        <div class="row">
+            <!-- 4 columns (=12/3) for large and medium screens, 2 cols for small screens, 1 col for xs screens -->
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <h4>Bygget af studerende.</h4>
+                Webinterface og Prøvestande er bygget af ingeniørstuderende på 3.-4. semester.
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <i class="fas fa-toolbox fa-7x"></i>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <h4>Bygget til studerende.</h4>
+                Online Engineering Lab bygger bro mellem studerende, der læser online, og de, der læser på Campus.
+                Med Online Lab har alle studerende adgang til at teste og udvælge komponenter på samme måde,
+                med samme datagrundlag.
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <i class="fas fa-user-graduate fa-7x"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- picture here is managed via the css file -->
+<div id="fixed">
+</div>
+
+<div class="padding">
+    <div class="container">
+        <div class="row">
+            <!-- Two columns -->
+
+            <div class="col-sm-6">
+                <h4>Sådan virker det.</h4>
+                <p class="lead">
+                    I Engineering Lab i Birk i Herning findes en række prøvestande med elektroniske komponenter.
+                    Prøvestandene er forbundet til internettet og kan kontrolleres via dette Webinterface.
+                    Så man kan teste komponenter uanset om man er på Campus eller på farten.
+                </p>
+            </div>
+
+            <div class="col-sm-6">
+                <img class="img-responsive col-sm-6"
+                    src="https://ingenioer.au.dk/fileadmin/_processed_/csm_AU_Herning_AT_9079_web_b8986584d1.jpg">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<footer class="container-fluid text-center">
+    <div class="row">
+        <div class="col-sm-4">
+            <h3>Kontakt os</h3>
+            <br />
+            <h4>Vores kontaktdetaljer her.</h4>
+        </div>
+        <div class="col-sm-4">
+            <h3>Find os</h3>
+            <a href="https://www.facebook.com/Ingenior.AUherning/"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-google"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+
+        </div>
+        <div class="col-sm-4">
+            <img id="segl" class="img-responsive col-sm-4"
+                src="{{url_for('static', filename='assets/ausegl_hvid.png') }}">
+        </div>
+    </div>
+</footer>
+
+<!-- https://medarbejdere.au.dk/administration/kommunikation/omdesignet/farver/ -->
+
+{% endblock content %}
