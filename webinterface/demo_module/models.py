@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField, JSONField
-import time
 
 class Status(models.Model):
+    class Meta:
+        verbose_name_plural = "Status"
+
     """
     Status contains the inbound synchronization table.
     Documented in B36, B37, B38.
@@ -114,3 +116,68 @@ class Test2(models.Model):
     """
 
     inbound_payload = JSONField()
+
+
+# ---------------- database package structure ---------------- #
+# [Inbound_teststand_package]
+#                         |_ [Test_stand_data]
+#                         |_ [Test_stand_parameter]
+# [ND_TS]
+
+
+# Primary table
+class Inbound_teststand_package(models.Model):
+    class Meta:
+        verbose_name_plural = "Teststand packages"
+
+    Timestamp = models.CharField(max_length=200, null=True, blank=True)
+    NODELETE = models.BooleanField(default=False)
+    Sent_by = models.CharField(max_length=200)
+    command_list = ArrayField(models.CharField(max_length=20), null=True, blank=True)
+    Validation_failed = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.Timestamp
+
+# Secondary table [data]
+class Test_stand_data(models.Model):
+    class Meta:
+        verbose_name_plural = "Teststand data types"
+
+    Data_name = models.CharField(max_length=100, null=True)
+    Data_points = JSONField(blank=True, null=True)
+    Inbound_teststand_package = models.ForeignKey(Inbound_teststand_package, on_delete=models.CASCADE,
+                                                  related_name='data')
+
+    def __str__(self):
+        return '{} - {}'.format(self.Inbound_teststand_package, self.Data_name)
+
+# Secondary table [parameters]
+class Test_stand_parameters(models.Model):
+    class Meta:
+        verbose_name_plural = "Teststand parameters"
+
+    Parameter_name = models.CharField(max_length=100, default="Empty")
+    Parameter_value = models.CharField(max_length=100, default="Empty")
+    Inbound_teststand_package = models.ForeignKey(Inbound_teststand_package, on_delete=models.CASCADE,
+                                                  related_name='parameters')
+
+    def __str__(self):
+        return '{} - {}'.format(self.Inbound_teststand_package, self.Parameter_name)
+
+
+# Temporary table for no delete and timestamp
+# Gets values when test is started from "view.py"
+# Passes values to primary table, when test is inbound from "start_messagehandler.py"
+class ND_TS(models.Model):
+    class Meta:
+        verbose_name_plural = "NoDelete & TimeStamp"
+
+    ID = models.IntegerField(primary_key=True)
+    TimeStamp = models.CharField(max_length=200, null=True, blank=True)
+    NoDelete = models.BooleanField(default=False)
+    StatusCode = models.CharField(max_length=50, default="empty")
+
+
+    def __str__(self):
+        return self.TimeStamp

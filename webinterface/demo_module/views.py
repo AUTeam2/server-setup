@@ -7,11 +7,13 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.template import loader
+from datetime import datetime
 
 from demo_module.messagehandler.client import MqttClient
 from demo_module.messagehandler import protocol
 from .forms import TestForm, AccelerometerForm
-from .models import Result, Status
+from .models import Result, Status, Inbound_teststand_package, ND_TS
+
 
 # Bokeh for charts
 from bokeh.plotting import figure
@@ -75,6 +77,18 @@ def demo_create_test(request):
             print("Form submitted!")
 
             template = loader.get_template('demo_module/message_sent.html')
+
+            #------- Temporary saving table ------#
+            # save time sent
+            temp = ND_TS()
+            timestamp = datetime.now()
+            temp.TimeStamp = timestamp.strftime("%x-%I:%M:%S")
+            temp.ID = 0
+
+            # save no delete field
+            temp.NoDelete = form.cleaned_data.get("no_delete")
+            temp.save()
+            # ------- -------------------- ------#
 
             # Attempt to transmit MQTT-message based on validated form data
             if (transmit_mqtt(form.cleaned_data)):
@@ -167,8 +181,8 @@ class show_data(ListView):
 
 #All saved tests
 class ResultListView(ListView):
-    model = Result
-    queryset = Result.objects.all().order_by('-job_received_time')
+    model = Inbound_teststand_package
+    queryset = Inbound_teststand_package.objects.all().order_by('-Timestamp')
 
 
 #Info page about the demo module
