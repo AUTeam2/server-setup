@@ -139,6 +139,15 @@ class Inbound_teststand_package(models.Model):
     class Meta:
         verbose_name_plural = "Teststand packages"
 
+    """
+    This class's fields are:
+    Timestamp = Field for the start time of the test (gets passed from the temporary table [ND_TS]).
+    NODELETE = Field for the no delete option for cron (gets passed from the temporary table [ND_TS]).
+    Sent_by = Field for who started the test.
+    command_list = Field for which commands was passed to the test.
+    Validation_failed = boolean field, which will be true, if the JSON package failed validation.
+    """
+
     Timestamp = models.CharField(max_length=200, null=True, blank=True)
     NODELETE = models.BooleanField(default=False)
     Sent_by = models.CharField(max_length=200)
@@ -153,6 +162,14 @@ class Test_stand_data(models.Model):
     class Meta:
         verbose_name_plural = "Teststand data types"
 
+    """
+    This class's fields are:
+    Data_name = The name of the data saved in the object.
+    Data_value = The value of the data saved in the object.
+    Inbound_teststand_package = The foreign key binding the object together with the primary table,
+                                making it possible to do reverse lookups.
+    """
+
     Data_name = models.CharField(max_length=100, null=True)
     Data_points = JSONField(blank=True, null=True)
     Inbound_teststand_package = models.ForeignKey(Inbound_teststand_package, on_delete=models.CASCADE,
@@ -165,6 +182,14 @@ class Test_stand_data(models.Model):
 class Test_stand_parameters(models.Model):
     class Meta:
         verbose_name_plural = "Teststand parameters"
+
+    """
+    This class's fields are:
+    Parameter_name = The name of the parameter saved in the object.
+    Parameter_value = The value of the parameter saved in the object.
+    Inbound_teststand_package = The foreign key binding the object together with the primary table,
+                                making it possible to do reverse lookups.
+    """
 
     Parameter_name = models.CharField(max_length=100, default="Empty")
     Parameter_value = models.CharField(max_length=100, default="Empty")
@@ -181,6 +206,15 @@ class Test_stand_parameters(models.Model):
 class ND_TS(models.Model):
     class Meta:
         verbose_name_plural = "NoDelete & TimeStamp"
+
+    """
+    This class's fields are:
+    ID = The models primary key, to be able to update the same objects values.
+    TimeStamp = A field to save the specific time a test has been started.
+    NoDelete = A field to save the form option when starting a test, so it's possible to pass it to a test, 
+                when it's done.
+    StatusCode = a field for saving the status code (may be deleted later). 
+    """
 
     ID = models.IntegerField(primary_key=True)
     TimeStamp = models.CharField(max_length=200, null=True, blank=True)
