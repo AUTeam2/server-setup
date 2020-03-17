@@ -175,7 +175,7 @@ def demo_running_test(request):
 
 # Show specific data page, specific datapoints from a test from saved_data
 class show_data(ListView):
-    #model = Result
+    #model = Result  [new result database is "Inbound_teststand_package"]
     template_name = 'demo_module/show_data.html'
 
 

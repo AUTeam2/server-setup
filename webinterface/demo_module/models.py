@@ -1,6 +1,11 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField, JSONField
 
+# --------------------- Status model -------------------------- #
+# To do: Combine with other models, or do checks to know which
+#         model to insert data into?
+#        Figure out how to only update status, by doing status
+#         check's
 class Status(models.Model):
     class Meta:
         verbose_name_plural = "Status"
@@ -61,7 +66,10 @@ class Status(models.Model):
     def __str__(self):
         return f"Latest Status Code: {self.latest_status_code}, Latest Power Code: {self.latest_power_code}."
 
+# ------------------------------------------------------------ #
 
+
+# ----------------------- obsolete? --------------------------- #
 class Result(models.Model):
     """
     Result creates a model and table with results.
@@ -116,6 +124,7 @@ class Test2(models.Model):
     """
 
     inbound_payload = JSONField()
+# ------------------------------------------------------------ #
 
 
 # ---------------- database package structure ---------------- #
@@ -181,3 +190,5 @@ class ND_TS(models.Model):
 
     def __str__(self):
         return self.TimeStamp
+
+# ------------------------------------------------------------ #
