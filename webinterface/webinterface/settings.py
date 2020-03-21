@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
     '119.74.164.55',
     '192.168.1.7',
     'webinterface',
+    '192.168.0.16',
 ]
 
 # Application definition
@@ -59,6 +60,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CRONJOBS = [
     # The scheduler is set to run the command "Database_clean_up" every minute of all hours of the day
     ('*/1 * * * *', 'database_poc.cron.Database_clean_up', '2>&1'),
+    ('*/1 * * * *', 'demo_module.cron.Database_clean_up', '2>&1'),
 ]
 
 MIDDLEWARE = [

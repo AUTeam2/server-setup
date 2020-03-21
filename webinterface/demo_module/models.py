@@ -1,8 +1,15 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField, JSONField
-import time
 
+# --------------------- Status model -------------------------- #
+# To do: Combine with other models, or do checks to know which
+#         model to insert data into?
+#        Figure out how to only update status, by doing status
+#         check's
 class Status(models.Model):
+    class Meta:
+        verbose_name_plural = "Status"
+
     """
     Status contains the inbound synchronization table.
     Documented in B36, B37, B38.
@@ -59,7 +66,10 @@ class Status(models.Model):
     def __str__(self):
         return f"Latest Status Code: {self.latest_status_code}, Latest Power Code: {self.latest_power_code}."
 
+# ------------------------------------------------------------ #
 
+
+# ----------------------- obsolete? --------------------------- #
 class Result(models.Model):
     """
     Result creates a model and table with results.
@@ -114,3 +124,105 @@ class Test2(models.Model):
     """
 
     inbound_payload = JSONField()
+# ------------------------------------------------------------ #
+
+
+# ---------------- database package structure ---------------- #
+# [Inbound_teststand_package]
+#                         |_ [Test_stand_data]
+#                         |_ [Test_stand_parameter]
+# [ND_TS]
+
+
+# Primary table
+class Inbound_teststand_package(models.Model):
+    class Meta:
+        verbose_name_plural = "Teststand packages"
+
+    """
+    This class's fields are:
+    Timestamp = Field for the start time of the test (gets passed from the temporary table [ND_TS]).
+    NODELETE = Field for the no delete option for cron (gets passed from the temporary table [ND_TS]).
+    Sent_by = Field for who started the test.
+    command_list = Field for which commands was passed to the test.
+    Validation_failed = boolean field, which will be true, if the JSON package failed validation.
+    """
+
+    Timestamp = models.CharField(max_length=200, null=True, blank=True)
+    NODELETE = models.BooleanField(default=False)
+    Sent_by = models.CharField(max_length=200)
+    command_list = ArrayField(models.CharField(max_length=20), null=True, blank=True)
+    Validation_failed = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.Timestamp
+
+# Secondary table [data]
+class Test_stand_data(models.Model):
+    class Meta:
+        verbose_name_plural = "Teststand data types"
+
+    """
+    This class's fields are:
+    Data_name = The name of the data saved in the object.
+    Data_value = The value of the data saved in the object.
+    Inbound_teststand_package = The foreign key binding the object together with the primary table,
+                                making it possible to do reverse lookups.
+    """
+
+    Data_name = models.CharField(max_length=100, null=True)
+    Data_points = JSONField(blank=True, null=True)
+    Inbound_teststand_package = models.ForeignKey(Inbound_teststand_package, on_delete=models.CASCADE,
+                                                  related_name='data')
+
+    def __str__(self):
+        return '{} - {}'.format(self.Inbound_teststand_package, self.Data_name)
+
+# Secondary table [parameters]
+class Test_stand_parameters(models.Model):
+    class Meta:
+        verbose_name_plural = "Teststand parameters"
+
+    """
+    This class's fields are:
+    Parameter_name = The name of the parameter saved in the object.
+    Parameter_value = The value of the parameter saved in the object.
+    Inbound_teststand_package = The foreign key binding the object together with the primary table,
+                                making it possible to do reverse lookups.
+    """
+
+    Parameter_name = models.CharField(max_length=100, default="Empty")
+    Parameter_value = models.CharField(max_length=100, default="Empty")
+    Inbound_teststand_package = models.ForeignKey(Inbound_teststand_package, on_delete=models.CASCADE,
+                                                  related_name='parameters')
+
+    def __str__(self):
+        return '{} - {}'.format(self.Inbound_teststand_package, self.Parameter_name)
+
+
+# Temporary table for no delete and timestamp
+# Gets values when test is started from "view.py"
+# Passes values to primary table, when test is inbound from "start_messagehandler.py"
+class ND_TS(models.Model):
+    class Meta:
+        verbose_name_plural = "NoDelete & TimeStamp"
+
+    """
+    This class's fields are:
+    ID = The models primary key, to be able to update the same objects values.
+    TimeStamp = A field to save the specific time a test has been started.
+    NoDelete = A field to save the form option when starting a test, so it's possible to pass it to a test, 
+                when it's done.
+    StatusCode = a field for saving the status code (may be deleted later). 
+    """
+
+    ID = models.IntegerField(primary_key=True)
+    TimeStamp = models.CharField(max_length=200, null=True, blank=True)
+    NoDelete = models.BooleanField(default=False)
+    StatusCode = models.CharField(max_length=50, default="empty")
+
+
+    def __str__(self):
+        return self.TimeStamp
+
+# ------------------------------------------------------------ #
