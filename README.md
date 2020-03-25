@@ -11,7 +11,7 @@ The containers are live on our development server, the Webinterface is accessed 
 - [Ensure Cron](#Ensure-CRON-is-running-as-root)
 - [Start background MQTT message handler](#Start-background-MQTT-message-handler)
 - [Running on Windows with Docker Toolbox](#Running-on-Windows-with-Docker-Toolbox)
-- [Connecting to the MQTT message broker](#Connecting-to-the-MQTT-message-broker)
+- [Connecting to the MQTT message broker](#Connecting-to-the-MQTT-message-broker-(Mosquitto))
 - [Test-cases](#Test-cases)
 - [Troubleshooting the server build](#Troubleshooting-the-server-build)
 - [Future timebox development](#Future-timebox-development)
