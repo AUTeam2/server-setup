@@ -97,8 +97,8 @@ volumes:
   mqtt-volume:
     external: true
   web-root:
-    driver: local
-    driver_opts:
+    #driver: local
+    #driver_opts:
       #type: none
-      device: /home/team2/e3pro3/server-setup/webinterface/staticfiles/
-      o: bind
+      #device: /home/team2/e3pro3/server-setup/webinterface/staticfiles/
+      #o: bind
