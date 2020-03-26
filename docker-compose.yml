@@ -45,10 +45,15 @@ services:
       - webinterface
     restart: unless-stopped
     volumes:
+      # Static assets in nginx:
       - web-root:/var/www/html
+      # Let's Encrypt certificates and keys storage:
       - certbot-etc:/etc/letsencrypt
+      # Default working dir for Let's Encrypt
       - certbot-var:/var/lib/letsencrypt
+      # nginx configuration:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      # Static assets for webinterface (move to web-root?)
       - static_volume:/usr/src/webinterface/staticfiles/
     ports:
       - "81:80"
@@ -56,6 +61,7 @@ services:
 
   certbot:
     image: certbot/certbot
+    restart: 
     volumes:
       # This will mount the relevant Let’s Encrypt certificates,
       # and keys for our domain to the appropriate directory on the container.
@@ -64,7 +70,7 @@ services:
       - web-root:/var/www/html
     depends_on:
       - nginx
-    command: certonly --webroot --webroot-path=/var/www/html --email team2@team2.not-a-real-e-mail.au --agree-tos --staging -d auteam2.mooo.com:81  -d www.auteam2.mooo.com:81
+    command: certonly --webroot --webroot-path=/var/www/html --email team2@team2.not-a-real-e-mail.au --agree-tos --no-eff-email --staging -d auteam2.mooo.com:81  -d www.auteam2.mooo.com:81
 
   videostream:
     build:
@@ -78,7 +84,6 @@ services:
       - "5555:5555"
 
 volumes:
-  web-root:
   certbot-etc:
   certbot-var:
   static_volume:
@@ -86,3 +91,9 @@ volumes:
     external: true
   mqtt-volume:
     external: true
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/team2/e3pro3/server-setup/webinterface/staticfiles/
+      o: bind
