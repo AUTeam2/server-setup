@@ -99,6 +99,6 @@ volumes:
   web-root:
     driver: local
     driver_opts:
-      type: none
+      #type: none
       device: /home/team2/e3pro3/server-setup/webinterface/staticfiles/
       o: bind
