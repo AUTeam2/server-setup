@@ -52,7 +52,12 @@ services:
       # Default working dir for Let's Encrypt
       - certbot-var:/var/lib/letsencrypt
       # nginx configuration:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      
+      # !Step 1/2! Uncomment 57 to go back to ORIGINAL CONFIG:
+      #- ./nginx/nginx.conf:/etc/nginx/nginx.conf 
+      # !Step 2/2! Comment out 59 to go back ti ORIGINAL CONFIG:
+      - ./nginx/nginx.conf:/etc/nginx/nginx_target_conf_ssl.conf 
+
       # Static assets for webinterface (move to web-root?)
       - static_volume:/usr/src/webinterface/staticfiles/
     ports:
