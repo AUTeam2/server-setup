@@ -75,7 +75,7 @@ services:
       - web-root:/var/www/html
     depends_on:
       - nginx
-    command: certonly --webroot --webroot-path=/var/www/html --email team2@team2.not-a-real-e-mail.au --agree-tos --no-eff-email --staging -d auteam2.mooo.com:81  -d www.auteam2.mooo.com:81
+    command: certonly --webroot --webroot-path=/var/www/html --email team2@team2.not-a-real-e-mail.au --agree-tos --no-eff-email --staging -d auteam2.mooo.com:80  -d www.auteam2.mooo.com:80
 
   videostream:
     build:
