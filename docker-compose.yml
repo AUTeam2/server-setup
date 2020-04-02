@@ -61,7 +61,7 @@ services:
       # Static assets for webinterface (move to web-root?)
       - static_volume:/usr/src/webinterface/staticfiles/
     ports:
-      - "80:80"
+      - "81:80"
       - "444:443"
 
   certbot:
