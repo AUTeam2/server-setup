@@ -46,18 +46,16 @@ services:
     restart: unless-stopped
     volumes:
       # Static assets in nginx:
-      - static_volume:/var/www/html
+      - webroot:/var/www:ro
       # Let's Encrypt certificates and keys storage:
-      - certbot-etc:/etc/letsencrypt
+      - /certs/letsencrypt:/etc/letsencrypt:ro
       # Default working dir for Let's Encrypt
-      - certbot-var:/var/lib/letsencrypt
+      - certbot-var:/var/lib/letsencrypt:ro
       # nginx configuration:
-      
       # !Step 1/2! Uncomment 57 to go back to ORIGINAL CONFIG:
       #- ./nginx/nginx.conf:/etc/nginx/nginx.conf 
       # !Step 2/2! Comment out 59 to go back ti ORIGINAL CONFIG:
       - ./nginx/nginx.conf:/etc/nginx/nginx_target_conf_ssl.conf 
-
       # Static assets for webinterface (move to web-root?)
       - static_volume:/usr/src/webinterface/staticfiles/
     ports:
@@ -70,12 +68,13 @@ services:
     volumes:
       # This will mount the relevant Let’s Encrypt certificates,
       # and keys for our domain to the appropriate directory on the container.
-      - certbot-etc:/etc/letsencrypt
+      - ./certs/letsencrypt:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
-      - web-root:/var/www/html
+      - ./nginx/www/letsencrypt:/var/www/.well-known
+      - webroot:/var/www
     depends_on:
       - nginx
-    command: certonly --webroot --webroot-path=/var/www/html --email team2@team2.not-a-real-e-mail.au --agree-tos --no-eff-email --staging -d auteam2.mooo.com:80  -d www.auteam2.mooo.com:80
+    command: certonly --nginx --agree-tos --no-eff-email --staging -d mooo.com  -d www.auteam2.mooo.com
 
   videostream:
     build:
@@ -96,7 +95,7 @@ volumes:
     external: true
   mqtt-volume:
     external: true
-  web-root:
+  webroot:
     #driver: local
     #driver_opts:
       #type: none
