@@ -1,0 +1,67 @@
+{%  extends "base.html" %}
+{%  load static %}
+{% block content %}
+
+
+<div id="module_home">
+
+  <div class="padding">
+    <div class="container-fluid" id="underlay">
+        <div class="module-text">
+            <h1>Stream-demo</h1>
+        </div>
+    </div>
+  </div>
+
+<div class="padding">
+  <div class="container-fluid">
+
+      <!-- The underlay container gives the shaded area -->
+      <div class="container underlay">
+
+          <!-- A row for text -->
+          <div class="row justify-content-center">
+
+            <div class="container">
+                <h3>Demo af streaming</h3>
+                <p class="text-justify">
+                    Nedenfor ses to M-JPEG streams, som er den aftalte protokol for videostreams.<br>
+                    Til en udrulning med faktiske prøvestande skal webinterface/setting.py opdateres med URL-endpoints
+                    til hvert moduls streaming-adresse (inden for AU-netværket). <br>
+                    Det kræver (som aftalt), at hver prøvestand streamer M-JPEG over http med mjpg-streamer eller
+                    tilsvarende software (se fx <a href="https://github.com/jacksonliam/mjpg-streamer">
+                    https://github.com/jacksonliam/mjpg-streamer</a>). <br>
+                </p>
+                <p class="text-justify">
+                    Aktivér kamera {{ cam1.id }}: <a href="{{ cam1.activate }}">API</a><br>
+                    Aktivér kamera {{ cam2.id }}: <a href="{{ cam2.activate }}">API</a>
+                </p>
+            </div>
+          </div>
+
+          <!-- A row for the first stream -->
+          <div class="row justify-content-center">
+            <div class="padding">
+                <img src="{{ cam1.url }}" class="img-responsive"/>
+                <p class="text-center">{{ cam1.caption }}</p>
+            </div>
+          </div>
+
+          <!-- A row for the second stream -->
+          <div class="row justify-content-center">
+            <div class="padding">
+                <img src="{{ cam2.url }}"
+                     class="img-responsive"/>
+                <p class="text-center">{{ cam2.caption }}</p>
+            </div>
+          </div>
+
+
+      </div>
+  </div>
+</div>
+
+</div>
+
+{% endblock content %}
+

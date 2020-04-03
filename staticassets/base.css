@@ -179,3 +179,10 @@ footer {
     color: whitesmoke; /* rgb(0, 37, 70);*/
     padding: 5px 5px;
 }
+
+/* For the MJPEG stream */
+.detailimage{
+    display: inline-block;
+    text-align: center;
+    width: 85%;
+}
