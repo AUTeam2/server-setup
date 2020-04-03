@@ -1,0 +1,103 @@
+version: '3.7'
+
+services:
+  webinterface:
+    build: ./webinterface
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./webinterface/:/usr/src/webinterface/
+      - ./staticassets/:/var/www/static/
+      - static_volume:/usr/src/webinterface/staticfiles/
+    env_file:
+      - ./.env.webinterface
+    depends_on:
+      - db
+    command: >
+      python manage.py runserver 0.0.0.0:8000
+
+  db:
+    image: postgres:12.0-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - data-volume:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.db
+
+
+  mqtt:
+    image: eclipse-mosquitto:1.6
+    hostname: mosquitto
+    ports:
+      - "1883:1883"
+      - "8883:8883"
+      - "8081:8081"
+    volumes:
+      - ./mosquitto/config/:/mosquitto/config/
+      - mqtt-volume:/mosquitto/data
+      - mqtt-volume:/mosquitto/log
+
+  nginx:
+    image: nginx:mainline-alpine
+    depends_on:
+      - webinterface
+    restart: unless-stopped
+    volumes:
+      # Static assets in nginx:
+      - webroot:/var/www:ro
+      # Let's Encrypt certificates and keys storage:
+      - /certs/letsencrypt:/etc/letsencrypt:ro
+      # Default working dir for Let's Encrypt
+      - certbot-var:/var/lib/letsencrypt:ro
+      # nginx configuration:
+      # !Step 1/2! Uncomment 57 to go back to ORIGINAL CONFIG:
+      #- ./nginx/nginx.conf:/etc/nginx/nginx.conf 
+      # !Step 2/2! Comment out 59 to go back ti ORIGINAL CONFIG:
+      - ./nginx/nginx.conf:/etc/nginx/nginx_target_conf_ssl.conf 
+      # Static assets for webinterface (move to web-root?)
+      - static_volume:/usr/src/webinterface/staticfiles/
+    ports:
+      - "81:80"
+      - "444:443"
+
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      # This will mount the relevant Let’s Encrypt certificates,
+      # and keys for our domain to the appropriate directory on the container.
+      - ./certs/letsencrypt:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - ./nginx/www/letsencrypt:/var/www/.well-known
+      - webroot:/var/www
+    depends_on:
+      - nginx
+    command: certonly --nginx --agree-tos --no-eff-email --staging -d mooo.com  -d www.auteam2.mooo.com
+
+  videostream:
+    build:
+      context: ./videostream/image
+    restart: always
+    env_file: 
+      - ./videostream/instance/vstream.env
+    volumes:
+      - ./videostream/:/usr/src/videostream/
+    ports:
+      - "5555:5555"
+
+volumes:
+  certbot-etc:
+  certbot-var:
+  static_volume:
+  data-volume:
+    external: true
+  mqtt-volume:
+    external: true
+  webroot:
+    #driver: local
+    #driver_opts:
+      #type: none
+      #device: /home/team2/e3pro3/server-setup/webinterface/staticfiles/
+      #o: bind
