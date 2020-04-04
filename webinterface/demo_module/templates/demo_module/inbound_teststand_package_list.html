@@ -19,7 +19,7 @@
 
         <div class="container underlay">
 
-            <h3>Testresultater v2.12</h3>
+            <h3>Testresultater v3</h3>
 
             <div class="padding">
 
@@ -30,6 +30,8 @@
                             <th scope="col">Tid (UTC)</th>
                             <th scope="col">Data</th>
                             <th scope="col">Parametre</th>
+                            <th scope="col">Se</th>
+                            <th scope="col">Hent</th>
                         </tr>
                     </thead>
 
@@ -64,6 +66,14 @@
                                             </tr>
                                         {% endfor %}
                                     </table>
+                                </td>
+                                <td>
+                                    <!-- View test result in detail -->
+                                    <a href="{{ dyn_url }}{{ inbound_teststand_package.id }}"><i class="fas fa-chart-area"></i></a>
+                                </td>
+                                <td>
+                                    <!-- Dowload as CSV -->
+                                    <a href="{{ dyn_csv_url }}/{{ inbound_teststand_package.id }}"><i class="fas fa-download"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}

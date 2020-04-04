@@ -24,6 +24,12 @@ urlpatterns = [
     #/demo_module/saved_data/
     path('saved_data/',views.ResultListView.as_view(),name='demo_show_result'),
 
+    #/demo_module/saved_data/{test_id}/  <- Show only this dataset
+    path('saved_data/<int:test_id>/', views.show_data,name='demo_specific_data'),
+
+    # /demo_module/saved_data/csv/{test_id}  <- spit out a CSV-file for this
+    path('saved_data/csv/<int:test_id>/', views.make_csv_from_db, name='demo_csv'),
+
     # /demo_module/info
     path('show_info', views.StatusListView.as_view(), name='demo_show_info'),
 
@@ -34,8 +40,6 @@ urlpatterns = [
     path('stream/', views.demo_stream, name='demo_stream'),
 
     # Below here must be fully implemented
-    #/demo_module/saved_data/{test_id}/
-    path('saved_data/<pk>/',views.show_data.as_view(),name='demo_specific_data'),
 
     #/demo_module/busy/
     path('busy/',views.demo_busy,name='demo_busy'),

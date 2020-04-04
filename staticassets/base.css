@@ -121,6 +121,33 @@ footer {
     color: rgb(0, 37, 70);
 }
 
+/* download data button */
+.fa-download {
+    padding: 15px;
+    font-size: 25px;
+    color: #FFF;
+}
+
+.fa-download:hover {
+    color: rgb(55,160,203); /* Like for the navigation */
+    text-decoration: none;
+}
+
+/* view data button */
+.fa-chart-area {
+    padding: 15px;
+    font-size: 25px;
+    color: #FFF;
+}
+
+.fa-chart-area:hover {
+    color: rgb(55,160,203); /* Like for the navigation */
+    text-decoration: none;
+}
+
+
+
+
 /* AU logo in bottom right not too big.. */
 #segl {
     max-width: 200px;
