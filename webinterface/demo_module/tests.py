@@ -30,3 +30,4 @@ class TestHome(TestCase):
         response = self.client.get("/demo_module/show_result")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'demo_module/result_list.html')
+

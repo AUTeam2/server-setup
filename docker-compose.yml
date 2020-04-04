@@ -74,6 +74,7 @@ services:
       - ./videostream/instance/vstream.env
     volumes:
       - ./videostream/:/usr/src/videostream/
+      - ./webinterface/:/usr/src/webinterface/
     ports:
       - "5555:5555"
 

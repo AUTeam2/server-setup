@@ -30,6 +30,8 @@ urlpatterns = [
     # Show various GUI elements
     path('gui_demo/', views.gui_demo, name='demo_gui'),
 
+    # Show webcam demo
+    path('stream/', views.demo_stream, name='demo_stream'),
 
     # Below here must be fully implemented
     #/demo_module/saved_data/{test_id}/

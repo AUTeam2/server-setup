@@ -18,7 +18,7 @@ ENV PYTHONUNBUFFERED 1
 #Install dependencies for PostgreSQL (Psycopg2)
 RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev shadow curl \
-    zlib-dev jpeg-dev
+    postgresql-client zlib-dev jpeg-dev
 
     #tiff freetype liblcms libwebp tk openjpeg
 
