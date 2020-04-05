@@ -10,11 +10,13 @@ Uses the B39 JSON schema, which implements the protocol v1.0.
 from datetime import datetime
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from demo_module.messagehandler.client import MqttClient
-from demo_module.messagehandler import protocol
-from demo_module.models import Status, Inbound_teststand_package, Test_stand_data, Test_stand_parameters
-from demo_module.models import ND_TS
+from comms.messagehandler.client import MqttClient
+from comms.messagehandler import protocol
 
+import demo_module.models as dmodel
+
+
+subscriptions = [("demo_module/inbound", 0), ("test_module/inbound", 0)]
 
 # for database structure
 class Command(BaseCommand):
@@ -38,6 +40,8 @@ class Command(BaseCommand):
             # Evaluate if the Python object conforms to the protocol
             schema_validation_result = protocol.ProtocolSchema.validating(obj, m.protocol_schema)
 
+
+
             # If validation fails it will give a boolean fail in the database, and skip the unpacking process
             if schema_validation_result == True:
 
@@ -45,12 +49,18 @@ class Command(BaseCommand):
                 m.unpack(**obj)
                 package = obj
 
+                if m.sentBy == "test_module":
+                    customer = tmodel
+                if m.sentBy == "demo_module":
+                    customer = dmodel
+
+
                 # Store any received statuscodes
                 # 6xx -> Power Codes
                 # 1xx-5xx -> Status Codes
                 if m.msgType == "status":
                     # Get object in the db
-                    s = Status()
+                    s = dmodel.Status()
                     s.ID = 0
 
                     if int(m.statusCode) >= 600:
@@ -65,10 +75,10 @@ class Command(BaseCommand):
                 if m.msgType == "data":
 
                     # Create and store a JSON package in the db
-                    ITP = Inbound_teststand_package()
+                    ITP = customer.Inbound_teststand_package()
 
                     # TimeStamp and nodelete copied from temporary model
-                    temp = ND_TS.objects.all()[0]
+                    temp = customer.ND_TS.objects.all()[0]
                     ITP.Timestamp = temp.TimeStamp
                     ITP.NODELETE = temp.NoDelete
 
@@ -81,7 +91,7 @@ class Command(BaseCommand):
                     # Parameter's table
                     for p_name, p_val in package["parameterObj"].items():
                         print(p_name, p_val)
-                        TSP = Test_stand_parameters()
+                        TSP = customer.Test_stand_parameters()
                         TSP.Parameter_name = p_name
                         TSP.Parameter_value = p_val
                         TSP.Inbound_teststand_package = ITP
@@ -90,7 +100,7 @@ class Command(BaseCommand):
                     # Data table
                     for data_name, data_points in package["dataObj"].items():
                         print(data_name, data_points)
-                        TSD = Test_stand_data()
+                        TSD = customer.Test_stand_data()
                         TSD.Data_name = data_name
                         TSD.Data_points = data_points
                         TSD.Inbound_teststand_package = ITP
@@ -99,8 +109,9 @@ class Command(BaseCommand):
             else:
                 package = obj
 
+
                 # Create and store a JSON package in the db
-                ITP = Inbound_teststand_package()
+                ITP = customer.Inbound_teststand_package()
 
                 # TimeStamp
                 Timestamp = datetime.now()
@@ -119,7 +130,7 @@ class Command(BaseCommand):
         subscriber = MqttClient("MessageHandler", on_message_callback)
 
         # Only subscribe to relevant inbound messages
-        subscriber.subscribe("demo_module/inbound")
+        subscriber.subscribe(subscriptions)
 
         print("Starting listening loop")
         subscriber.loop()

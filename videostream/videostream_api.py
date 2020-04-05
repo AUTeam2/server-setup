@@ -46,6 +46,27 @@ def video_feed():
 api.add_resource(Init_Webcam, '/install-test-stand/<path:ts_id>')
 
 
+@app.route('/vstream-direct/test-stand/<string:ts_id>')
+def index_vstream2(ts_id):
+    global test_stand_id
+
+    test_stand_id = web_cam_url.get(ts_id)
+
+    stream = Camera_from_url()
+    stream.init_teststand(test_stand_id)
+    return Response(gen(stream),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+    # if test_stand_id == "":
+    #     test_stand_id = None
+    # if test_stand_id is not None:
+    #     return render_template('videostream/videostream.html')
+    # else:
+    #     return render_template('videostream/videostream-not-installed.html')
+
+
+
+
 @app.route('/vstream/test-stand/<string:ts_id>')
 def index(ts_id):
     global test_stand_id

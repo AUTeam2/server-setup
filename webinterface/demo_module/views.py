@@ -8,9 +8,10 @@ from django.http import HttpResponse
 from django.views.generic import ListView
 from django.template import loader
 from datetime import datetime
+from django.conf import settings
 
-from demo_module.messagehandler.client import MqttClient
-from demo_module.messagehandler import protocol
+from comms.messagehandler.client import MqttClient
+from comms.messagehandler import protocol
 from .forms import TestForm, AccelerometerForm
 from .models import Result, Status, Inbound_teststand_package, ND_TS
 
@@ -46,7 +47,8 @@ def gui_demo(request):
     f = fft.fftfreq(N, d=Ts)
 
     plot = figure(title='FFT powerspektrum😍',
-                  x_axis_label='f [Hz]', y_axis_label='X(f) [dB]',
+                  sizing_mode='scale_width',
+                  x_axis_label='f [Hz]', y_axis_label='|X(f)|^2 [dB]',
                   x_range = [0, fs/2],
                   plot_width=800, toolbar_location="below")
 
@@ -113,6 +115,7 @@ def transmit_mqtt(form_obj):
     """
     This function is not a view.
     This function transmits a validated message.
+    Janus, March 2020
     """
 
     # Print to console for debug
@@ -194,6 +197,32 @@ class StatusListView(ListView):
 # busy page, test already running
 def demo_busy(request):
     return render(request, 'demo_module/busy.html')
+
+
+# Streaming page demo
+def demo_stream(request):
+    """
+    This view must fetch the relevant streaming address and
+    insert it into the tempate
+    """
+
+    # Get the DK cam settings from the Django settings file
+    cam1 = settings.CAMS['cam1']
+    cam1.update({
+        'activate': request.build_absolute_uri(cam1['api_activate']),
+        'url' : request.build_absolute_uri(cam1['api_url'])
+    })
+
+    # Get the Japan cam settings from the Django settings file
+    cam2 = settings.CAMS['cam2']
+    cam2.update({
+        'activate': request.build_absolute_uri(cam2['api_activate']),
+        'url' : request.build_absolute_uri(cam2['api_url'])
+    })
+
+    context = {'cam1': cam1, 'cam2': cam2}
+    return render(request, 'demo_module/streaming-demo.html', context)
+
 
 # def send_mqtt(request):
 #
