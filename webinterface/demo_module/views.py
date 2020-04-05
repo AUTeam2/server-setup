@@ -52,10 +52,10 @@ def gui_demo(request):
     n = np.arange(0, N)
     x = 1.2*A*np.sin(2*np.pi*f0/fs*n) + A*np.sin(2*np.pi*0.75*f0/fs*n) + 0.4*A*np.sin(2*np.pi*1.33*f0/fs*n)
 
-    X = 20*np.log10( np.abs(fft.fft(x, N)) )
-    f = fft.fftfreq(N, d=Ts)
+    X = np.fft.fftshift( 20*np.log10( np.abs(fft.fft(x, N)) ) )
+    f = np.fft.fftshift( fft.fftfreq(N, d=Ts) )
 
-    plot = figure(title='FFT powerspektrum😍',
+    plot = figure(title='FFT powerspektrum 😍',
                   sizing_mode='scale_width',
                   x_axis_label='f [Hz]', y_axis_label='|X(f)|^2 [dB]',
                   x_range = [0, fs/2],
@@ -203,24 +203,44 @@ def show_data(request, test_id):
     x = my_dataset[0].Data_points
     y = my_dataset[1].Data_points
 
-    # Make a plot
-    plot = figure(title='x-y plot 🧐',
+    # Make a time domain plot
+    plot_time = figure(title='x - y(x) plot 🧐',
                   sizing_mode='scale_width',
                   x_axis_label='x [Antal flødeboller]', y_axis_label='|Ekstra vægt|^2 [kg]',
-                  #x_range=[0, fs / 2],
                   plot_width=800, toolbar_location="below")
 
-    plot.add_tools(HoverTool())
-    plot.line(x, y, legend_label='Ekstra vægt (kg)', color='blue')
+    plot_time.add_tools(HoverTool())
+    plot_time.line(x, y, legend_label='Ekstra vægt (kg)', color='blue')
 
     # Her bliver figuren lavet til hhv. JavaScript og indhold til et HTML-div
-    script, div = components(plot)
+    script_time, div_time = components(plot_time)
+
+    # Make an FFT plot
+    fs = 100    # Assumed, this must be changed
+    Ts = 1 / fs
+    N = 1024 # len(y), eller Zero-padding
+    Y = np.fft.fftshift(20 * np.log10(np.abs(fft.fft(y, N))))
+    f = np.fft.fftshift(fft.fftfreq(N, d=Ts))
+    plot_fft = figure(title='Effektspektrum |Y(f)|^2. Antaget fs = 100 Hz, N = 1024 🤯',
+                       sizing_mode='scale_width',
+                       x_axis_label='f [Hz]', y_axis_label='|Y(f)|^2 [dB]',
+                       x_range=[0, fs / 2],
+                       plot_width=800, toolbar_location="below")
+
+    plot_fft.add_tools(HoverTool())
+    plot_fft.line(f, Y, legend_label='Effektspektrum for y', color='blue')
+
+    # Her bliver figuren lavet til hhv. JavaScript og indhold til et HTML-div
+    script_fft, div_fft = components(plot_fft)
 
     template_name = 'demo_module/show_data.html'
-    return render(request, template_name, {'script': script,
-                                           'div': div,
+    return render(request, template_name, {'script_time': script_time,
+                                           'div_time': div_time,
+                                           'script_fft': script_fft,
+                                           'div_fft': div_fft,
                                            'test': my_test,
-                                           'params': my_params
+                                           'params': my_params,
+                                           'data': my_dataset
                                            })
 
 #All saved tests

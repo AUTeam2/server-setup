@@ -8,7 +8,7 @@
   <div class="padding">
     <div class="container-fluid" id="underlay">
         <div class="module-text">
-            <h1>Demo-modul</h1>
+            <h1 class="text-wrap">Alle resultatsæt i databasen</h1>
         </div>
     </div>
   </div>
@@ -19,17 +19,17 @@
 
         <div class="container underlay">
 
-            <h3>Testresultater v3</h3>
+            <h3>Testresultater v3.2</h3>
 
             <div class="padding">
 
+                <div class="table-responsive-sm">
                 <table class="table table-dark">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Tid (UTC)</th>
-                            <th scope="col">Data</th>
-                            <th scope="col">Parametre</th>
+                            <th scope="col">Dato</th>
+                            <th scope="col">Oprettet af</th>
                             <th scope="col">Se</th>
                             <th scope="col">Hent</th>
                         </tr>
@@ -38,51 +38,35 @@
                     <tbody>
                         {% for inbound_teststand_package in inbound_teststand_package_list %}
                             <tr>
-                              <th scope="row">{{ forloop.counter }}</th>
+                                <th scope="row">
+                                    <!-- 1st col: Test ID -->
+                                    {{ inbound_teststand_package.id }}
+                                </th>
                                 <td>
-                                    <table>
-                                        <tr>
-                                            <td><span style="color: #7cfc00; ">Testet af:</span> {{ inbound_teststand_package.Sent_by }}</td>
-                                        </tr>
-                                            <td><span style="color: #7cfc00; ">Den:</span> {{ inbound_teststand_package.Timestamp }}</td>
-                                    </table>
+                                    <!-- 2nd col: Test made date -->
+                                    {{ inbound_teststand_package.Timestamp }}
                                 </td>
                                 <td>
-                                    <table>
-                                        {% for test_stand_data in inbound_teststand_package.data.all %}
-                                            <tr>
-                                                <td>{{ test_stand_data.Data_name }}</td>
-                                                <td>{{ test_stand_data.Data_points }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    </table>
+                                    <!-- 3rd col: Started by -->
+                                    {{ inbound_teststand_package.Sent_by }}
                                 </td>
                                 <td>
-                                    <table>
-                                        {% for test_stand_parameters in inbound_teststand_package.parameters.all %}
-                                            <tr>
-                                                <td>{{ test_stand_parameters.Parameter_name }}</td>
-                                                <td>{{ test_stand_parameters.Parameter_value }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    </table>
-                                </td>
-                                <td>
-                                    <!-- View test result in detail -->
+                                    <!-- 4th col: View test result in detail -->
                                     <a href="{{ dyn_url }}{{ inbound_teststand_package.id }}"><i class="fas fa-chart-area"></i></a>
                                 </td>
                                 <td>
-                                    <!-- Dowload as CSV -->
+                                    <!-- 5th col: Dowload directly as CSV -->
                                     <a href="{{ dyn_csv_url }}/{{ inbound_teststand_package.id }}"><i class="fas fa-download"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+                </div>
 
             </div>
 
-        </div>
+       </div>
 
       </div>
   </div>
