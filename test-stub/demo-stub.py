@@ -5,9 +5,9 @@ from source.client import MqttClient
 
 PROTOCOL_SCHEMA_PATH = "protocol_v1_0.schema"
 __VERSION__ = 1.0
-ID = "test_module"
-TOPOUT = "test_module/inbound"
-TOPIN = "test_module/outbound"
+ID = "demo_module"
+TOPOUT = "demo_module/inbound"
+TOPIN = "demo_module/outbound"
 
 status = "600"
 
@@ -26,8 +26,7 @@ def answer():
     ans.sentBy = ID
     ans.statusCode = status
     ans.msgType = "data"
-    ans.dataObj = {"x": [10, 9, 10], "y": ['test', 25, 36]}
-
+    ans.dataObj = {"x": ['Demo', 9, 10], "y": [16, 25, 36]}
 
     ans.pack()
     letter = pr.ProtocolSchema.write_jsonstr(ans.payload)
@@ -117,7 +116,7 @@ def on_message_callback(client, userdata, message):
 
 
 # Pass the callback to the client
-ts = MqttClient("teststub", on_message_callback)
+ts = MqttClient("demostub", on_message_callback)
 time.sleep(5)
 answer()
 
