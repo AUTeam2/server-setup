@@ -30,6 +30,9 @@ urlpatterns = [
     # /demo_module/saved_data/csv/{test_id}  <- spit out a CSV-file for this
     path('saved_data/csv/<int:test_id>/', views.make_csv_from_db, name='demo_csv'),
 
+    # /demo_module/saved_data/excel/{test_id}  <- spit out a excel-file for this
+    path('saved_data/excel/<int:test_id>/', views.make_excel_from_db, name='demo_excel'),
+
     # /demo_module/info
     path('show_info', views.StatusListView.as_view(), name='demo_show_info'),
 

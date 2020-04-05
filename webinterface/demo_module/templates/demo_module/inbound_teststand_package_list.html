@@ -56,7 +56,10 @@
                                 </td>
                                 <td>
                                     <!-- 5th col: Dowload directly as CSV -->
-                                    <a href="{{ dyn_csv_url }}/{{ inbound_teststand_package.id }}"><i class="fas fa-download"></i></a>
+                                    <a href="{{ dyn_csv_url }}/{{ inbound_teststand_package.id }}">CSV<i class="fas fa-download"></i></a>
+                                    <br>
+                                    <!-- Dowload as excel -->
+                                    <a href="{{ dyn_excel_url }}/{{ inbound_teststand_package.id }}">Excel<i class="fas fa-download"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}

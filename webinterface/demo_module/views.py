@@ -9,6 +9,9 @@ from django.views.generic import ListView
 from django.template import loader
 from datetime import datetime
 from django.conf import settings
+from openpyxl import Workbook
+from openpyxl.chart import LineChart, Reference
+import locale
 
 from demo_module.messagehandler.client import MqttClient
 from demo_module.messagehandler import protocol
@@ -91,9 +94,10 @@ def demo_create_test(request):
 
             #------- Temporary saving table ------#
             # save time sent
+            locale.setlocale(locale.LC_TIME, 'da_DK.utf8')
             temp = ND_TS()
             timestamp = datetime.now()
-            temp.TimeStamp = timestamp.strftime("%x-%I:%M:%S")
+            temp.TimeStamp = timestamp.strftime("%d/%m/%Y-%H:%M:%S")
             temp.ID = 0
 
             # save no delete field
@@ -258,6 +262,7 @@ class ResultListView(ListView):
         # Add in our extra
         context['dyn_url'] = self.request.build_absolute_uri('')
         context['dyn_csv_url'] = self.request.build_absolute_uri('csv')
+        context['dyn_excel_url'] = self.request.build_absolute_uri('excel')
         return context
 
 
@@ -347,6 +352,102 @@ def make_csv_from_db(request, test_id):
 
     # Make the response from buffer and set MIME -> send to user
     response = HttpResponse(buffer, content_type='text/csv')
+    return response
+
+def make_excel_from_db(request, test_id):
+    workbook = Workbook()
+
+    # ------------------ data sheet ------------------#
+
+    # Create sheet
+    data_sheet = workbook.create_sheet("Data")
+    #data_sheet = workbook.active
+
+    # Get the test result
+    my_test = Inbound_teststand_package.objects.get(id=test_id)
+
+    # Make a master data header and values
+    master_data_header = [
+        ["Test dato", "Oprettet af"],
+        [my_test.Timestamp, my_test.Sent_by],
+        [" "],
+    ]
+
+    # Fill out header rows in spread sheet
+    for row in master_data_header:
+        data_sheet.append(row)
+
+    # Get data from database
+    my_data = Inbound_teststand_package.objects.get(id=test_id).data.all()
+    data_names = [d.Data_name for d in my_data]
+    data_points = [d.Data_points for d in my_data]
+
+    # Fill out data row header colums
+    for column, text in enumerate(data_names, start=1):
+        data_sheet.cell(column=column, row=4, value=text)
+
+    # Fill out data point rows
+    for column, row_entries in enumerate(data_points, start=1):
+        for row, value in enumerate(row_entries, start=5):
+            data_sheet.cell(column=column, row=row, value=value)
+
+    #------------------ Chart sheet ------------------#
+
+    # Create new sheet
+    chart_sheet = workbook.create_sheet("chart")
+
+    # Init chart
+    chart = LineChart()
+
+    # Get chart data from data sheet
+    chart_data = Reference(worksheet=data_sheet,
+                           min_row=4,
+                           max_row=row,
+                           min_col=1,
+                           max_col=column)
+
+    # Make chart titles
+    chart.title = "Tids domæne"
+    chart.y_axis.title = "Vægt i Kg"
+    chart.x_axis.title = "Antal flødeboller"
+
+    # Create chart
+    chart.add_data(chart_data, titles_from_data=True)
+    chart_sheet.add_chart(chart, "A1")
+
+    # ------------------ parameter sheet ------------------#
+
+    # Create new sheet
+    param_sheet = workbook.create_sheet("Parameters")
+
+    # Get parameters from database
+    my_param = Inbound_teststand_package.objects.get(id=test_id).parameters.all()
+    param_names = [p.Parameter_name for p in my_param]
+    param_points = [p.Parameter_value for p in my_param]
+
+    # Fill out parameter header (names) row
+    for column, text in enumerate(param_names, start=1):
+        param_sheet.cell(column=column, row=1, value=text)
+
+    # Fill out parameter values row
+    for column, text in enumerate(param_points, start=1):
+        param_sheet.cell(column=column, row=2, value=text)
+
+    # ------------------ End game ------------------#
+
+    # Remove extra sheet (dunno why it is there, but it just is?)
+    sheet = workbook.get_sheet_by_name('Sheet')
+    workbook.remove_sheet(sheet)
+
+    # Create the Http response, and set content type to be excel spreadsheet
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    )
+
+    # Save the excel document as the request response
+    workbook.save(response)
+
+    # Return the excel document
     return response
 
 # def send_mqtt(request):
