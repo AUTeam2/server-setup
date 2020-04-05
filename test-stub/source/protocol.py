@@ -6,7 +6,7 @@ This is an implementation of the protocol v1.0
 Contains functions to import a jsonschema,
 read/write json files and strings and to validate those.
 """
-__VERSION__ = 1.0
+__VERSION__ = 1.1
 
 import json
 import sys
@@ -14,7 +14,7 @@ import sys
 import jsonschema
 from jsonschema import validate
 
-PROTOCOL_SCHEMA_PATH = "protocol_v1_0.schema"
+PROTOCOL_SCHEMA_PATH = "protocol_v1_1.schema"
 
 
 class ProtocolSchema():
