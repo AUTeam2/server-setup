@@ -16,7 +16,7 @@ from comms.messagehandler import protocol
 import demo_module.models as dmodel
 
 
-subscriptions = [("demo_module/inbound", 0), ("test_module/inbound", 0)]
+subscriptions = [("demo_module/inbound", 0)]
 
 # for database structure
 class Command(BaseCommand):
@@ -49,8 +49,6 @@ class Command(BaseCommand):
                 m.unpack(**obj)
                 package = obj
 
-                if m.sentBy == "test_module":
-                    customer = tmodel
                 if m.sentBy == "demo_module":
                     customer = dmodel
 
