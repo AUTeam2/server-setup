@@ -265,17 +265,6 @@
       ],
       "value": "testbrugerSelenium"
     }, {
-      "id": "09474860-bf3b-41f4-ab3d-c1debcf4df09",
-      "comment": "",
-      "command": "click",
-      "target": "css=.container > .padding:nth-child(2)",
-      "targets": [
-        ["css=.container > .padding:nth-child(2)", "css:finder"],
-        ["xpath=//div[@id='module_home']/div[2]/div/div/div/div[2]", "xpath:idRelative"],
-        ["xpath=//div/div/div[2]", "xpath:position"]
-      ],
-      "value": ""
-    }, {
       "id": "2a5ca3ef-e5a9-4fcf-a7b7-f89542464285",
       "comment": "",
       "command": "runScript",
@@ -464,7 +453,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["4c522387-5178-4e97-9e7e-545da48a7fe3", "391bf234-d3b3-4a93-b3c2-5dc39ef45e10", "c87df29a-7ae2-4e0b-b7e7-ecbe54fbef27"]
+    "tests": ["542f25f6-dfbc-4b66-aa92-90606f7c7af2", "4c522387-5178-4e97-9e7e-545da48a7fe3", "391bf234-d3b3-4a93-b3c2-5dc39ef45e10", "c87df29a-7ae2-4e0b-b7e7-ecbe54fbef27"]
   }],
   "urls": ["http://localhost:81/"],
   "plugins": []
