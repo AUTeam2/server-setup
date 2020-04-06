@@ -3,6 +3,7 @@ version: '3.7'
 services:
   webinterface:
     build: ./webinterface
+    image: janusboandersen/auwebinterface2020:webinterface
     ports:
       - "8000:8000"
     volumes:
@@ -54,23 +55,24 @@ services:
       - "81:80"
       - "444:443"
 
-  certbot:
-    image: certbot/certbot
-    volumes:
-      # This will mount the relevant Let’s Encrypt certificates,
-      # and keys for our domain to the appropriate directory on the container.
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - web-root:/var/www/html
-    depends_on:
-      - nginx
-    command: certonly --webroot --webroot-path=/var/www/html --email team2@team2.not-a-real-e-mail.au --agree-tos --staging -d auteam2.mooo.com:81  -d www.auteam2.mooo.com:81
+#  certbot:
+#    image: certbot/certbot
+#    volumes:
+#      # This will mount the relevant Let’s Encrypt certificates,
+#      # and keys for our domain to the appropriate directory on the container.
+#      - certbot-etc:/etc/letsencrypt
+#      - certbot-var:/var/lib/letsencrypt
+#      - web-root:/var/www/html
+#    depends_on:
+#      - nginx
+#    command: certonly --webroot --webroot-path=/var/www/html --email team2@team2.not-a-real-e-mail.au --agree-tos --staging -d auteam2.mooo.com:81  -d www.auteam2.mooo.com:81
 
   videostream:
     build:
       context: ./videostream/image
+    image: janusboandersen/auwebinterface2020:videostream
     restart: always
-    env_file: 
+    env_file:
       - ./videostream/instance/vstream.env
     volumes:
       - ./videostream/:/usr/src/videostream/
