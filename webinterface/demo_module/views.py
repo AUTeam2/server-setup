@@ -13,8 +13,9 @@ from openpyxl import Workbook
 from openpyxl.chart import LineChart, Reference
 import locale
 
-from demo_module.messagehandler.client import MqttClient
-from demo_module.messagehandler import protocol
+
+from comms.messagehandler.client import MqttClient
+from comms.messagehandler import protocol
 from .forms import TestForm, AccelerometerForm
 from .models import Result, Status
 from .models import Inbound_teststand_package, Test_stand_data, Test_stand_parameters, ND_TS
@@ -57,6 +58,7 @@ def gui_demo(request):
 
     X = np.fft.fftshift( 20*np.log10( np.abs(fft.fft(x, N)) ) )
     f = np.fft.fftshift( fft.fftfreq(N, d=Ts) )
+
 
     plot = figure(title='FFT powerspektrum 😍',
                   sizing_mode='scale_width',

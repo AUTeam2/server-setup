@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField, JSONField
+from datetime import datetime
 
 # --------------------- Status model -------------------------- #
 # To do: Combine with other models, or do checks to know which
@@ -226,3 +227,113 @@ class ND_TS(models.Model):
         return self.TimeStamp
 
 # ------------------------------------------------------------ #
+
+def save_incoming_data(message):
+    """
+    This function saves incoming results data to the database using models
+    defined in this file.
+
+    The message is an already validated message containing
+    all relevant protocol objects.
+
+    Jan's function was moved from messagehandler to here, to
+    make the message handler generic.
+
+    Janus, April 2020
+    """
+
+    # Create and store a JSON package in the db
+    ITP = Inbound_teststand_package()
+
+    # TimeStamp and nodelete copied from temporary model
+    temp = ND_TS.objects.all()[0]
+    ITP.Timestamp = temp.TimeStamp
+    ITP.NODELETE = temp.NoDelete
+
+    # Store values from inbound validated JSON
+    ITP.Sent_by = message.sentBy
+    ITP.command_list = message.commandList
+    ITP.Validation_failed = 0
+    ITP.save()
+
+    # Parameter's table
+    for p_name, p_val in message.parameterObj.items():
+        print(p_name, p_val)
+        TSP = Test_stand_parameters()
+        TSP.Parameter_name = p_name
+        TSP.Parameter_value = p_val
+        TSP.Inbound_teststand_package = ITP
+        TSP.save()
+
+    # Data table
+    for data_name, data_points in message.dataObj.items():
+        print(data_name, data_points)
+        TSD = Test_stand_data()
+        TSD.Data_name = data_name
+        TSD.Data_points = data_points
+        TSD.Inbound_teststand_package = ITP
+        TSD.save()
+
+
+def save_incoming_status(message):
+    """
+    This function saves status updates to the database using models
+    defined in this file:
+
+    Store any received statuscodes
+    6xx -> Power Codes
+    1xx-5xx -> Status Codes
+
+    The message is an already validated message containing
+    all relevant protocol objects.
+
+    Jan's function was moved from messagehandler to here, to
+    make the message handler generic.
+
+    Janus, April 2020
+    """
+
+    # Get object in the db
+    s = Status()
+    s.ID = 0
+
+    if int(message.statusCode) >= 600:
+        s.latest_power_code = message.statusCode
+    else:
+        s.latest_status_code = message.statusCode
+
+    # Update the object
+    s.save()
+
+
+def save_failed_validation(obj):
+    """
+    This function is a fallback plan to try to rescue the data
+    despite the sent message failing validation.
+
+    The obj is a semi-parsed object of the type
+    -> protocol.ProtocolSchema.read_jsonstr(msg-rec-from-mqtt)
+    where the msg was received via MQTT, but validation has failed
+    Nothing is known about its contents.
+
+    Jan's function was moved from messagehandler to here, to
+    make the message handler generic.
+
+    Janus, April 2020
+    """
+
+    # Create and store a JSON package in the db
+    ITP = Inbound_teststand_package()
+
+    # TimeStamp
+    Timestamp = datetime.now()
+
+    if "sentBy" in obj:
+        ITP.Sent_by = obj["sentBy"]
+    else:
+        ITP.Sent_by = "Failed validation"
+
+    ITP.Timestamp = Timestamp.strftime("%x-%I:%M:%S")
+    ITP.Validation_failed = 1
+
+    ITP.save()
