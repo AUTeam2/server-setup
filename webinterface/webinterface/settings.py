@@ -144,9 +144,9 @@ CAMS = {
 # Subscribed topics for the message handler
 # It will subscribe to everything in this list
 MESSAGE_SUBSCRIPTIONS = [
-    ("demo_module/inbound", 0),
-    ("test_module/inbound", 0),
-    ("test-stub-in", 0),
+    ("Testdevices/demo_module/inbound", 2),
+    ("Testdevices/test_module/inbound", 2),
+    ("Testdevices/test-stub-in", 2),
 ]
 
 # List of inbound handlers (callback functions for each registered module.
@@ -171,7 +171,7 @@ GET_TOPIC_COMPONENT = 0
 
 
 # Path for the protocol schema
-PROTOCOL_SCHEMA_NAME = "protocol_v1_0.schema"
+PROTOCOL_SCHEMA_NAME = "protocol_v1_1.schema"
 PROTOCOL_SCHEMA_PATH = os.path.join(BASE_DIR, "webinterface", PROTOCOL_SCHEMA_NAME)
 
 # Password validation
