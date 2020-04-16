@@ -141,6 +141,35 @@ CAMS = {
     }
 }
 
+# Subscribed topics for the message handler
+# It will subscribe to everything in this list
+MESSAGE_SUBSCRIPTIONS = [
+    ("demo_module/inbound", 0),
+    ("test_module/inbound", 0),
+    ("test-stub-in", 0),
+]
+
+# List of inbound handlers (callback functions for each registered module.
+# These callback functions must be present in the MODULE.models.py file.
+# If they are renamed, change the name here
+MESSAGE_CALLBACKS = {
+    'demo_module': {
+        'status_callback': 'save_incoming_status',
+        'data_callback': 'save_incoming_data',
+        'fallback_callback': 'save_failed_validation'
+    },
+    'test_module': {
+        'status_callback': 'save_incoming_status',
+        'data_callback': 'save_incoming_data',
+        'fallback_callback': 'save_failed_validation'
+    },
+}
+
+# get the xth part of the topic, e.g. Testdevice/accelerometer/outbound.
+# Element 1 is accelerometer
+GET_TOPIC_COMPONENT = 0
+
+
 # Path for the protocol schema
 PROTOCOL_SCHEMA_NAME = "protocol_v1_0.schema"
 PROTOCOL_SCHEMA_PATH = os.path.join(BASE_DIR, "webinterface", PROTOCOL_SCHEMA_NAME)
