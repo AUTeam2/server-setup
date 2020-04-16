@@ -47,6 +47,10 @@ urlpatterns = [
     #/demo_module/busy/
     path('busy/',views.demo_busy,name='demo_busy'),
 
+    #/demo_module/test_form/
+    path('test-form/',views.test_form,name='demo_test_form'),
+
+
 
     #path for MQTT
     #path('',views.send_mqtt,name='demo_modul')

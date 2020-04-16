@@ -15,7 +15,7 @@ import locale
 
 from demo_module.messagehandler.client import MqttClient
 from demo_module.messagehandler import protocol
-from .forms import TestForm, AccelerometerForm
+from .forms import TestForm, AccelerometerForm, YndlingsForm
 from .models import Result, Status
 from .models import Inbound_teststand_package, Test_stand_data, Test_stand_parameters, ND_TS
 
@@ -494,3 +494,28 @@ def make_excel_from_db(request, test_id):
 #                'msg': send_me}
 #
 #     return HttpResponse(template.render(context, request))
+
+# Show landing page for the demo module
+def test_form(request):
+    # Denne formular bliver vist på siden
+
+
+
+    if request.method == 'POST':
+
+        print(request)
+
+        form = YndlingsForm(request.POST)
+        # Håndter modtaget data
+        dur = form.data.get('duration')
+        dur2 = int(dur) * 2
+
+        context = {'dur': dur,
+                   'dur2': dur2}
+
+        return render(request, 'demo_module/test_form2.html', context)
+
+    else:
+        # Bare vise formular
+        form = YndlingsForm()
+        return render(request, 'demo_module/test_form.html', {'YndlingsForm': form})

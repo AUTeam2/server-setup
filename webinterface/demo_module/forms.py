@@ -207,3 +207,36 @@ class AccelerometerForm(forms.Form):
             'freq',
             Submit('submit', 'En knap :)')
         )
+
+
+class YndlingsForm(forms.Form):
+    """
+    Denne klasse implementerer formularen til GUI-demo, som vises på Webinterface
+    """
+    SENSOR_TYPES = (
+        ('adxl345', 'adxl345'),
+        ('Kx224', 'Kx224'),
+    )
+
+    sensor_type = forms.ChoiceField(
+        label='Sensortype',
+        choices=SENSOR_TYPES
+    )
+
+    duration = forms.CharField(
+        label='Varighed af test (sekunder)',
+        widget=forms.TextInput(attrs={
+            'value': '10',
+            'placeholder': 'Indtast antal sekunder her'
+        }),
+        required=False
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'sensor_type',
+            'duration',
+            Submit('submit', 'Send min yndlingsformular')
+        )

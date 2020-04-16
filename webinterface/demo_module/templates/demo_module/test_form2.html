@@ -1,0 +1,37 @@
+{%  extends "base.html" %}
+{%  load static %}
+{% block content %}
+
+<div id="module_home">
+
+  <div class="padding">
+    <div class="container-fluid" id="underlay">
+        <div class="module-text">
+            <h1>Test-form resultat</h1>
+        </div>
+    </div>
+  </div>
+
+<div class="padding">
+  <div class="container-fluid">
+      <div class="row justify-content-center">
+
+        <div class="container underlay">
+
+            <h3>Min yndlingsduration</h3>
+
+            <div class="padding">
+                Duration er {{ dur }}. <br>
+                To gange duration er {{ dur2 }}.
+            </div>
+
+        </div>
+
+      </div>
+  </div>
+</div>
+
+</div>
+
+{% endblock content %}
+
