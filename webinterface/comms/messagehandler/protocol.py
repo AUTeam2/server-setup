@@ -1,7 +1,7 @@
 """
 This is the implementation of B39, modified slightly for B41.
 This module implements functions to load a JSON-schema and validate messages against this schema.
-This is an implementation of the protocol v1.1
+This is an implementation of the newest JSON-protocol
 
 Contains functions to import a jsonschema,
 read/write json files and strings and to validate those.

@@ -145,8 +145,6 @@ CAMS = {
 # It will subscribe to everything in this list
 MESSAGE_SUBSCRIPTIONS = [
     ("Testdevices/demo_module/inbound", 2),
-    ("Testdevices/test_module/inbound", 2),
-    ("Testdevices/test-stub-in", 2),
 ]
 
 # List of inbound handlers (callback functions for each registered module.
@@ -158,16 +156,11 @@ MESSAGE_CALLBACKS = {
         'data_callback': 'save_incoming_data',
         'fallback_callback': 'save_failed_validation'
     },
-    'test_module': {
-        'status_callback': 'save_incoming_status',
-        'data_callback': 'save_incoming_data',
-        'fallback_callback': 'save_failed_validation'
-    },
 }
 
 # get the xth part of the topic, e.g. Testdevice/accelerometer/outbound.
 # Element 1 is accelerometer
-GET_TOPIC_COMPONENT = 0
+GET_TOPIC_COMPONENT = 1
 
 
 # Path for the protocol schema

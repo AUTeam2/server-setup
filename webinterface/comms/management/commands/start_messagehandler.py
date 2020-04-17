@@ -1,10 +1,6 @@
 """
 This is a management command, that listens for inbound messages.
 This module is responsible for storing inbound status messages and data messages.
-
-This module implements B41.
-Design is documented in B36-B38.
-Uses the B39 JSON schema, which implements the protocol v1.1.
 """
 
 from comms.messagehandler import protocol
