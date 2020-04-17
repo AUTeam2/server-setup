@@ -23,18 +23,13 @@ class TestForm(forms.Form):
     #         "statusCode": {"type": "string"},
     #         "parameterObj": {"type": "object"},
     #         "dataObj": {"type": "object"},
-    #         "embeddedFileFormat": {"type": "string"},
-    #         "embeddedFile": {"type": "string"}
 
     PROTOCOL_VERSIONS = (
-        ('1.0', 'Ver. 1.0'),
+        ('1.1', 'Ver. 1.1'),
     )
 
     TOPICS = (
-        ('demo_module/inbound', 'demo_module/inbound'),
-        ('demo_module/outbound', 'demo_module/outbound'),
-        ('test-stub-in', 'test-stub-in'),
-        ('test-stub-out', 'test-stub-out'),
+        ('Testdevice/demo_module/Inbound', 'Testdevice/demo_module/Outbound'),
     )
 
     MSG_TYPES = (

@@ -144,7 +144,7 @@ CAMS = {
 # Subscribed topics for the message handler
 # It will subscribe to everything in this list
 MESSAGE_SUBSCRIPTIONS = [
-    ("Testdevices/demo_module/inbound", 2),
+    ("Testdevice/demo_module/Inbound", 2),
 ]
 
 # List of inbound handlers (callback functions for each registered module.
