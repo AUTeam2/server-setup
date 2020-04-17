@@ -1,38 +1,19 @@
 """
 This is the implementation of B39, modified slightly for B41.
 This module implements functions to load a JSON-schema and validate messages against this schema.
-This is an implementation of the protocol v1.0
+This is an implementation of the newest JSON-protocol
 
 Contains functions to import a jsonschema,
 read/write json files and strings and to validate those.
 """
-__VERSION__ = 1.0
+__VERSION__ = 1.1
 
 import json
 import sys
-import os
+
 import jsonschema
-from jsonschema import validate
 from django.conf import settings
-
-
-# testshcema = {
-#     "$schema": "AUTeam2 JSONschema",
-#     "title": "PayloadSchema",
-#     "type": "object",
-#     "properties": {
-#         "protocolVersion": {"type": "number"},
-#         "sentBy": {"type": "string"},
-#         "msgType": {"type": "string"},
-#         "commandList": {"type": "string"},
-#         "statusCode": {"type": "string"},
-#         "parameterObj": {"type": "object"},
-#         "dataObj": {"type": "object"},
-#         "embeddedFileFormat": {"type": "string"},
-#         "embeddedFile": {"type": "string"}
-#     },
-#     "required": ["protocolVersion", "sentBy", "msgType"]
-# }
+from jsonschema import validate
 
 
 class ProtocolSchema():
@@ -107,16 +88,16 @@ class ProtocolSchema():
         The schema to compare against
         :return:
         """
-        #print("Validating the input data using jsonschema:")
+        # print("Validating the input data using jsonschema:")
         try:
             validate(jsondata, schema)
-            #sys.stdout.write("Validation OK\n")
-            return True #The validation went well happy happy
+            # sys.stdout.write("Validation OK\n")
+            return True  # The validation went well happy happy
         except jsonschema.exceptions.ValidationError as ve:
             print("Timmy says validation baaad mkaayy:")
             sys.stderr.write("Record #{}: ERROR\n".format(jsondata))
             sys.stderr.write(str(ve) + "\n")
-            return False #bad! very bad!
+            return False  # bad! very bad!
 
     @staticmethod
     def message_is_valid(message, schema):
@@ -130,26 +111,19 @@ class ProtocolSchema():
         return jsonschema.Draft3Validator(schema).is_valid(message)
 
 
-
-#js = JsonSchemaClass()
-#proto = js.load_schema("json.schema")
-
-
 class Message():
     """
     A message class to handle protocol conforming messages
     """
 
     def __init__(self):
-
-        #Build a protocol validator
+        # Build a protocol validator
         self.protocol_schema = ProtocolSchema.load_schema(settings.PROTOCOL_SCHEMA_PATH)
 
         # Extract the payload part, this can be sent when filled
         self.payload = self.protocol_schema["properties"]
 
-    def unpack(self, protocolVersion, sentBy, msgType, commandList, statusCode, parameterObj, dataObj,
-               embeddedFileFormat, embeddedFile):
+    def unpack(self, protocolVersion, sentBy, msgType, commandList, statusCode, parameterObj, dataObj):
         self.protocolVersion = protocolVersion
         self.sentBy = sentBy
         self.msgType = msgType
@@ -157,8 +131,6 @@ class Message():
         self.statusCode = statusCode
         self.parameterObj = parameterObj
         self.dataObj = dataObj
-        self.embeddedFileFormat = embeddedFileFormat
-        self.embeddedFile = embeddedFile
 
     def pack(self):
         self.payload["protocolVersion"] = self.protocolVersion
@@ -168,12 +140,10 @@ class Message():
         self.payload["statusCode"] = self.statusCode
         self.payload["parameterObj"] = self.parameterObj
         self.payload["dataObj"] = self.dataObj
-        self.payload["embeddedFileFormat"] = self.embeddedFileFormat
-        self.payload["embeddedFile"] = self.embeddedFile
 
     def new(self):
         """
         Creates a new or resets the message with empty fields
         :return:
         """
-        self.unpack(__VERSION__, "", "", [], "", {}, {}, "", "")
+        self.unpack(__VERSION__, "", "", [], "", {}, {})

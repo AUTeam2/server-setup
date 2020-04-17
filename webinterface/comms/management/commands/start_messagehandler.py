@@ -1,17 +1,13 @@
 """
 This is a management command, that listens for inbound messages.
 This module is responsible for storing inbound status messages and data messages.
-
-This module implements B41.
-Design is documented in B36-B38.
-Uses the B39 JSON schema, which implements the protocol v1.0.
 """
 
-from django.core.management.base import BaseCommand
-from comms.messagehandler.client import MqttClient
 from comms.messagehandler import protocol
+from comms.messagehandler.client import MqttClient
 from django.apps import apps
 from django.conf import settings
+from django.core.management.base import BaseCommand
 
 # Get values from settings file
 subscriptions = settings.MESSAGE_SUBSCRIPTIONS

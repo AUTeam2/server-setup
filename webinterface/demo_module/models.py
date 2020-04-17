@@ -29,8 +29,7 @@ class Status(models.Model):
 
     POWER_CODES = [
         ('600', '600 Device on'),
-        ('610', '610 Device in hibernation'),
-        ('620', '620 Device off'),
+        ('610', '610 Device off'),
     ]
 
     latest_status_code = models.CharField(max_length=3, choices=STATUS_CODES, default='200')
@@ -61,7 +60,7 @@ class Status(models.Model):
         if not (cls.objects.exists()):
             s = Status()
             s.latest_status_code = '200'
-            s.latest_power_code = '620'
+            s.latest_power_code = '610'
             s.save()                        # save a new row
 
     def __str__(self):
