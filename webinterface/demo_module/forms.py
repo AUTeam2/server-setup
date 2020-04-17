@@ -29,7 +29,8 @@ class TestForm(forms.Form):
     )
 
     TOPICS = (
-        ('Testdevice/demo_module/Inbound', 'Testdevice/demo_module/Outbound'),
+        ('Testdevice/demo_module/Inbound','Testdevice/demo_module/Inbound'),
+        ('Testdevice/demo_module/Outbound','Testdevice/demo_module/Outbound'),
     )
 
     MSG_TYPES = (
