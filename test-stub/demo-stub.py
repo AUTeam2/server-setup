@@ -3,69 +3,55 @@ import time
 import source.protocol as pr
 from source.client import MqttClient
 
-PROTOCOL_SCHEMA_PATH = "protocol_v1_0.schema"
-__VERSION__ = 1.0
+PROTOCOL_SCHEMA_PATH = "protocol_v1_1.schema"
+__VERSION__ = 1.1
 ID = "demo_module"
-TOPOUT = "demo_module/inbound"
-TOPIN = "demo_module/outbound"
+TOPOUT = "Testdevice/demo_module/Inbound"
+TOPIN = "Testdevice/demo_module/Outbound"
 
-status = "600"
+status = 600
 
 scheme = pr.ProtocolSchema.load_schema(PROTOCOL_SCHEMA_PATH)
 
 
-def answer():
-    global status
+def execution(orders):
+    if orders.commandList[0] == "start":
+        if orders.parameterObj.get("wait"):
+            time.sleep(int(orders.parameterObj.get("wait")))
+
+        data = {"x": ['Demo', 9, 10], "y": [16, 25, 36]}
+        answer(orders.sentBy, "200", __VERSION__, "data", data)
+        return
+    else:
+        answer(orders.sentBy, "405", __VERSION__, "status", {})
+
+
+def answer(sender, state, version, typeof, data):
     """
     The function for answering a message
     :return:
     """
+    global status
+    status = state
     ans = pr.Message()
     ans.new()
-    ans.protocolVersion = __VERSION__
-    ans.sentBy = ID
-    ans.statusCode = status
-    ans.msgType = "data"
-    ans.dataObj = {"x": ['Demo', 9, 10], "y": [16, 25, 36]}
+    ans.protocolVersion = version
+    ans.sentBy = sender
+    ans.statusCode = state
+    ans.msgType = typeof
+    ans.dataObj = data
+    # ans.dataObj = {"x": ['Demo', 9, 10], "y": [16, 25, 36]}
 
     ans.pack()
+
+    if not pr.ProtocolSchema.validating(ans.payload, scheme):
+        print('Pack your stuff in an orderly fashion!')
+        print('Message wasnt sent!')
+        return
+
     letter = pr.ProtocolSchema.write_jsonstr(ans.payload)
-    time.sleep(2)
     ts.publish(TOPOUT, letter)
-
-
-def answer_command(com):
-    global status
-    if com == "start" and status != "610":
-        status = "200"
-
-    elif com == "start" and status == "610":
-        status = "610"
-
-    elif com == "stop":
-        status = "200"
-    else:
-        status = "405"
-
-    print("Command request")
-    print(status)
-    answer()
-
-    if com == "start" and status == "200":
-        status = "610"
-
-    if com == "stop" and status == "200":
-        status = "600"
-
-
-def answer_data(state):
-    global status
-    if state == 1:
-        status = "500"
-        answer()
-    else:
-        status = "400"
-        answer()
+    print('Message sent.. :)')
 
 
 def on_message_callback(client, userdata, message):
@@ -85,40 +71,24 @@ def on_message_callback(client, userdata, message):
     obj = pr.ProtocolSchema.read_jsonstr(msg)
 
     # Evaluate if the Python object conforms to the protocol
-    schema_validation_result = pr.ProtocolSchema.validating(obj, m.protocol_schema)
-    if schema_validation_result:
-        print("Validation ok")
-    else:
+    # schema_validation_result = pr.ProtocolSchema.validating(obj, m.protocol_schema)
+    if not pr.ProtocolSchema.validating(obj, m.protocol_schema):
         print("Validation failed!")
+        answer(ID, "400", __VERSION__, "status", {})
+        return
 
     m.unpack(**obj)
+    if m.msgType == "command":
+        execution(m)
 
-    if not schema_validation_result:
-        answer_data(2)
-
-    elif m.msgType == "status":
-        print("Status request")
-        print(status)
-        answer()
-
-
-    elif m.msgType == "command":
-        answer_command(m.commandList[0])
-
-    elif m.msgType == "data":
-        print("Data")
-        print(status)
-        answer_data(1)
-
-    else:
-        print("Wrong kinda message...")
-        answer_data(2)
+    if m.msgType == "status":
+        answer(ID, status, __VERSION__, "status", {})
 
 
 # Pass the callback to the client
 ts = MqttClient("demostub", on_message_callback)
 time.sleep(5)
-answer()
+answer(ID, "600", __VERSION__, "status", {})
 
 # Only subscribe to relevant inbound messages
 ts.subscribe(TOPIN)

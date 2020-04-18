@@ -55,7 +55,7 @@ class MqttClient:
         self.client.connect(MqttClient.broker_address)
 
     def publish(self, topic, payload):
-        return self.client.publish(topic, payload)
+        return self.client.publish(topic, payload, qos=2)
 
     def subscribe(self, topic):
         return self.client.subscribe(topic)
