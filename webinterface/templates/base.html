@@ -71,6 +71,12 @@
                                         {% if request.path == '/demo_module/' %}active{% endif %}"
                                        href="{% url 'demo_home' %}">Demo-modul</a>
 
+                                     <a class="
+                                        dropdown-item
+                                        nav-link
+                                        {% if request.path == '/test_module/' %}active{% endif %}"
+                                       href="{% url 'test_home' %}">Test-modul</a>
+
                                     <a class="
                                         dropdown-item
                                         nav-link

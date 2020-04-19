@@ -86,7 +86,7 @@ def on_message_callback(client, userdata, message):
 
 
 # Pass the callback to the client
-ts = MqttClient("demostub", on_message_callback)
+ts = MqttClient(ID, on_message_callback)
 time.sleep(5)
 answer(ID, "600", __VERSION__, "status", {})
 

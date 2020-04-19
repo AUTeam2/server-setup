@@ -39,6 +39,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'comms',
+    'test_module',
     'demo_module',
     'django_crontab',
     'database_poc',
@@ -62,6 +63,7 @@ CRONJOBS = [
     # The scheduler is set to run the command "Database_clean_up" every minute of all hours of the day
     ('*/1 * * * *', 'database_poc.cron.Database_clean_up', '2>&1'),
     ('*/1 * * * *', 'demo_module.cron.Database_clean_up', '2>&1'),
+    ('*/1 * * * *', 'test_module.cron.Database_clean_up', '2>&1'),
 ]
 
 MIDDLEWARE = [
@@ -145,6 +147,7 @@ CAMS = {
 # It will subscribe to everything in this list
 MESSAGE_SUBSCRIPTIONS = [
     ("Testdevice/demo_module/Inbound", 2),
+    ("Testdevice/test_module/Inbound", 2),
 ]
 
 # List of inbound handlers (callback functions for each registered module.
@@ -152,6 +155,11 @@ MESSAGE_SUBSCRIPTIONS = [
 # If they are renamed, change the name here
 MESSAGE_CALLBACKS = {
     'demo_module': {
+        'status_callback': 'save_incoming_status',
+        'data_callback': 'save_incoming_data',
+        'fallback_callback': 'save_failed_validation'
+    },
+    'test_module': {
         'status_callback': 'save_incoming_status',
         'data_callback': 'save_incoming_data',
         'fallback_callback': 'save_failed_validation'

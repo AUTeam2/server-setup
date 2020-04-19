@@ -1,0 +1,19 @@
+{%  extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid">
+    <h2>Indsæt data i databasen</h2>
+
+    <div class="form-group">
+
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href = '{% url 'test' %}';">Back</button>
+    </form>
+
+    </div>
+
+</div>
+
+{% endblock content %}

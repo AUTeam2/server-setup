@@ -1,0 +1,20 @@
+{%  extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid">
+    <h2>Test databasen</h2>
+
+    <form>
+        <button type="button"
+               class="btn btn-primary"
+               onclick="window.location.href = '{% url 'datainput' %}';">Data input</button>
+        <button type="button"
+               class="btn btn-primary"
+               onclick="window.location.href = '{% url 'dataoutput' %}';">Data output</button>
+        <button type="button"
+               class="btn btn-primary"
+                onclick="window.location.href = '{% url 'homepage' %}';">Back</button>
+    </form>
+</div>
+
+{% endblock content %}

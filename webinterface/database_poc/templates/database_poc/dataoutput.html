@@ -1,0 +1,33 @@
+{%  extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid">
+    <h2>Data udlæst fra databasen</h2>
+
+    {% if all_data %}
+    <table style="width: 100%">
+        <tr>
+            <th>ID</th>
+            <th>DATA</th>
+            <th>NO_DELETE</th>
+            <th>TIMESTAMP</th>
+        </tr>
+        {% for testdatabase in all_data %}
+        <tr>
+            <td>{{ testdatabase.id }}</td>
+            <td>{{ testdatabase.Data }}</td>
+            <td>{{ testdatabase.NODELETE }}</td>
+            <td>{{ testdatabase.Timestamp }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <h3>You don't have any data!</h3>
+    {% endif %}
+        <br>
+        <br>
+    <button type="button" class="btn btn-primary" onclick="window.location.href = '{% url 'test' %}';">Back</button>
+
+</div>
+
+{% endblock content %}
