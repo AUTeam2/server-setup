@@ -1,0 +1,220 @@
+/* Stylesheet for various pages on the Webinterface
+* Janus, December 2019 */
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.navbar {
+    background-color: rgb(0, 37, 70); /* AU Pantone 289 */
+    padding: 0 0;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.navbar-brand {
+  /*  min-height: 55px; */
+    padding: 5px 5px;
+}
+
+.navbar-brand img {
+    max-height: 50px;
+}
+
+.navbar-default .navbar-nav li a {
+    color: #FFF; /* White, but perhaps change to some AU colour later */
+}
+
+.navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a.active {
+    color: rgb(55,160,203); /* AU light blue */
+}
+
+.navbar-toggler {
+    color: #FFF;    /* Sandwich menu for mobile devices */
+}
+
+.navbar-nav > li > .dropdown-menu {
+    background-color: rgb(0, 37, 70);
+}
+
+.navbar-nav > li > .dropdown-menu a:hover {
+    background-color: rgb(55,160,203); /* AU light blue */
+}
+
+
+#home {
+    background: url(visitherning_resize.jpg) no-repeat center center fixed;
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+}
+
+.landing-text {
+    /*display: table-cell;*/
+    /*background-color: #aaaaaa;*/
+    /* backdrop-filter: sepia(90%); */
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.landing-text h1 {
+    font-size: 500%;
+    font-size: 6vw;
+    font-weight: 700;
+    color: whitesmoke;/* rgb(0, 37, 70);*/
+    padding: 5px 5px;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.landing-text h3 {
+    /* font-size: 4vw; */
+    /*font-size: 300%;*/
+    font-weight: 500;
+    color: rgb(0, 37, 70);
+    padding: 5px 5px;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.padding {
+    padding: 50px 0;
+}
+
+.padding img {
+    width: 100%; /* Keep it within its container */
+}
+
+#fixed {
+    background: url(jacob_resize.jpg) no-repeat center center fixed; /* Scrolling effect for the fixed parallax image */
+    display: table;
+    height: 60%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+}
+
+footer {
+    width: 100%;
+    background-color: rgb(0, 37, 70); /* AU dark blue*/
+    padding: 5% 5% 10% 5%;
+    color: #FFF;
+}
+
+/* FontAwesome Brand Logos */
+.fab {
+    padding: 15px;
+    font-size: 25px;
+    color: #FFF;
+}
+
+.fab:hover {
+    color: rgb(55,160,203); /* Like for the navigation */
+    text-decoration: none;
+}
+
+/* FontAwesome icons solid */
+.fas {
+    padding: 15px;
+    color: rgb(0, 37, 70);
+}
+
+/* download data button */
+.fa-download {
+    padding: 5px;
+    font-size: 15px;
+    color: #FFF;
+}
+
+.fa-download:hover {
+    color: rgb(55,160,203); /* Like for the navigation */
+    text-decoration: none;
+}
+
+/* view data button */
+.fa-chart-area {
+    padding: 5px;
+    font-size: 15px;
+    color: #FFF;
+}
+
+.fa-chart-area:hover {
+    color: rgb(55,160,203); /* Like for the navigation */
+    text-decoration: none;
+}
+
+
+
+
+/* AU logo in bottom right not too big.. */
+#segl {
+    max-width: 200px;
+}
+
+.icon {
+    max-width: 200px;
+}
+
+.btn-primary {
+    background-color: rgb(0, 37, 70);
+    border-color: rgb(0, 37, 70);
+    outline-color: #FFF; /* rgb(0, 37, 70);*/
+    color: #FFF;
+}
+
+.btn-primary:hover {
+    background-color: rgb(0, 61, 115);
+    border-color: rgb(0, 61, 115);
+    outline-color: rgb(0, 61, 115);
+    color: #FFF;
+}
+
+#module_home {
+    background: url(csm_jacob.jpg) no-repeat center center fixed;
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+}
+
+#underlay {
+    background-color: rgba(100,100,100,0.5);
+}
+
+.underlay {
+    background-color: rgba(100,100,100,0.5);
+    color: whitesmoke;
+}
+
+.underlay h3 {
+    color: whitesmoke;
+}
+
+.module-text {
+    text-align: center;
+    color: whitesmoke;
+    vertical-align: middle;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.module-text h1 {
+    /*font-size: 500%;*/
+    font-weight: 700;
+    color: whitesmoke; /* rgb(0, 37, 70);*/
+    padding: 5px 5px;
+}
+
+/* For the MJPEG stream */
+.detailimage{
+    display: inline-block;
+    text-align: center;
+    width: 85%;
+}
+
+/* For breaking words to ensure no oversize tables on mobile devices */
+.table {
+    word-break: break-all;
+}

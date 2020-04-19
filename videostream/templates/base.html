@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, inital-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Our own AU stylesheet -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/base.css')}}">
+
+    <!-- FontAwesome for nice fonts and logos (tied to Janus's account) -->
+    <script src="https://kit.fontawesome.com/c8b9676069.js" crossorigin="anonymous"></script>
+
+    <title>AU Engineering Lab</title>
+</head>
+
+<!-- Jan's tabel style -->
+<style>
+    table,
+    td,
+    th {
+        border: 1px solid black;
+    }
+</style>
+
+<body>
+
+    <!-- Define the navigation bar at the top -->
+    <nav class="navbar navbar-default navbar-expand-md navbar-dark" role="navigation">
+        <div class="container-fluid">
+            <!-- <div class="nav-header"> -->
+
+            <!-- Left side of the navbar (brand logo) -->
+            <a class="navbar-brand" href="/"><img
+                    src="{{url_for('static', filename='assets/aulogo_dk_var1_hvid.png') }}" alt="Logo"></a>
+
+            <!-- The sandwich menu that appears when needed -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu-content">
+
+                <!-- The sandwich menu icon -->
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Right side of the navbar contains our menu -->
+            <div class="collapse navbar-collapse" id="navbar-menu-content">
+                <ul class="navbar-nav navbar-right ml-auto">
+                    <!-- navbar-nav ml-auto -->
+
+                    <!-- Menu choices are inserted here... Will be made dynamic when we have demo modules -->
+                    <li class="nav-item {% if request.path == "/" %}active{% endif %}">
+                        <a class="nav-link" href="/">Hovedmenu</a>
+                    </li>
+
+
+
+                    <li class="nav-item {% if request.path == "/admin/" %}active{% endif %}">
+                        <a class="nav-link" href="/admin/">Admin</a>
+                    </li>
+                    <!-- end of menu choices -->
+
+                </ul>
+            </div>
+            <!-- </div> -->
+        </div>
+    </nav>
+
+    <!-- All our content is injected into the blocks on rendering -->
+    {% block content %}
+    {% endblock content %}
+
+    <!-- JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
+<!--
+AU Engineering Logo
+https://media.licdn.com/dms/image/C4E0BAQEjbFehXlDy-g/company-logo_200_200/0?e=2159024400&v=beta&t=g_rheLAfmrsmVnYZKgVJOsWgBTJBogfICNEHVWEGGBw
+https://via.ritzau.dk/data/images/00203/901de3ff-02f0-44ba-8375-5ec48a9e13f5.png
+-->

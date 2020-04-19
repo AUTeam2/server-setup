@@ -1,0 +1,13 @@
+django>=2.2.6,<2.3.0
+gunicorn>=19.9.0,<19.10.0
+psycopg2-binary>=2.8.3,<2.9.0
+djangorestframework>=3.10.3,<3.11.0
+django-crontab>=0.7.1,<0.8
+ipython>=7.10,<7.11
+paho-mqtt>=1.5.0,<1.6.0
+jsonschema>=3.2.0,<3.3.0
+django-crispy-forms>=1.8.1,<1.9.0
+bokeh>=1.4.0,<1.5.0
+numpy>=1.18,<1.19
+Pillow>=7.0,<7.1
+openpyxl>=3.0.3
