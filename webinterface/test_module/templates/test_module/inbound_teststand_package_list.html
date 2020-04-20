@@ -1,0 +1,83 @@
+{%  extends "base.html" %}
+{%  load static %}
+{% block content %}
+
+
+<div id="module_home">
+
+  <div class="padding">
+    <div class="container-fluid" id="underlay">
+        <div class="module-text">
+            <h1 class="text-wrap">Alle resultatsæt i databasen</h1>
+        </div>
+    </div>
+  </div>
+
+<div class="padding">
+  <div class="container-fluid">
+      <div class="row justify-content-center">
+
+        <div class="container underlay">
+
+            <h3>Testresultater v3.2</h3>
+
+            <div class="padding">
+
+                <div class="table-responsive-sm">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Dato</th>
+                            <th scope="col">Oprettet af</th>
+                            <th scope="col">Se</th>
+                            <th scope="col">Hent</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for inbound_teststand_package in inbound_teststand_package_list %}
+                            <tr>
+                                <th scope="row">
+                                    <!-- 1st col: Test ID -->
+                                    {{ inbound_teststand_package.id }}
+                                </th>
+                                <td>
+                                    <!-- 2nd col: Test made date -->
+                                    {{ inbound_teststand_package.Timestamp }}
+                                </td>
+                                <td>
+                                    <!-- 3rd col: Started by -->
+                                    {{ inbound_teststand_package.Sent_by }}
+                                </td>
+                                <td>
+                                    <!-- 4th col: View test result in detail -->
+                                    <a href="{{ dyn_url }}{{ inbound_teststand_package.id }}"><i class="fas fa-chart-area"></i></a>
+                                </td>
+                                <td>
+                                    <!-- 5th col: Dowload directly as CSV -->
+                                    <a href="{{ dyn_csv_url }}/{{ inbound_teststand_package.id }}">CSV<i class="fas fa-download"></i></a>
+                                    <br>
+                                    <!-- Dowload as excel -->
+                                    <a href="{{ dyn_excel_url }}/{{ inbound_teststand_package.id }}">Excel<i class="fas fa-download"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+
+            </div>
+
+       </div>
+
+      </div>
+  </div>
+</div>
+
+</div>
+
+<!-- managed via the css file -->
+
+{% endblock content %}
+

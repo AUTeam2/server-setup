@@ -1,0 +1,27 @@
+{%  extends "base.html" %}
+{%  load static %}
+{% block content %}
+
+<div id="home">
+
+    <div class="padding">
+      <div class="row">
+        <div class="col-lg-4 text-center"></div>
+        <div class="col-lg-4 text-center alert alert-success">
+          <p>Udfald: {{ outcome }}</p>
+          <!--<p>Topic: {{ topic }}</p>
+          <p>Message: {{ msg }}</p>-->
+        </div>
+        <div class="col-lg-4 text-center"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- managed via the css file -->
+
+<!-- https://medarbejdere.au.dk/administration/kommunikation/omdesignet/farver/ -->
+
+{% endblock content %}
+

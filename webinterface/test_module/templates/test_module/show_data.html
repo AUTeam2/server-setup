@@ -1,0 +1,104 @@
+{%  extends "base.html" %}
+{%  load static %}
+{% block content %}
+
+<div id="module_home">
+
+  <div class="padding">
+    <div class="container-fluid" id="underlay">
+        <div class="module-text">
+            <h1 class="text-wrap">Test-resultater</h1>
+        </div>
+    </div>
+  </div>
+
+<div class="padding">
+  <div class="container-fluid">
+      <div class="row justify-content-center">
+
+        <div class="container underlay">
+
+            <div class="padding">
+                <h3>Stamdata</h3>
+
+                <table class="table table-sm table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Dato</th>
+                            <th scope="col">Oprettet af</th>
+                            <th scope="col">Kommando</th>
+                        </tr>
+                        <tr>
+                            <td>{{ test.id }}</td>
+                            <td>{{ test.Timestamp }}</td>
+                            <td>{{ test.Sent_by }}</td>
+                            <td>{{ test.command_list }}</td>
+                        </tr>
+                    </thead>
+                </table>
+
+
+                <h3>Testparametre</h3>
+
+                <table class="table table-sm table-dark">
+                    <tr>
+                        <th style="width: 30%;" scope="col">Parameter</th>
+                        <th scope="col">Værdi</th>
+                    </tr>
+                    {% for param in params %}
+                    <tr>
+                        <td>{{ param.Parameter_name }}</td>
+                        <td>{{ param.Parameter_value }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+                <br/>
+
+                <!-- uncomment this section if you want to show data points on the page
+                <h3>Dataserier</h3>
+                <table class="table table-dark">
+                    {% for d in data %}
+                    <tr>
+                        <td>{{ d.Data_name }}</td>
+                        <td>{{ d.Data_points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                -->
+
+                <h3>Tidsdomæne</h3>
+                <div class="container-fluid text-center">
+                <!-- insert bokeh graph here -->
+                {{ div_time | safe }}
+                </div>
+                <br/>
+
+                <h3>Frekvensspektrum</h3>
+                <div class="container-fluid text-center">
+                <!-- insert bokeh graph here -->
+                {{ div_fft | safe }}
+                </div>
+
+            </div>
+
+        </div>
+
+      </div>
+  </div>
+</div>
+
+</div>
+
+
+<!-- JS libraries for the Bokeh chart library -->
+<!-- See: https://docs.bokeh.org/en/1.4.0/docs/user_guide/quickstart.html -->
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-1.4.0.min.js"></script>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-1.4.0.min.js"></script>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-1.4.0.min.js"></script>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-api-1.4.0.min.js"></script>
+{{ script_time | safe }}
+{{ script_fft | safe }}
+
+{% endblock content %}

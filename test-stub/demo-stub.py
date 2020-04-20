@@ -5,7 +5,7 @@ from source.client import MqttClient
 
 PROTOCOL_SCHEMA_PATH = "protocol_v1_1.schema"
 __VERSION__ = 1.1
-ID = "demo_module"
+ID = "demo_stub"
 TOPOUT = "Testdevice/demo_module/Inbound"
 TOPIN = "Testdevice/demo_module/Outbound"
 
