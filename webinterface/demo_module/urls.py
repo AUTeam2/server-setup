@@ -18,6 +18,9 @@ urlpatterns = [
     #/demo_module/start_test/
     path('start_test/',views.demo_create_test,name='demo_make_test'),
 
+    #/demo_module/test middle link
+    path('test_middle_link/', views.demo_create_test_middle_link,name='demo_middle_link'),
+
     #/demo_module/running_test/
     path('running_test/',views.demo_running_test,name='demo_running_test'),
 

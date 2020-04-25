@@ -213,13 +213,15 @@ class ND_TS(models.Model):
     TimeStamp = A field to save the specific time a test has been started.
     NoDelete = A field to save the form option when starting a test, so it's possible to pass it to a test, 
                 when it's done.
-    StatusCode = a field for saving the status code (may be deleted later). 
+    Statusbool = a field for saving the "test stand" status
+                    True = "test stand" is available
+                    False= "test stand" is unavilable. 
     """
 
     ID = models.IntegerField(primary_key=True)
     TimeStamp = models.CharField(max_length=200, null=True, blank=True)
     NoDelete = models.BooleanField(default=False)
-    StatusCode = models.CharField(max_length=50, default="empty")
+    Statusbool = models.BooleanField(default=True)
 
 
     def __str__(self):
@@ -248,6 +250,10 @@ def save_incoming_data(message):
     temp = ND_TS.objects.all()[0]
     ITP.Timestamp = temp.TimeStamp
     ITP.NODELETE = temp.NoDelete
+
+    # Set "test stand" status to available
+    temp.Statusbool = True
+    temp.save()
 
     # Store values from inbound validated JSON
     ITP.Sent_by = message.sentBy

@@ -3,8 +3,8 @@ Contains view functions for the demo_module
 URL paths that lead here are in demo_module/urls.py
 """
 
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponse
+from django.shortcuts import render, render_to_response, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView
 from django.template import loader
 from datetime import datetime
@@ -81,6 +81,46 @@ def demo_main_page(request):
     return render(request, 'demo_module/home.html')
 
 
+def demo_create_test_middle_link(request):
+    # max_time_difference is the time a test, may maximum take to complete
+    max_time_difference = 0.1
+    mtds = max_time_difference * 60
+
+    locale.setlocale(locale.LC_TIME, 'da_DK.utf8')
+
+    # Check if there exist a ND_TS table
+    # if not create one
+    try:
+        ND_TS.objects.all()[0]
+        temp = ND_TS.objects.all()[0]
+    except:
+        temp = ND_TS()
+        temp.TimeStamp = "01/01/2000-23:59:59"
+        temp.ID = 0
+        temp.save()
+
+    # Last test time
+    ts = temp.TimeStamp
+    tsf = datetime.strptime(ts, "%d/%m/%Y-%H:%M:%S")
+
+    # Current time
+    timestamp = datetime.now()
+
+    # Get the difference between them
+    difference = timestamp - tsf
+
+    # See if the last test is done (from guessed maximum test time)
+    # If the last test is done, redirect to create test page
+    # If not, give "error" message
+    if difference.seconds > mtds:
+        return redirect('demo_make_test')
+    else:
+        template = loader.get_template('demo_module/message_sent.html')
+        outcome = "Test stand er i øjeblikket ikke ledig "
+        context = {'outcome': outcome, }
+        return HttpResponse(template.render(context, request))
+
+
 # Show test creation form for the demo module
 def demo_create_test(request):
 
@@ -94,7 +134,7 @@ def demo_create_test(request):
 
             template = loader.get_template('demo_module/message_sent.html')
 
-            #------- Temporary saving table ------#
+            # ------- Temporary saving table ------#
             # save time sent
             locale.setlocale(locale.LC_TIME, 'da_DK.utf8')
             temp = ND_TS()
@@ -110,6 +150,10 @@ def demo_create_test(request):
             # Attempt to transmit MQTT-message based on validated form data
             if (transmit_mqtt(form.cleaned_data)):
                 outcome = "Succes. Beskeden blev sendt."
+                # Set "test stand" as not available
+                temp = ND_TS.objects.all()[0]
+                temp.Statusbool = False
+                temp.save()
             else:
                 outcome = "Fejl. Beskeden blev ikke."
 
@@ -121,6 +165,7 @@ def demo_create_test(request):
     else:
         # instantiate a new form to pass into the template context
         form = TestForm()
+
 
     # Render the form template
     return render(request, 'demo_module/make_test.html', {'form': form})
