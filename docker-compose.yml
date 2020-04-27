@@ -86,7 +86,7 @@ volumes:
     driver: local
     driver_opts: 
       type: none
-      device: /srv/e4pro4/server-setup/homepage/templates/homepage
+      device: /srv/e4pro4/server-setup/webinterface/homepage/templates/homepage
       o: bind
   certbot-etc:
   certbot-var:
