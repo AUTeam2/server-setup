@@ -49,23 +49,24 @@ services:
       - web-root:/var/www/html
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      #- ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx_target_conf_ssl.conf:/etc/nginx/nginx.conf
       - static_volume:/usr/src/webinterface/staticfiles/
     ports:
       - "80:80"
       - "443:443"
 
-#  certbot:
-#    image: certbot/certbot
-#    volumes:
-#      # This will mount the relevant Let’s Encrypt certificates,
-#      # and keys for our domain to the appropriate directory on the container.
-#      - certbot-etc:/etc/letsencrypt
-#      - certbot-var:/var/lib/letsencrypt
-#      - web-root:/var/www/html
-#    depends_on:
-#      - nginx
-#    command: certonly --webroot --webroot-path=/var/www/html --email team2@team2.not-a-real-e-mail.au --agree-tos --staging -d auteam2.mooo.com:81  -d www.auteam2.mooo.com:81
+  certbot:
+    image: certbot/certbot
+    volumes:
+      # This will mount the relevant Let’s Encrypt certificates,
+      # and keys for our domain to the appropriate directory on the container.
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - nginx
+    command: certonly --webroot --webroot-path=/var/www/html --email team2@team2.not-a-real-e-mail.au --agree-tos --staging -d elab.ase.au.dk -d elab.ase.au.dk
 
   videostream:
     build:
