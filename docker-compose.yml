@@ -66,7 +66,7 @@ services:
       - web-root:/var/www/certbot
     depends_on:
       - nginx
-    command: certonly --webroot --webroot-path=/var/www/html --email team2@team2.not-a-real-e-mail.au --agree-tos --no-eff-email --staging -d elab.ase.au.dk
+    command: certonly --webroot --webroot-path=/var/www/certbot --email team2@team2.not-a-real-e-mail.au --agree-tos --no-eff-email --staging -d elab.ase.au.dk
 
   videostream:
     build:
