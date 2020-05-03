@@ -127,17 +127,17 @@ CAMS = {
     'cam1': {
         "id": "0",
         "src": "http://188.178.124.160:80/mjpg/video.mjpg",
-        "api_url": '/videostream/vstream-direct/test-stand/0',
+        "api_url": 'http://elab.ase.au.dk/videostream/vstream-direct/test-stand/0',
         "caption": "Et sted i Danmark...",
-        "api_activate": '/videostream/install-test-stand/0'
-        },
+        "api_activate": 'http://elab.ase.au.dk/videostream/install-test-stand/0'
+    },
 
     'cam2': {
         "id": "1",
-        "src" : "http://soemon-cho.miemasu.net:63107/nphMotionJpeg?Resolution=640x480&Quality=Motion",
-        "api_url": '/videostream/vstream-direct/test-stand/1',
+        "src": "http://soemon-cho.miemasu.net:63107/nphMotionJpeg?Resolution=640x480&Quality=Motion",
+        "api_url": 'http://elab.ase.au.dk/videostream/vstream-direct/test-stand/1',
         "caption": "Et sted i Østen...",
-        "api_activate": '/videostream/install-test-stand/1'
+        "api_activate": 'http://elab.ase.au.dk/videostream/install-test-stand/1'
     }
 }
 
@@ -165,7 +165,8 @@ GET_TOPIC_COMPONENT = 1
 
 # Path for the protocol schema
 PROTOCOL_SCHEMA_NAME = "protocol_v1_1.schema"
-PROTOCOL_SCHEMA_PATH = os.path.join(BASE_DIR, "webinterface", PROTOCOL_SCHEMA_NAME)
+PROTOCOL_SCHEMA_PATH = os.path.join(
+    BASE_DIR, "webinterface", PROTOCOL_SCHEMA_NAME)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -205,4 +206,4 @@ STATIC_URL = "/staticfiles/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_DIRS = [("assets", '/var/www/static/'),
-]
+                    ]
