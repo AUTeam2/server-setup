@@ -33,8 +33,13 @@ class MqttClient():
     def on_message_default(client, userdata, message):
         pass
 
+    # To track QoS2 handshaking
+    @staticmethod
+    def on_publish(client, userdata, mid):
+        pass
+
     #Initialize the client, straight on create
-    def __init__(self, name, on_message, will_message="Logging off"):
+    def __init__(self, name, on_message, on_publish, will_message="Logging off"):
         """ __init__ Handles all setup and connection when object is initialized.
         @:param: name is the name of the client, as will be shown on the server (required)
         @:param: on_message is the callback used when this client receives a message (required)
@@ -44,6 +49,7 @@ class MqttClient():
         self.client.username_pw_set(MqttClient.username, MqttClient.password)
         self.client.on_connect = MqttClient.on_connect
         self.client.on_message = on_message
+        self.client.on_publish = on_publish
 
         # In production, let's consider disabling logging or routing to a file
         self.client.on_log = MqttClient.on_log
@@ -53,10 +59,16 @@ class MqttClient():
         self.client.will_set(name, will_message)
 
         # Connect immediately
-        self.client.connect(MqttClient.broker_address)
+        self.client.connect(MqttClient.broker_address, port=MqttClient.broker_port)
+
+    def loop_start(self):
+        return self.client.loop_start()
+
+    def loop_stop(self):
+        return self.client.loop_stop()
 
     def publish(self, topic, payload):
-        return self.client.publish(topic, payload)
+        return self.client.publish(topic, payload, qos=2)
 
     def subscribe(self, topic):
         return self.client.subscribe(topic)

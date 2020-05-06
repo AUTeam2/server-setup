@@ -5,7 +5,7 @@ services:
     build: ./webinterface
     image: janusboandersen/auwebinterface2020:webinterface
     ports:
-      - "8000:8000"
+      - "8001:8001"
     volumes:
       - ./webinterface/:/usr/src/webinterface/
       - ./staticassets/:/var/www/static/
@@ -15,7 +15,7 @@ services:
     depends_on:
       - db
     command: >
-      python manage.py runserver 0.0.0.0:8000
+      python manage.py runserver 0.0.0.0:8001
 
   db:
     image: postgres:12.0-alpine
@@ -32,7 +32,7 @@ services:
     image: eclipse-mosquitto:1.6
     hostname: mosquitto
     ports:
-      - "1883:1883"
+      - "8000:8000"
       - "8883:8883"
       - "8081:8081"
     volumes:

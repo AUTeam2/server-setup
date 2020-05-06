@@ -5,7 +5,7 @@
 # I don't think TC-4 is compatible on Windows, and I am not sure about the utils to use for windows to replace nc and grep...
 # Janus 21 Nov 2019
 
-MQTT_PORT="1883"
+MQTT_PORT="8000"
 WEBSOCK_PORT="8081"
 URL="auteam2.mooo.com"
 TMP_FILE="./test-cases/s8-tc-tmp.txt"
