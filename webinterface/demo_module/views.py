@@ -170,6 +170,10 @@ def demo_create_test(request):
     # Render the form template
     return render(request, 'demo_module/make_test.html', {'form': form})
 
+# Callback on publishing - After handshakes
+def on_publish_callback(client, userdata, mid):
+    global sending
+    sending = False
 
 def transmit_mqtt(form_obj):
     """
@@ -220,11 +224,25 @@ def transmit_mqtt(form_obj):
     def donothing(client, userdata, message):
         pass
 
+    # Callback on publishing - After handshakes
+    def on_publish_callback(client, userdata, mid):
+        global sending
+        sending = False
+
     # Create client
-    publisher = MqttClient("DemoModuleMessageSender", donothing)
+    publisher = MqttClient("DemoModuleMessageSender", donothing, on_publish_callback)
 
     # Send and disconnect
     rc = publisher.publish(topic, send_me)
+
+    publisher.loop_start()
+    global sending
+    sending = True
+    # Wait for the handshaking to end
+    while sending:
+        pass
+    publisher.loop_stop()
+
     publisher.disconnect()
 
     return rc

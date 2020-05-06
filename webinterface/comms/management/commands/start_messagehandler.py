@@ -18,6 +18,9 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.stdout.write("Starting MessageHandler")
 
+        def on_publish_callback(client, userdata, mid):
+            pass
+
         # define the on_message call-back
         def on_message_callback(client, userdata, message):
             msg = message.payload.decode("utf-8")
@@ -72,7 +75,7 @@ class Command(BaseCommand):
                 func(m)
 
         # Pass the callback to the client
-        subscriber = MqttClient("MessageHandler", on_message_callback)
+        subscriber = MqttClient("MessageHandler", on_message_callback, on_publish_callback)
 
         # Only subscribe to relevant inbound messages
         subscriber.subscribe(subscriptions)
