@@ -4,7 +4,7 @@ echo "Linux og Mac"
 
 URL=http://localhost
 URL_WIN=http://192.168.99.100
-PORT=8000
+PORT=8001
 
 # Prepare
 if [[ `uname` =~ "MING"? ]];then

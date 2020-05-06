@@ -19,7 +19,7 @@ The containers are live on our development server, the Webinterface is accessed 
 ## Services
 The docker-compose now contains the following services:
 - Nginx webserver (port 81) - serves Django and static files.
-- Django webinterface (port 8000) - if you want to see the devserver (but not needed).
+- Django webinterface (port 8001) - if you want to see the devserver (but not needed).
 - Mosquitto MQTT message broker (server).
 - PostgreSQL database server.
 - Videostream (port 5555) - See documentation in TB5-SRV-14
@@ -135,7 +135,7 @@ If you forget to do this, you will get an error when the webinterface container 
 
 **Startup:** To start the containers on Windows, run `docker-compose -f docker-compose-win.yml up -d`.
 
-**IP address:** You can find the local IP address using `docker-machine ip Default`, and then access the services in your browser with the correct IP and port number, e.g. 192.168.99.100:8000.
+**IP address:** You can find the local IP address using `docker-machine ip Default`, and then access the services in your browser with the correct IP and port number, e.g. 192.168.99.100:8001.
 
 
 ## Connecting to the MQTT message broker (Mosquitto)
@@ -168,7 +168,7 @@ You can use:
     - `mosquitto_passwd -U mosquitto/passwd.txt`.
 
 **Connection methods:**
-- MQTT over TCP on port 1883.
+- MQTT over TCP on port 8000.
 - MQTT over Websockets on port 8081.
 
 

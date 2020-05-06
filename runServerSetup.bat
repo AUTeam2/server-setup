@@ -19,7 +19,7 @@ echo Server should be up in a moment!
 
 SLEEP 5
 
-start chrome http://localhost:8000
+start chrome http://localhost:8001
 
 Echo closing prompt
 

@@ -100,8 +100,8 @@ Attaching to git_server_db_1, git_server_mqtt_1, git_server_nginx_1, git_server_
 [36mdb_1            |[0m creating configuration files ... ok
 [33mmqtt_1          |[0m 1575052546: mosquitto version 1.6.7 starting
 [33mmqtt_1          |[0m 1575052546: Config loaded from /mosquitto/config/mosquitto.conf.
-[33mmqtt_1          |[0m 1575052546: Opening ipv4 listen socket on port 1883.
-[33mmqtt_1          |[0m 1575052546: Opening ipv6 listen socket on port 1883.
+[33mmqtt_1          |[0m 1575052546: Opening ipv4 listen socket on port 8000.
+[33mmqtt_1          |[0m 1575052546: Opening ipv6 listen socket on port 8000.
 [35mwebinterface_1  |[0m Waiting for PostgreSQL service before starting Django...
 [36mdb_1            |[0m running bootstrap script ... ok
 [36mdb_1            |[0m performing post-bootstrap initialization ... sh: locale: not found
@@ -174,9 +174,9 @@ Attaching to git_server_db_1, git_server_mqtt_1, git_server_nginx_1, git_server_
 [35mwebinterface_1  |[0m System check identified no issues (0 silenced).
 [35mwebinterface_1  |[0m November 29, 2019 - 18:35:56
 [35mwebinterface_1  |[0m Django version 2.2.7, using settings 'webinterface.settings'
-[35mwebinterface_1  |[0m Starting development server at http://0.0.0.0:8000/
+[35mwebinterface_1  |[0m Starting development server at http://0.0.0.0:8001/
 [35mwebinterface_1  |[0m Quit the server with CONTROL-C.
-[35mwebinterface_1  |[0m Invalid HTTP_HOST header: '0.0.0.0:8000'. You may need to add '0.0.0.0' to ALLOWED_HOSTS.
+[35mwebinterface_1  |[0m Invalid HTTP_HOST header: '0.0.0.0:8001'. You may need to add '0.0.0.0' to ALLOWED_HOSTS.
 [35mwebinterface_1  |[0m Bad Request: /
 [35mwebinterface_1  |[0m [29/Nov/2019 18:36:05] "GET / HTTP/1.1" 400 58435
 [35mwebinterface_1  |[0m [29/Nov/2019 18:37:00] "GET / HTTP/1.1" 200 446

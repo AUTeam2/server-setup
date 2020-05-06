@@ -114,7 +114,7 @@ DATABASES = {
 MQTT = {
     'internal': {
         'HOST': 'mqtt',
-        'PORT': '1883',
+        'PORT': 8000,
         'USER': 'team2',
         'PASSWORD': 'team2',
     }

@@ -100,7 +100,7 @@ DOCKER_COMPOSE_FILE=${DOCKER_DEFAULT_YML}
 LOCAL_URL=http://127.0.0.1
 TOOLBOX_URL=http://192.168.99.100
 SERVER_URL=http://119.74.164.55
-PORT=8000
+PORT=8001
 
 # Set USER_OS to reflect actual OS on the Host machine and
 # 

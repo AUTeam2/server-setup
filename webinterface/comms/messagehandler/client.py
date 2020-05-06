@@ -53,7 +53,7 @@ class MqttClient():
         self.client.will_set(name, will_message)
 
         # Connect immediately
-        self.client.connect(MqttClient.broker_address)
+        self.client.connect(MqttClient.broker_address, port=MqttClient.broker_port)
 
     def publish(self, topic, payload):
         return self.client.publish(topic, payload)

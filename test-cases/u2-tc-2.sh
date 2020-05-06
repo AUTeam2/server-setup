@@ -3,7 +3,7 @@ echo "Verifikation af at Django på Docker fungerer på lokalmaskine"
 echo "Linux og Mac"
 
 URL=http://auteam2.mooo.com
-PORT=8000
+PORT=8001
 
 SSH_DOMAIN=auteam2.mooo.com
 SSH_USERNAME=team2
