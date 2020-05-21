@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'cfh16z33oa@=vl^*5mfhsy&#4b6()l^usx3l#xo8llo)d=g6ox'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [
     '192.168.1.7',
     'webinterface',
     '192.168.0.16',
+    'elab.ase.au.dk'
 ]
 
 # Application definition
