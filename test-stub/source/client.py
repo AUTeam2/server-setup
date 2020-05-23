@@ -12,8 +12,9 @@ import paho.mqtt.client as mqtt
 class MqttClient:
 
     # These should be gotten from the environment or, ideally, from the Django settings file
-    broker_address = "auteam2.mooo.com"
-    broker_port = 1883
+    broker_address = "englab01.uni.au.dk"
+    #broker_address = "localhost"
+    broker_port = 8000
     username = "team2"
     password = "team2"
 
@@ -52,13 +53,13 @@ class MqttClient:
         self.client.will_set(name, will_message)
 
         # Connect immediately
-        self.client.connect(MqttClient.broker_address)
+        self.client.connect(MqttClient.broker_address, port=MqttClient.broker_port)
 
     def publish(self, topic, payload):
-        return self.client.publish(topic, payload)
+        return self.client.publish(topic, payload, qos=2)
 
     def subscribe(self, topic):
-        return self.client.subscribe(topic)
+        return self.client.subscribe(topic, qos=2)
 
     def loop(self):
         return self.client.loop_forever(retry_first_connection=False)

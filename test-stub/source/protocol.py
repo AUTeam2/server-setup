@@ -6,7 +6,7 @@ This is an implementation of the protocol v1.0
 Contains functions to import a jsonschema,
 read/write json files and strings and to validate those.
 """
-__VERSION__ = 1.0
+__VERSION__ = 1.1
 
 import json
 import sys
@@ -14,7 +14,7 @@ import sys
 import jsonschema
 from jsonschema import validate
 
-PROTOCOL_SCHEMA_PATH = "protocol_v1_0.schema"
+PROTOCOL_SCHEMA_PATH = "protocol_v1_1.schema"
 
 
 class ProtocolSchema():
@@ -128,8 +128,7 @@ class Message():
         # Extract the payload part, this can be sent when filled
         self.payload = self.protocol_schema["properties"]
 
-    def unpack(self, protocolVersion, sentBy, msgType, commandList, statusCode, parameterObj, dataObj,
-               embeddedFileFormat, embeddedFile):
+    def unpack(self, protocolVersion, sentBy, msgType, commandList, statusCode, parameterObj, dataObj):
         self.protocolVersion = protocolVersion
         self.sentBy = sentBy
         self.msgType = msgType
@@ -137,8 +136,6 @@ class Message():
         self.statusCode = statusCode
         self.parameterObj = parameterObj
         self.dataObj = dataObj
-        self.embeddedFileFormat = embeddedFileFormat
-        self.embeddedFile = embeddedFile
 
     def pack(self):
         self.payload["protocolVersion"] = self.protocolVersion
@@ -148,15 +145,12 @@ class Message():
         self.payload["statusCode"] = self.statusCode
         self.payload["parameterObj"] = self.parameterObj
         self.payload["dataObj"] = self.dataObj
-        self.payload["embeddedFileFormat"] = self.embeddedFileFormat
-        self.payload["embeddedFile"] = self.embeddedFile
-
     def new(self):
         """
         Creates a new or resets the message with empty fields
         :return:
         """
-        self.unpack(__VERSION__, "", "", [], "", {}, {}, "", "")
+        self.unpack(__VERSION__, "", "", [], "", {}, {})
 
 class Status():
     """
@@ -168,7 +162,7 @@ class Status():
 
     STATUS_CODES = [
         ('200', 'OK'),
-        #('202', 'Received and accepted'),
+        ('202', 'Received and accepted'),
         ('400', 'Bad request'),
         ('404', 'Not found'),
         ('405', 'Method not allowed'),
