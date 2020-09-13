@@ -3,6 +3,7 @@ version: '3.7'
 services:
   webinterface:
     build: ./webinterface
+    restart: unless-stopped
     image: janusboandersen/auwebinterface2020:webinterface
     ports:
       - "8001:8001"
