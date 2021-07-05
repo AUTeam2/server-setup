@@ -30,5 +30,16 @@ python manage.py collectstatic --no-input --clear
 #Add tasks to the crontab scheduler
 python manage.py crontab add
 
+echo "Waiting for MQTT service before starting Message Handler"
+
+#Use netcat to scan for daemons, we wait until our MQTT service is running
+#while ! nc -z mqtt 8000; do
+#  sleep 0.1
+#done
+
+echo "MQTT started... Starting Message Handler"
+
+#python manage.py start_messagehandler
+
 #Expand all positional arguments to this script and execute them, hand over control
 exec "$@"
